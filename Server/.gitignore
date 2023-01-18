@@ -1,0 +1,14 @@
+
+src/VolunteerRequestApp.Client.Infrastructure/bin/
+src/VolunteerRequestApp.Client.Infrastructure/obj/
+src/VolunteerRequestApp.Server.Core/bin/
+src/VolunteerRequestApp.Server.Core/obj/
+src/VolunteerRequestApp.Server.Infrastructure/obj/
+src/VolunteerRequestApp.Server.Infrastructure/bin/
+src/VolunteerRequestApp/Client/bin/
+src/VolunteerRequestApp/Client/obj/
+src/VolunteerRequestApp/Server/bin/
+src/VolunteerRequestApp/Server/obj/
+src/VolunteerRequestApp/Shared/bin/
+src/VolunteerRequestApp/Shared/obj/
+src/.vs/
