@@ -14,6 +14,9 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IT-Community.Server.Core", "IT-Community.Server.Core\IT-Community.Server.Core.csproj", "{F4D1D841-DFCD-43DF-8524-5C08F75C5E20}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IT-Community.Server.Infrastructure", "IT-Community.Server.Infrastructure\IT-Community.Server.Infrastructure.csproj", "{E3B9BAC8-79E3-4CB1-8E4E-1C8513A32BD4}"
+	ProjectSection(ProjectDependencies) = postProject
+		{F4D1D841-DFCD-43DF-8524-5C08F75C5E20} = {F4D1D841-DFCD-43DF-8524-5C08F75C5E20}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
