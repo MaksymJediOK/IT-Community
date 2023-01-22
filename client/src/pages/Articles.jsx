@@ -1,9 +1,10 @@
-import React from 'react';
+import React from 'react'
+import { Article } from '../components/Article/Article'
 
 export const Articles = () => {
 	return (
-		<div>
-			random text
-		</div>
-	);
-};
+		<>
+			<Article />
+		</>
+	)
+}

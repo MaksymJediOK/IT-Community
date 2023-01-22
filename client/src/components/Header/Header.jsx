@@ -1,89 +1,76 @@
-import React, { useState } from 'react';
-import AppBar from '@mui/material/AppBar';
-import Box from '@mui/material/Box';
-import Toolbar from '@mui/material/Toolbar';
-import Typography from '@mui/material/Typography';
-import IconButton from '@mui/material/IconButton';
-import MenuIcon from '@mui/icons-material/Menu';
-import AccountCircle from '@mui/icons-material/AccountCircle';
-import Switch from '@mui/material/Switch';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import FormGroup from '@mui/material/FormGroup';
-import MenuItem from '@mui/material/MenuItem';
-import Menu from '@mui/material/Menu';
+import React, { useState } from 'react'
+import AppBar from '@mui/material/AppBar'
+import Box from '@mui/material/Box'
+import Toolbar from '@mui/material/Toolbar'
+import Typography from '@mui/material/Typography'
+import { Button, Container, Stack } from '@mui/material'
 
 export const Header = () => {
-	const [auth, setAuth] = useState(true);
-	const [anchorEl, setAnchorEl] = useState(null);
+	const [auth, setAuth] = useState(true)
+	const [anchorEl, setAnchorEl] = useState(null)
 
 	const handleChange = (event) => {
-		setAuth(event.target.checked);
-	};
+		setAuth(event.target.checked)
+	}
 
 	const handleMenu = (event) => {
-		setAnchorEl(event.currentTarget);
-	};
+		setAnchorEl(event.currentTarget)
+	}
 
 	const handleClose = () => {
-		setAnchorEl(null);
-	};
+		setAnchorEl(null)
+	}
 
 	return (
-		<Box sx={{ flexGrow: 1 }}>
-			<FormGroup>
-				<FormControlLabel
-					control={<Switch checked={auth} onChange={handleChange} aria-label="login switch" />}
-					label={auth ? 'Logout' : 'Login'}
-				/>
-			</FormGroup>
-			<AppBar position="static">
-				<Toolbar>
-					<IconButton
-						size="large"
-						edge="start"
-						color="inherit"
-						aria-label="menu"
-						sx={{ mr: 2 }}
-					>
-						<MenuIcon />
-					</IconButton>
-					<Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-						Photos
-					</Typography>
-					{auth && (
-						<div>
-							<IconButton
-								size="large"
-								aria-label="account of current user"
-								aria-controls="menu-appbar"
-								aria-haspopup="true"
-								onClick={handleMenu}
-								color="inherit"
+		<>
+			<Box sx={{ flexGrow: 1 }}>
+				<AppBar
+					position='static'
+					sx={{ background: '#ffffff', borderBottom: '1px solid #111', boxShadow: 'none' }}
+				>
+					<Container maxWidth='lg'>
+						<Toolbar disableGutters>
+							<Typography
+								variant='h6'
+								align='left'
+								color='#111'
+								component='div'
+								sx={{ flexGrow: 3.5, fontWeight: 700, ml: '6px' }}
 							>
-								<AccountCircle />
-							</IconButton>
-							<Menu
-								id="menu-appbar"
-								anchorEl={anchorEl}
-								anchorOrigin={{
-									vertical: 'top',
-									horizontal: 'right',
-								}}
-								keepMounted
-								transformOrigin={{
-									vertical: 'top',
-									horizontal: 'right',
-								}}
-								open={Boolean(anchorEl)}
-								onClose={handleClose}
+								IT ROOM
+							</Typography>
+							<Stack
+								direction='row'
+								spacing={6}
+								color='#111'
+								sx={{ flexGrow: 2, fontStyle: 'normal', fontWeight: 600 }}
 							>
-								<MenuItem onClick={handleClose}>Profile</MenuItem>
-								<MenuItem onClick={handleClose}>My account</MenuItem>
-							</Menu>
-						</div>
-					)}
-				</Toolbar>
-			</AppBar>
-		</Box>
-	);
-};
+								<div>Articles</div>
+								<div>News</div>
+								<div>Salaries</div>
+								<div>Companies</div>
+								<div>Vacancies</div>
+							</Stack>
+							<Box sx={{ textTransform: 'UpperCase' }}>
+								<Button
+									variant='outlined'
+									size='small'
+									sx={{ color: '#111', border: '1px solid #111', mr: '30px' }}
+								>
+									Log in
+								</Button>
+								<Button
+									variant='outlined'
+									size='small'
+									sx={{ color: '#111', border: '1px solid #111' }}
+								>
+									Register
+								</Button>
+							</Box>
+						</Toolbar>
+					</Container>
+				</AppBar>
+			</Box>
+		</>
+	)
+}

@@ -1,0 +1,24 @@
+.title {
+	font-family: 'Roboto', sans-serif;
+	font-weight: 700;
+	font-size: 32px;
+	line-height: 100%;
+	letter-spacing: 0.15px;
+	margin-left: 10px;
+}
+.container {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+.btn_border {
+	color: #111;
+	border: 1px solid #111;
+	width: 172px;
+	height: 56px;
+	&:hover {
+		border-color: #111;
+	}
+}
+.listContainer {
+}
