@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
 
-namespace ITCommunity.Server.Core.Migrations
+namespace IT_Community.Server.Core.Migrations
 {
     [DbContext(typeof(DataContext))]
     partial class DataContextModelSnapshot : ModelSnapshot
@@ -17,18 +17,18 @@ namespace ITCommunity.Server.Core.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "7.0.2")
+                .HasAnnotation("ProductVersion", "6.0.10")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
-            SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
+            SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
 
-            modelBuilder.Entity("IT_Community.Server.Core.Comment", b =>
+            modelBuilder.Entity("IT_Community.Server.Core.Entities.Comment", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<string>("Body")
                         .HasColumnType("nvarchar(max)");
@@ -36,28 +36,29 @@ namespace ITCommunity.Server.Core.Migrations
                     b.Property<DateTime>("Date")
                         .HasColumnType("datetime2");
 
-                    b.Property<int?>("PostsId")
+                    b.Property<int>("PostId")
                         .HasColumnType("int");
 
-                    b.Property<string>("UsersId")
+                    b.Property<string>("UserId")
+                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("PostsId");
+                    b.HasIndex("PostId");
 
-                    b.HasIndex("UsersId");
+                    b.HasIndex("UserId");
 
                     b.ToTable("Comments");
                 });
 
-            modelBuilder.Entity("IT_Community.Server.Core.Forum", b =>
+            modelBuilder.Entity("IT_Community.Server.Core.Entities.Forum", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
@@ -67,36 +68,37 @@ namespace ITCommunity.Server.Core.Migrations
                     b.ToTable("Forums");
                 });
 
-            modelBuilder.Entity("IT_Community.Server.Core.Likes", b =>
+            modelBuilder.Entity("IT_Community.Server.Core.Entities.Like", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<int?>("PostsId")
+                    b.Property<int>("PostId")
                         .HasColumnType("int");
 
-                    b.Property<string>("UsersId")
+                    b.Property<string>("UserId")
+                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("PostsId");
+                    b.HasIndex("PostId");
 
-                    b.HasIndex("UsersId");
+                    b.HasIndex("UserId");
 
                     b.ToTable("Likes");
                 });
 
-            modelBuilder.Entity("IT_Community.Server.Core.Post", b =>
+            modelBuilder.Entity("IT_Community.Server.Core.Entities.Post", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<string>("Body")
                         .HasColumnType("nvarchar(max)");
@@ -107,10 +109,7 @@ namespace ITCommunity.Server.Core.Migrations
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("ForumsId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Likes")
+                    b.Property<int>("ForumId")
                         .HasColumnType("int");
 
                     b.Property<string>("Thumbnail")
@@ -119,7 +118,8 @@ namespace ITCommunity.Server.Core.Migrations
                     b.Property<string>("Title")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("UsersId")
+                    b.Property<string>("UserId")
+                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<int>("Views")
@@ -127,20 +127,20 @@ namespace ITCommunity.Server.Core.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ForumsId");
+                    b.HasIndex("ForumId");
 
-                    b.HasIndex("UsersId");
+                    b.HasIndex("UserId");
 
                     b.ToTable("Posts");
                 });
 
-            modelBuilder.Entity("IT_Community.Server.Core.Tag", b =>
+            modelBuilder.Entity("IT_Community.Server.Core.Entities.Tag", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
@@ -150,7 +150,7 @@ namespace ITCommunity.Server.Core.Migrations
                     b.ToTable("Tags");
                 });
 
-            modelBuilder.Entity("IT_Community.Server.Core.User", b =>
+            modelBuilder.Entity("IT_Community.Server.Core.Entities.User", b =>
                 {
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)");
@@ -248,7 +248,7 @@ namespace ITCommunity.Server.Core.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<string>("ClaimType")
                         .HasColumnType("nvarchar(max)");
@@ -273,7 +273,7 @@ namespace ITCommunity.Server.Core.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<string>("ClaimType")
                         .HasColumnType("nvarchar(max)");
@@ -295,12 +295,10 @@ namespace ITCommunity.Server.Core.Migrations
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
                     b.Property<string>("LoginProvider")
-                        .HasMaxLength(128)
-                        .HasColumnType("nvarchar(128)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("ProviderKey")
-                        .HasMaxLength(128)
-                        .HasColumnType("nvarchar(128)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("ProviderDisplayName")
                         .HasColumnType("nvarchar(max)");
@@ -337,12 +335,10 @@ namespace ITCommunity.Server.Core.Migrations
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("LoginProvider")
-                        .HasMaxLength(128)
-                        .HasColumnType("nvarchar(128)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Name")
-                        .HasMaxLength(128)
-                        .HasColumnType("nvarchar(128)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Value")
                         .HasColumnType("nvarchar(max)");
@@ -367,49 +363,61 @@ namespace ITCommunity.Server.Core.Migrations
                     b.ToTable("PostTag");
                 });
 
-            modelBuilder.Entity("IT_Community.Server.Core.Comment", b =>
+            modelBuilder.Entity("IT_Community.Server.Core.Entities.Comment", b =>
                 {
-                    b.HasOne("IT_Community.Server.Core.Post", "Posts")
-                        .WithMany()
-                        .HasForeignKey("PostsId");
-
-                    b.HasOne("IT_Community.Server.Core.User", "Users")
+                    b.HasOne("IT_Community.Server.Core.Entities.Post", "Post")
                         .WithMany("Comments")
-                        .HasForeignKey("UsersId");
+                        .HasForeignKey("PostId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
 
-                    b.Navigation("Posts");
+                    b.HasOne("IT_Community.Server.Core.Entities.User", "User")
+                        .WithMany("Comments")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-                    b.Navigation("Users");
+                    b.Navigation("Post");
+
+                    b.Navigation("User");
                 });
 
-            modelBuilder.Entity("IT_Community.Server.Core.Likes", b =>
+            modelBuilder.Entity("IT_Community.Server.Core.Entities.Like", b =>
                 {
-                    b.HasOne("IT_Community.Server.Core.Post", "Posts")
-                        .WithMany()
-                        .HasForeignKey("PostsId");
+                    b.HasOne("IT_Community.Server.Core.Entities.Post", "Post")
+                        .WithMany("Likes")
+                        .HasForeignKey("PostId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
 
-                    b.HasOne("IT_Community.Server.Core.User", "Users")
-                        .WithMany()
-                        .HasForeignKey("UsersId");
+                    b.HasOne("IT_Community.Server.Core.Entities.User", "User")
+                        .WithMany("Likes")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-                    b.Navigation("Posts");
+                    b.Navigation("Post");
 
-                    b.Navigation("Users");
+                    b.Navigation("User");
                 });
 
-            modelBuilder.Entity("IT_Community.Server.Core.Post", b =>
+            modelBuilder.Entity("IT_Community.Server.Core.Entities.Post", b =>
                 {
-                    b.HasOne("IT_Community.Server.Core.Forum", "Forums")
+                    b.HasOne("IT_Community.Server.Core.Entities.Forum", "Forum")
                         .WithMany("Posts")
-                        .HasForeignKey("ForumsId");
+                        .HasForeignKey("ForumId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-                    b.HasOne("IT_Community.Server.Core.User", "Users")
+                    b.HasOne("IT_Community.Server.Core.Entities.User", "User")
                         .WithMany("Posts")
-                        .HasForeignKey("UsersId");
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-                    b.Navigation("Forums");
+                    b.Navigation("Forum");
 
-                    b.Navigation("Users");
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -423,7 +431,7 @@ namespace ITCommunity.Server.Core.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
                 {
-                    b.HasOne("IT_Community.Server.Core.User", null)
+                    b.HasOne("IT_Community.Server.Core.Entities.User", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -432,7 +440,7 @@ namespace ITCommunity.Server.Core.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
-                    b.HasOne("IT_Community.Server.Core.User", null)
+                    b.HasOne("IT_Community.Server.Core.Entities.User", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -447,7 +455,7 @@ namespace ITCommunity.Server.Core.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("IT_Community.Server.Core.User", null)
+                    b.HasOne("IT_Community.Server.Core.Entities.User", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -456,7 +464,7 @@ namespace ITCommunity.Server.Core.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
                 {
-                    b.HasOne("IT_Community.Server.Core.User", null)
+                    b.HasOne("IT_Community.Server.Core.Entities.User", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -465,27 +473,36 @@ namespace ITCommunity.Server.Core.Migrations
 
             modelBuilder.Entity("PostTag", b =>
                 {
-                    b.HasOne("IT_Community.Server.Core.Post", null)
+                    b.HasOne("IT_Community.Server.Core.Entities.Post", null)
                         .WithMany()
                         .HasForeignKey("PostsId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("IT_Community.Server.Core.Tag", null)
+                    b.HasOne("IT_Community.Server.Core.Entities.Tag", null)
                         .WithMany()
                         .HasForeignKey("TagsId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("IT_Community.Server.Core.Forum", b =>
+            modelBuilder.Entity("IT_Community.Server.Core.Entities.Forum", b =>
                 {
                     b.Navigation("Posts");
                 });
 
-            modelBuilder.Entity("IT_Community.Server.Core.User", b =>
+            modelBuilder.Entity("IT_Community.Server.Core.Entities.Post", b =>
                 {
                     b.Navigation("Comments");
+
+                    b.Navigation("Likes");
+                });
+
+            modelBuilder.Entity("IT_Community.Server.Core.Entities.User", b =>
+                {
+                    b.Navigation("Comments");
+
+                    b.Navigation("Likes");
 
                     b.Navigation("Posts");
                 });

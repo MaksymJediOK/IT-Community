@@ -6,14 +6,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace IT_Community.Server.Core
+namespace IT_Community.Server.Core.Entities
 {
-    public class Likes
+    public class Like
     {
-        [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
-        public User? Users { get; set; }
-        public Post? Posts { get; set; }
+        public string UserId { get; set; }
+        public int PostId { get; set; }
+        public User? User { get; set; }
+        public Post? Post { get; set; }
     }
 }
