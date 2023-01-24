@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace IT_Community.Server.Core
+namespace IT_Community.Server.Core.Entities
 {
     public class Post
     {
@@ -17,11 +17,14 @@ namespace IT_Community.Server.Core
         public string? Description { get; set; }
         public string? Body { get; set; }
         public int Views { get; set; }
-        public int Likes { get; set; }
         public DateTime Date { get; set; }
         public string? Thumbnail { get; set; }
-        public Forum? Forums { get; set; }
-        public User? Users { get; set; }
+        public int ForumId { get; set; }
+        public Forum? Forum { get; set; }
+        public string UserId { get; set; }
+        public User? User { get; set; }
         public virtual ICollection<Tag> Tags { get; set; }
+        public virtual ICollection<Like> Likes { get; set; }
+        public virtual ICollection<Comment> Comments { get; set; }
     }
 }

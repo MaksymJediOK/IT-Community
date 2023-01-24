@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace IT_Community.Server.Core
+namespace IT_Community.Server.Core.Entities
 {
     public class Forum
     {

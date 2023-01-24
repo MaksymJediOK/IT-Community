@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace IT_Community.Server.Core
+namespace IT_Community.Server.Core.Entities
 {
     public class Comment
     {
@@ -15,7 +15,9 @@ namespace IT_Community.Server.Core
         public int Id { get; set; }
         public string? Body { get; set; }
         public DateTime Date { get; set; }
-        public User? Users { get; set; }
-        public Post? Posts { get; set; }
+        public string UserId { get; set; }
+        public User? User { get; set; }
+        public int PostId { get; set; }
+        public Post? Post { get; set; }
     }
 }
