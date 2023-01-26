@@ -37,7 +37,7 @@ namespace IT_Community.Server.Core.GenericRepository
         public IEnumerable<TEntity> GetAll(
            Expression<Func<TEntity, bool>> filter = null,
            Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null,
-           string includeProperties = "")
+           params string[] includeProperties)
         {
             IQueryable<TEntity> query = _dbSet;
 
@@ -46,8 +46,7 @@ namespace IT_Community.Server.Core.GenericRepository
                 query = query.Where(filter);
             }
 
-            foreach (var includeProperty in includeProperties.Split
-                (new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries))
+            foreach (var includeProperty in includeProperties)
             {
                 query = query.Include(includeProperty);
             }

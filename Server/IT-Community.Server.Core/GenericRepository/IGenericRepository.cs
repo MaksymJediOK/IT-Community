@@ -11,7 +11,7 @@ namespace IT_Community.Server.Core.GenericRepository
     {
         IEnumerable<TEntity> GetAll(Expression<Func<TEntity, bool>> filter = null,
            Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null,
-           string includeProperties = "");
+           params string[] includeProperties);
         TEntity GetById(object id);
         void Insert(TEntity obj);
         void Update(TEntity obj);

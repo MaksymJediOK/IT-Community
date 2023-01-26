@@ -24,25 +24,9 @@ namespace IT_Community.Server.Infrastructure.Services
         }
         public List<PostPreviewDto> GetPostPreview()
         {
-            var posts = _unitOfWork.PostRepository.GetAll(includeProperties:"User,Tags,Comments,Likes");
-            List<PostPreviewDto> result = posts.Select(post => _mapper.Map<PostPreviewDto>(post)).ToList();
-/*            foreach (var post in posts)
-            {
-                result.Add(new PostPreviewDto
-                {
-                    Id = post.Id,
-                    Title = post.Title,
-                    Views = post.Views,
-                    Date = post.Date,
-                    Thumbnail = post.Thumbnail,
-                    UserId = post.UserId,
-                    UserName = post.User.UserName,
-                    Tags = post.Tags.Count(),
-                    Likes = post.Likes.Count(),
-                    Comments = post.Comments.Count()
-                });
-            }*/
-            return result;
+            var posts = _unitOfWork.PostRepository
+                .GetAll(includeProperties: new[] { nameof(Post.User), nameof(Post.Tags), nameof(Post.Comments), nameof(Post.Likes) });
+            return _mapper.Map<List<PostPreviewDto>>(posts);
         }
     }
 }
