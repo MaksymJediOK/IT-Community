@@ -5,9 +5,9 @@ VisualStudioVersion = 17.4.32804.182
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IT-Community.Server", "IT-Community.Server\IT-Community.Server.csproj", "{43CD2B5E-9E53-4056-82FD-9CB22D2FDCEA}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IT-Community.Server.Core", "IT-Community.Server.Core\IT-Community.Server.Core.csproj", "{F4D1D841-DFCD-43DF-8524-5C08F75C5E20}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IT-Community.Server.Infrastructure", "IT-Community.Server.Core\IT-Community.Server.Infrastructure.csproj", "{F4D1D841-DFCD-43DF-8524-5C08F75C5E20}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IT-Community.Server.Infrastructure", "IT-Community.Server.Infrastructure\IT-Community.Server.Infrastructure.csproj", "{E3B9BAC8-79E3-4CB1-8E4E-1C8513A32BD4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IT-Community.Server.Core", "IT-Community.Server.Infrastructure\IT-Community.Server.Core.csproj", "{E3B9BAC8-79E3-4CB1-8E4E-1C8513A32BD4}"
 	ProjectSection(ProjectDependencies) = postProject
 		{F4D1D841-DFCD-43DF-8524-5C08F75C5E20} = {F4D1D841-DFCD-43DF-8524-5C08F75C5E20}
 	EndProjectSection
