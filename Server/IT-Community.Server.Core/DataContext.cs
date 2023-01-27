@@ -20,6 +20,7 @@ namespace IT_Community.Server.Core
         {
             base.OnModelCreating(builder);
             new PostEntityTypeConfiguration().Configure(builder.Entity<Post>());
+            builder.Seed();
         }
 
         public DbSet<Post> Posts { get; set; }
