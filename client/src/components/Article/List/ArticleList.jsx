@@ -11,7 +11,7 @@ import {
 } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search'
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
-import { ArticlePreview } from '../ArticlePreview/ArticlePreview'
+import { ArticlePreview } from '../Preview/ArticlePreview'
 
 export const ArticleList = () => {
 	return (

@@ -1,0 +1,79 @@
+.name {
+	font-weight: 500;
+	font-size: 16px;
+	line-height: 16px;
+	color: #000;
+}
+
+.follower {
+	font-weight: 400;
+	font-size: 16px;
+	line-height: 19px;
+	color: #000;
+
+	opacity: 0.7;
+
+	margin: 8px 0 18px;
+}
+
+.link {
+	font-weight: 400;
+	font-size: 14px;
+	line-height: 17px;
+
+	color: #000;
+	margin-bottom: 24px;
+}
+.similar_container {
+	margin-top: 64px;
+}
+.similar {
+	display: flex;
+	align-items: flex-start;
+	justify-content: space-between;
+	color: #000;
+
+	margin-bottom: 6px;
+	&_text {
+		font-weight: 700;
+		font-size: 20px;
+		line-height: 20px;
+	}
+	&_seeMore {
+		font-size: 12px;
+		font-weight: 400;
+		line-height: 15px;
+		text-decoration: underline;
+	}
+}
+
+.card {
+	width: auto;
+	color: #000;
+	margin-top: 18px;
+	&_name {
+		display: flex;
+		align-items: center;
+		&_text {
+			font-size: 12px;
+			font-weight: 400;
+			line-height: 100%;
+			margin-left: 12px;
+		}
+	}
+	&_title {
+		font-size: 16px;
+		font-weight: 500;
+		line-height: 20px;
+
+		max-width: 270px;
+
+		margin: 12px 0;
+	}
+
+	&_date {
+		opacity: 0.5;
+		line-height: 12px;
+		font-size: 12px;
+	}
+}

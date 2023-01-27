@@ -1,7 +1,7 @@
 import React from 'react'
 import styles from './Article.module.scss'
 import { Avatar, Button, Container, Grid } from '@mui/material'
-import { ArticleList } from './ArticleList/ArticleList'
+import { ArticleList } from './List/ArticleList'
 import Typography from '@mui/material/Typography'
 
 export const Article = () => {
