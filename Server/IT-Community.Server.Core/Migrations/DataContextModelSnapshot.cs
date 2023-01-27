@@ -49,7 +49,7 @@ namespace IT_Community.Server.Core.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Comments");
+                    b.ToTable("Comments", (string)null);
                 });
 
             modelBuilder.Entity("IT_Community.Server.Core.Entities.Forum", b =>
@@ -65,7 +65,7 @@ namespace IT_Community.Server.Core.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Forums");
+                    b.ToTable("Forums", (string)null);
                 });
 
             modelBuilder.Entity("IT_Community.Server.Core.Entities.Like", b =>
@@ -89,7 +89,7 @@ namespace IT_Community.Server.Core.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Likes");
+                    b.ToTable("Likes", (string)null);
                 });
 
             modelBuilder.Entity("IT_Community.Server.Core.Entities.Post", b =>
@@ -131,7 +131,7 @@ namespace IT_Community.Server.Core.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Posts");
+                    b.ToTable("Posts", (string)null);
                 });
 
             modelBuilder.Entity("IT_Community.Server.Core.Entities.Tag", b =>
@@ -147,7 +147,7 @@ namespace IT_Community.Server.Core.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Tags");
+                    b.ToTable("Tags", (string)null);
                 });
 
             modelBuilder.Entity("IT_Community.Server.Core.Entities.User", b =>
@@ -360,7 +360,7 @@ namespace IT_Community.Server.Core.Migrations
 
                     b.HasIndex("TagsId");
 
-                    b.ToTable("PostTag");
+                    b.ToTable("PostTag", (string)null);
                 });
 
             modelBuilder.Entity("IT_Community.Server.Core.Entities.Comment", b =>

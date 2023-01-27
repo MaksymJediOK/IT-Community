@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using IT_Community.Server.Core.Entities;
+using IT_Community.Server.Core.Configurations;
 
 namespace IT_Community.Server.Core
 {
@@ -18,9 +19,7 @@ namespace IT_Community.Server.Core
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
-            builder.Entity<Post>().HasMany(x => x.Tags).WithMany(x => x.Posts);
-            builder.Entity<Post>().HasMany(x => x.Comments).WithOne(x => x.Post).HasForeignKey(x => x.PostId).OnDelete(DeleteBehavior.Restrict);
-            builder.Entity<Post>().HasMany(x => x.Likes).WithOne(x => x.Post).HasForeignKey(x => x.PostId).OnDelete(DeleteBehavior.Restrict);
+            new PostEntityTypeConfiguration().Configure(builder.Entity<Post>());
         }
 
         public DbSet<Post> Posts { get; set; }
