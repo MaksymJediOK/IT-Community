@@ -17,8 +17,8 @@ namespace IT_Community.Server.Core
         }
         protected override void OnModelCreating(ModelBuilder builder)
         {
-            new PostEntityTypeConfiguration().Configure(builder.Entity<Post>());
             base.OnModelCreating(builder);
+            new PostEntityTypeConfiguration().Configure(builder.Entity<Post>());
         }
 
         public DbSet<Post> Posts { get; set; }
