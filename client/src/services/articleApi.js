@@ -15,10 +15,10 @@ export const articleApi = createApi({
 					  ]
 					: [{ type: 'Articles', id: 'LIST' }],
 		}),
-		getSingleArticle : build.query({
-			query: (artlcId = 1) => `/post/${artlcId}`,	
-		})
+		getSingleArticle: build.query({
+			query: (articleId = 1) => `/post/${articleId}`,
+		}),
 	}),
 })
 
-export const { useGetArticlesListQuery, useLazyGetSingleArticleQuery } = articleApi
+export const { useGetArticlesListQuery, useGetSingleArticleQuery } = articleApi

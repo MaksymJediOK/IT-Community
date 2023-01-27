@@ -2,18 +2,23 @@ import React from 'react'
 import styles from './ArticleList.module.scss'
 import {
 	Button,
-	FormControl, Grid,
+	FormControl,
+	Grid,
 	IconButton,
 	InputAdornment,
 	InputLabel,
 	OutlinedInput,
-	Stack
-} from '@mui/material';
+	Stack,
+} from '@mui/material'
 import SearchIcon from '@mui/icons-material/Search'
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
 import { ArticlePreview } from '../Preview/ArticlePreview'
+import { useGetArticlesListQuery } from '../../../services/articleApi'
+import { ArticleListSkeleton } from './ArticleListSkeleton';
 
 export const ArticleList = () => {
+	const { data = [], isLoading } = useGetArticlesListQuery()
+
 	return (
 		<>
 			<h2 className={styles.title}>Articles</h2>
@@ -40,7 +45,7 @@ export const ArticleList = () => {
 						variant='outlined'
 						size='medium'
 						endIcon={<ExpandMoreIcon />}
-						sx={{border: '1px solid #111', color: '#111'}}
+						sx={{ border: '1px solid #111', color: '#111' }}
 					>
 						SORT BY
 					</Button>
@@ -49,20 +54,20 @@ export const ArticleList = () => {
 						variant='outlined'
 						size='medium'
 						endIcon={<ExpandMoreIcon />}
-						sx={{border: '1px solid #111', color: '#111'}}
+						sx={{ border: '1px solid #111', color: '#111' }}
 					>
 						FILTER BY
 					</Button>
 				</Stack>
 			</div>
 			{/*Render dynamically in future*/}
-			<Grid container spacing={2} sx={{marginLeft: '-10px',marginTop: '10px'}}>
-				<ArticlePreview />
-				<ArticlePreview />
-				<ArticlePreview />
-				<ArticlePreview />
+			<Grid container spacing={2} sx={{ marginLeft: '-10px', marginTop: '10px' }}>
+				<>
+				{isLoading ? <ArticleListSkeleton /> : data.map((item) => {
+					return <ArticlePreview key={item.id} {...item} />
+				}) }
+				</>
 			</Grid>
-
 		</>
 	)
 }

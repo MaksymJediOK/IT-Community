@@ -5,11 +5,9 @@ import { Container, Grid } from '@mui/material'
 import { ItemCard } from './components/ItemCard/ItemCard'
 import { AuthorInfo } from './components/AuthorInfo/AuthorInfo'
 import { Comments } from './components/Comments/Comments'
-import {useGetArticlesListQuery} from '../../services/articleApi'
 
 export const ArticleDetails = () => {
 	const { id } = useParams()
-	const {data = [], isLoading} = useGetArticlesListQuery()
 	return (
 		<Container>
 			<div className={styles.crumbs}>IT ROOM / Articles</div>
