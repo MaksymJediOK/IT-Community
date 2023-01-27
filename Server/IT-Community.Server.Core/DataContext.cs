@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using IT_Community.Server.Core.Entities;
+using IT_Community.Server.Core.Configurations;
 
 namespace IT_Community.Server.Core
 {

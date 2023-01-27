@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace IT_Community.Server.Core
+namespace IT_Community.Server.Core.Configurations
 {
     public class PostEntityTypeConfiguration : IEntityTypeConfiguration<Post>
     {
