@@ -10,7 +10,8 @@
 .title {
 	font-weight: 900;
 	font-size: 32px;
-	line-height: 90%;
+	//corrective for lh
+	line-height: 35px;
 	letter-spacing: 0.5px;
 	color: #111;
 
@@ -27,13 +28,15 @@
 	margin-bottom: 24px;
 }
 .content_box {
-	height: 295px;
-	background: #d9d9d9;
 	border-radius: 8px;
 	text-align: center;
 	vertical-align: middle;
 
 	margin-bottom: 32px;
+}
+.picture {
+	width: 760px;
+	border-radius: 8px;
 }
 .tag_container {
 	display: flex;

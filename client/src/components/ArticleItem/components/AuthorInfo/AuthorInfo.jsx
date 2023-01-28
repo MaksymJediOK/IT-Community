@@ -1,10 +1,10 @@
 import React from 'react'
 import styles from './Author.module.scss'
-import { Avatar, Button } from '@mui/material'
+import { Avatar, Box, Button } from '@mui/material'
 
 export const AuthorInfo = () => {
 	return (
-		<>
+		<Box sx={{ position: 'fixed' }}>
 			<div>
 				<Avatar sx={{ width: 96, height: 96, marginBottom: '18px' }}>H</Avatar>
 				<div className={styles.name}>Yevgeniy Yevgeniy</div>
@@ -53,6 +53,6 @@ export const AuthorInfo = () => {
 					<div className={styles.card_date}>Sep 12, 2022</div>
 				</div>
 			</div>
-		</>
+		</Box>
 	)
 }
