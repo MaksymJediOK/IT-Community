@@ -14,7 +14,7 @@ import SearchIcon from '@mui/icons-material/Search'
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
 import { ArticlePreview } from '../Preview/ArticlePreview'
 import { useGetArticlesListQuery } from '../../../services/articleApi'
-import { ArticleListSkeleton } from './ArticleListSkeleton';
+import { ArticleListSkeleton } from './ArticleListSkeleton'
 
 export const ArticleList = () => {
 	const { data = [], isLoading } = useGetArticlesListQuery()
@@ -63,9 +63,13 @@ export const ArticleList = () => {
 			{/*Render dynamically in future*/}
 			<Grid container spacing={2} sx={{ marginLeft: '-10px', marginTop: '10px' }}>
 				<>
-				{isLoading ? <ArticleListSkeleton /> : data.map((item) => {
-					return <ArticlePreview key={item.id} {...item} />
-				}) }
+					{isLoading ? (
+						<ArticleListSkeleton />
+					) : (
+						data.map((item) => {
+							return <ArticlePreview key={item.id} {...item} />
+						})
+					)}
 				</>
 			</Grid>
 		</>
