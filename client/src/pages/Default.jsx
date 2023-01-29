@@ -7,6 +7,8 @@ export const Default = () => {
 			<Link to='articles'>To articles</Link>
 			<br />
 			<Link to='articles/1'>Detailed</Link>
+			<br />
+			<Link to='articles/new'>New/Edit</Link>
 		</div>
 	)
 }
