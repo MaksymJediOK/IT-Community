@@ -3,8 +3,9 @@ import '../styles/main.scss'
 import { Route, Routes } from 'react-router-dom'
 import { Layout } from '../components/Layout/Layout'
 import { Articles } from './Articles'
-import { Article } from './Article';
-import { Default } from './Default';
+import { Article } from './Article'
+import { Default } from './Default'
+import { ArticleNew } from './ArticleNew'
 
 export const Index = () => {
 	return (
@@ -14,7 +15,7 @@ export const Index = () => {
 				<Route path='/articles' element={<Layout />}>
 					<Route index element={<Articles />} />
 					<Route path=':id' element={<Article />} />
-					{/*<Route path='new' element={<ArticleDetails />} />*/}
+					<Route path='new' element={<ArticleNew />} />
 				</Route>
 			</Routes>
 		</>
