@@ -27,20 +27,5 @@ namespace IT_Community.Server
                 options.IncludeXmlComments(xmlPath);
             });
         }
-
-        public static void AddCors(this IServiceCollection services)
-        {
-            services.AddCors(options =>
-            {
-                options.AddDefaultPolicy(
-                    policy =>
-                    {
-                        policy.WithOrigins("http://example.com",
-                                            "http://www.contoso.com")
-                        .AllowAnyMethod()
-                        .AllowAnyHeader();
-                    });
-            });
-        }
     }
 }
