@@ -11,6 +11,9 @@ namespace IT_Community.Server.Core.DataAccess
     public interface IUnitOfWork : IDisposable
     {
         IGenericRepository<Post> PostRepository { get; }
-        void Save();
+        IGenericRepository<User> UserRepository { get; }
+        IGenericRepository<Forum> ForumRepository { get; }
+        IGenericRepository<Tag> TagRepository { get; }
+        Task SaveAsync();
     }
 }

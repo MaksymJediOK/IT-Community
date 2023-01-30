@@ -1,8 +1,11 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using IT_Community.Server.Core.Entities;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Infrastructure.Internal;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -66,9 +69,30 @@ namespace IT_Community.Server.Core.GenericRepository
             return _dbSet.Find(id);
         }
 
-        public void Insert(TEntity obj)
+        /*public virtual IQueryable<TEntity> Query(bool eager = false)
         {
-            _dbSet.Add(obj);
+            var query = _ctx.Set<TEntity>().AsQueryable();
+            if (eager)
+            {
+                var navigations = _ctx.Model.FindEntityType(typeof(TEntity))
+                    .GetDerivedTypesInclusive()
+                    .SelectMany(type => type.GetNavigations())
+                    .Distinct();
+
+                foreach (var property in navigations)
+                    query = query.Include(property.Name);
+            }
+            return query;
+        }
+
+        public virtual TEntity Get(Guid itemId, bool eager = false)
+        {
+            return Query(eager).SingleOrDefault(i => i.EntityId == itemId);
+        }*/
+
+        public async Task Insert(TEntity obj)
+        {
+            await _dbSet.AddAsync(obj);
         }
 
         public void Update(TEntity obj)
