@@ -13,7 +13,7 @@ namespace IT_Community.Server.Core.GenericRepository
            Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null,
            params string[] includeProperties);
         TEntity GetById(object id);
-        void Insert(TEntity obj);
+        Task Insert(TEntity obj);
         void Update(TEntity obj);
         void Delete(TEntity obj);
         void Delete(object id);

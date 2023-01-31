@@ -10,5 +10,10 @@ namespace IT_Community.Server.Infrastructure.Services
     public interface IPostsService
     {
         List<PostPreviewDto> GetPostPreview();
+        Task<PostFullDto> GetPost(int id);
+        Task CreatePost(PostCreateDto postCreateDto, string userId);
+        Task EditPost(PostCreateDto postCreateDto, string userId, int postId);
+        Task DeletePost(int id);
+        bool IsExist(int id);
     }
 }

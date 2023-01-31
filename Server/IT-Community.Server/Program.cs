@@ -9,6 +9,9 @@ using IT_Community.Server.Infrastructure.Helpers;
 using Swashbuckle.AspNetCore.Filters;
 using System.Reflection;
 using IT_Community.Server;
+using FluentValidation.AspNetCore;
+using FluentValidation;
+using Microsoft.Extensions.FileProviders;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -48,6 +51,12 @@ builder.Services.AddDefaultIdentity<User>(options =>
 */
 
 builder.Services.AddControllers();
+
+builder.Services.AddFluentValidationAutoValidation();
+builder.Services.AddValidatorsFromAssemblies(AppDomain.CurrentDomain.GetAssemblies());
+
+builder.Services.AddHttpContextAccessor();
+
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
@@ -62,6 +71,8 @@ if (app.Environment.IsDevelopment())
 }
 app.UseCors("CORSPolicy");
 app.UseHttpsRedirection();
+
+app.UseStaticFiles();
 
 app.UseAuthorization();
 
