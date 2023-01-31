@@ -18,6 +18,15 @@ namespace IT_Community.Server.Core
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
+            builder.Entity<Post>().HasMany(x => x.Tags).WithMany(x => x.Posts);
+            builder.Entity<Post>().HasMany(x => x.Comments).WithOne(x => x.Post).HasForeignKey(x => x.PostId).OnDelete(DeleteBehavior.Restrict);
+            builder.Entity<Post>().HasMany(x => x.Likes).WithOne(x => x.Post).HasForeignKey(x => x.PostId).OnDelete(DeleteBehavior.Restrict);
+            builder.Entity<Post>().Navigation(e => e.Tags).AutoInclude();
+            builder.Entity<Post>().Navigation(e => e.Comments).AutoInclude();
+            builder.Entity<Post>().Navigation(e => e.User).AutoInclude();
+            builder.Entity<Post>().Navigation(e => e.Likes).AutoInclude();
+            builder.Entity<Post>().Navigation(e => e.Forum).AutoInclude();
+            builder.Entity<Comment>().Navigation(e => e.User).AutoInclude();
         }
 
         public DbSet<Post> Posts { get; set; }
