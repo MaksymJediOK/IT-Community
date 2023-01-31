@@ -1,0 +1,91 @@
+.date {
+	font-weight: 400;
+	font-size: 13px;
+	line-height: 13px;
+	color: #000;
+
+	opacity: 0.5;
+	margin: 0;
+}
+.title {
+	font-weight: 900;
+	font-size: 32px;
+	//corrective for lh
+	line-height: 35px;
+	letter-spacing: 0.5px;
+	color: #111;
+
+	margin: 11px 0 12px;
+}
+
+.subtitle {
+	font-weight: 500;
+	font-size: 20px;
+	line-height: 20px;
+	color: #000;
+
+	opacity: 0.5;
+	margin-bottom: 24px;
+}
+.content_box {
+	border-radius: 8px;
+	text-align: center;
+	vertical-align: middle;
+
+	margin-bottom: 32px;
+}
+.picture {
+	width: 760px;
+	border-radius: 8px;
+}
+.tag_container {
+	display: flex;
+	margin-top: 16px;
+}
+.tag {
+	padding: 8px 16px;
+	background: #f1f1f1;
+	border-radius: 70px;
+	margin-right: 8px;
+	&_text {
+		font-weight: 400;
+		font-size: 16px;
+		line-height: 16px;
+		text-transform: uppercase;
+		color: #000;
+	}
+}
+.between_container {
+	display: flex;
+	justify-content: space-between;
+	margin-top: 24px;
+}
+
+.flex_container {
+	display: flex;
+}
+
+.stats_item {
+	opacity: 0.7;
+	display: flex;
+	align-items: center;
+	padding: 0;
+	gap: 6px;
+	margin-right: 18px;
+	&_text {
+		font-size: 12px;
+		line-height: 12px;
+		font-weight: 400;
+		color: #000;
+
+		opacity: 0.7;
+	}
+}
+
+.share_container {
+	display: flex;
+	padding: 0;
+	gap: 18px;
+
+	opacity: 0.7;
+}

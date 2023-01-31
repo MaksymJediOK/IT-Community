@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using IT_Community.Server.Core.Entities;
+using IT_Community.Server.Core.Configurations;
 
 namespace IT_Community.Server.Core
 {
@@ -27,6 +28,8 @@ namespace IT_Community.Server.Core
             builder.Entity<Post>().Navigation(e => e.Likes).AutoInclude();
             builder.Entity<Post>().Navigation(e => e.Forum).AutoInclude();
             builder.Entity<Comment>().Navigation(e => e.User).AutoInclude();
+            new PostEntityTypeConfiguration().Configure(builder.Entity<Post>());
+            builder.Seed();
         }
 
         public DbSet<Post> Posts { get; set; }
