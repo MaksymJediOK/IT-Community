@@ -13,7 +13,7 @@ import {
 import SearchIcon from '@mui/icons-material/Search'
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
 import { ArticlePreview } from '../Preview/ArticlePreview'
-import { useGetArticlesListQuery } from '../../../services/articleApi'
+import { useGetArticlesListQuery } from 'services/articleApi'
 import { ArticleListSkeleton } from './ArticleListSkeleton'
 
 export const ArticleList = () => {
@@ -28,7 +28,7 @@ export const ArticleList = () => {
 					<OutlinedInput
 						id='outlined-adornment-password'
 						type='text'
-						sx={{ width: '368px', ':hover': { borderColor: '#111' } }}
+						sx={{ width: '368px' }}
 						endAdornment={
 							<InputAdornment position='end'>
 								<IconButton aria-label='toggle password visibility' edge='end'>
@@ -45,7 +45,6 @@ export const ArticleList = () => {
 						variant='outlined'
 						size='medium'
 						endIcon={<ExpandMoreIcon />}
-						sx={{ border: '1px solid #111', color: '#111' }}
 					>
 						SORT BY
 					</Button>
@@ -54,7 +53,6 @@ export const ArticleList = () => {
 						variant='outlined'
 						size='medium'
 						endIcon={<ExpandMoreIcon />}
-						sx={{ border: '1px solid #111', color: '#111' }}
 					>
 						FILTER BY
 					</Button>

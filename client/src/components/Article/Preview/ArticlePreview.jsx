@@ -4,7 +4,7 @@ import { Grid } from '@mui/material'
 import FavoriteIcon from '@mui/icons-material/Favorite'
 import VisibilityIcon from '@mui/icons-material/Visibility'
 import ChatBubbleIcon from '@mui/icons-material/ChatBubble'
-import { CorrectDate } from '../../../utils/CorrectDate'
+import { CorrectDate } from 'utils/CorrectDate'
 
 export const ArticlePreview = (props) => {
 	const { title, views, date, thumbnail, userName, likes, comments } = props
