@@ -4,6 +4,7 @@ using IT_Community.Server.Infrastructure.Dtos.CommentDTOs;
 using IT_Community.Server.Infrastructure.Dtos.PostDtos;
 using IT_Community.Server.Infrastructure.Dtos.TagsDTOs;
 using IT_Community.Server.Infrastructure.Dtos.UserDTOs;
+using IT_Community.Server.Infrastructure.Utilities;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Hosting;
@@ -62,7 +63,7 @@ namespace IT_Community.Server.Infrastructure.Helpers
             destination.Views = source.Views;
             destination.Date = source.Date;
             destination.Thumbnail = source.Thumbnail;
-            destination.ImageSrc = Path.Combine(_webHostEnvironment.ContentRootPath, "Images", source.Thumbnail);
+            destination.ImageSrc = Path.Combine(_webHostEnvironment.WebRootPath, WebConstants.imagesPath, source.Thumbnail);
             destination.ForumId = source.ForumId;
             destination.ForumName = source.Forum.Name;
             destination.Tags = mapper.Map<List<TagDto>>(source.Tags.ToList());
@@ -93,7 +94,7 @@ namespace IT_Community.Server.Infrastructure.Helpers
             destination.Views = source.Views;
             destination.Date = source.Date;
             destination.Thumbnail = source.Thumbnail;
-            destination.ImageSrc = Path.Combine(_webHostEnvironment.ContentRootPath, "Images", source.Thumbnail);
+            destination.ImageSrc = Path.Combine(_webHostEnvironment.WebRootPath, WebConstants.imagesPath, source.Thumbnail);
             destination.Tags = mapper.Map<List<TagDto>>(source.Tags.ToList());
             destination.UserId = source.UserId;
             destination.UserName = source.User.UserName;

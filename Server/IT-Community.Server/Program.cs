@@ -61,11 +61,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-app.UseStaticFiles(new StaticFileOptions
-{
-    FileProvider = new PhysicalFileProvider(Path.Combine(builder.Environment.ContentRootPath, "Images")),
-    RequestPath = "/Images"
-});
+app.UseStaticFiles();
 
 app.UseHttpsRedirection();
 

@@ -69,27 +69,6 @@ namespace IT_Community.Server.Core.GenericRepository
             return _dbSet.Find(id);
         }
 
-        /*public virtual IQueryable<TEntity> Query(bool eager = false)
-        {
-            var query = _ctx.Set<TEntity>().AsQueryable();
-            if (eager)
-            {
-                var navigations = _ctx.Model.FindEntityType(typeof(TEntity))
-                    .GetDerivedTypesInclusive()
-                    .SelectMany(type => type.GetNavigations())
-                    .Distinct();
-
-                foreach (var property in navigations)
-                    query = query.Include(property.Name);
-            }
-            return query;
-        }
-
-        public virtual TEntity Get(Guid itemId, bool eager = false)
-        {
-            return Query(eager).SingleOrDefault(i => i.EntityId == itemId);
-        }*/
-
         public async Task Insert(TEntity obj)
         {
             await _dbSet.AddAsync(obj);

@@ -30,9 +30,7 @@ namespace IT_Community.Server.Controllers
         [HttpGet("{id}")]
         public async Task<PostFullDto>? GetPost(int id)
         {
-            if (_postService.IsExist(id))
                 return await _postService.GetPost(id);
-            else return null;
         }
 
         [HttpPost]
