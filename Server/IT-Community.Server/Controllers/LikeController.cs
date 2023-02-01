@@ -51,17 +51,6 @@ namespace IT_Community.Server.Controllers
         }
 
         /// <summary>
-        /// Endpoint for retrieving the number of likes for a specific post
-        /// </summary>
-        /// <param name="postId">The id of the post</param>
-        /// <returns>The number of likes for the post</returns>
-        [HttpGet("{postId}")]
-        public async Task<ActionResult<int>> GetLikesCount(int postId)
-        {
-            return await _context.Likes.CountAsync(l => l.PostId == postId);
-        }
-
-        /// <summary>
         /// Endpoint for retrieving the list of posts liked by a specific user
         /// </summary>
         /// <param name="userId">The id of the user</param>
