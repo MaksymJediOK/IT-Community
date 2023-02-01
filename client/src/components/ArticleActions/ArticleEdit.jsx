@@ -1,6 +1,6 @@
 import React from 'react'
 import styles from './ArticleEdit.module.scss'
-import { Container, Grid, Box, TextField, Button } from '@mui/material';
+import { Container, Grid, Box, TextField, Button } from '@mui/material'
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline'
 import Select from 'react-select'
 
@@ -26,7 +26,7 @@ export const ArticleEdit = () => {
 								sx={{ width: '600px' }}
 								inputProps={{ style: { fontSize: '32px' } }}
 								InputLabelProps={{
-									style: { fontSize: '32px', fontWeight: '900', color: '#000' },
+									style: { fontSize: '32px', fontWeight: '900' },
 								}}
 							/>
 							<TextField
@@ -39,7 +39,6 @@ export const ArticleEdit = () => {
 									style: {
 										fontSize: '20px',
 										fontWeight: '500',
-										color: '#000',
 										opacity: '0.5',
 										letterSpacing: '0.15px',
 										paddingBottom: '5px',
@@ -56,7 +55,6 @@ export const ArticleEdit = () => {
 									style: {
 										fontSize: '16px',
 										fontWeight: '500',
-										color: '#000',
 										opacity: '0.5',
 										letterSpacing: '0.15px',
 										paddingBottom: '5px',
@@ -77,7 +75,10 @@ export const ArticleEdit = () => {
 					</div>
 
 					<Select options={options} onChange={handleSelectChange} isMulti />
-					<Button fullWidth variant='outlined' size='large' sx={{mt: '24px'}}> PUBLISH </Button>
+					<Button fullWidth variant='outlined' size='large' sx={{ mt: '24px' }}>
+						{' '}
+						PUBLISH{' '}
+					</Button>
 				</Grid>
 			</Grid>
 		</Container>

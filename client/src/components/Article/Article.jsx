@@ -20,6 +20,7 @@ export const Article = () => {
 						fontFamily='Roboto ,sans-serif'
 						fontSize={20}
 						fontWeight={700}
+						sx={{pl: '12px'}}
 					>
 						Popular themes
 					</Typography>
@@ -60,10 +61,8 @@ export const Article = () => {
 								</div>
 								<Button
 									sx={{
-										color: '#111',
 										width: '73px',
 										height: '30px',
-										border: '1px solid rgba(0, 0, 0, 0.87)',
 									}}
 									size='small'
 									variant='outlined'
@@ -84,10 +83,8 @@ export const Article = () => {
 								</div>
 								<Button
 									sx={{
-										color: '#111',
 										width: '73px',
 										height: '30px',
-										border: '1px solid rgba(0, 0, 0, 0.87)',
 									}}
 									size='small'
 									variant='outlined'
@@ -108,10 +105,8 @@ export const Article = () => {
 								</div>
 								<Button
 									sx={{
-										color: '#111',
 										width: '73px',
 										height: '30px',
-										border: '1px solid rgba(0, 0, 0, 0.87)',
 									}}
 									size='small'
 									variant='outlined'
