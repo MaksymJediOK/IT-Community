@@ -2,12 +2,12 @@ import React from 'react'
 import styles from './Author.module.scss'
 import { Avatar, Box, Button } from '@mui/material'
 
-export const AuthorInfo = () => {
+export const AuthorInfo = ({ userName }) => {
 	return (
 		<Box sx={{ position: 'fixed' }}>
 			<div>
 				<Avatar sx={{ width: 96, height: 96, marginBottom: '18px' }}>H</Avatar>
-				<div className={styles.name}>Yevgeniy Yevgeniy</div>
+				<div className={styles.name}>{userName}</div>
 				<div className={styles.follower}>578 follower</div>
 				<div className={styles.link}>
 					User Experience Designer <br /> https://taplink.cc/olex_world <br />{' '}

@@ -9,18 +9,17 @@ import MoreHorizOutlinedIcon from '@mui/icons-material/MoreHorizOutlined'
 import { CorrectDate } from 'utils/CorrectDate';
 
 export const ItemCard = (props) => {
-	const { title, views, date, thumbnail, userName, likes, comments } = props
+	const { title, description, body, views, date, thumbnail, likes } = props
 	const validDate = CorrectDate(date)
-
 	return (
 		<>
 			<h5 className={styles.date}>{validDate}</h5>
 			<h2 className={styles.title}>{title}</h2>
-			<div className={styles.subtitle}>What they are, their role, and further considerations</div>
+			<div className={styles.subtitle}>{description}</div>
 			<div className={styles.content_box}>
 				<img className={styles.picture} src={thumbnail} alt={title} />
 			</div>
-			<div className={styles.content_box}>article content</div>
+			<div className={styles.content_box}>{body}</div>
 			<div className={styles.tag_container}>
 				{/*render tags in future*/}
 				<div className={styles.tag}>
@@ -47,7 +46,7 @@ export const ItemCard = (props) => {
 					</div>
 					<div className={styles.stats_item}>
 						<ChatBubbleOutlineOutlinedIcon />
-						<div className={styles.stats_item_text}>{comments}</div>
+						<div className={styles.stats_item_text}>1</div>
 					</div>
 					<div className={styles.stats_item}>
 						<VisibilityOutlinedIcon />

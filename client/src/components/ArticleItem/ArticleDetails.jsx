@@ -5,12 +5,12 @@ import { Container, Grid } from '@mui/material'
 import { ItemCard } from './components/ItemCard/ItemCard'
 import { AuthorInfo } from './components/AuthorInfo/AuthorInfo'
 import { Comments } from './components/Comments/Comments'
-import { useGetArticlesListQuery } from 'services/articleApi'
+import { useGetSingleArticleQuery } from 'services/articleApi'
 import { ArticleDetailsSkeleton } from './ArticleDetailsSkeleton'
 
 export const ArticleDetails = () => {
 	const { id } = useParams()
-	const { data = [], isLoading } = useGetArticlesListQuery()
+	const { data = {}, isLoading } = useGetSingleArticleQuery(id)
 	return (
 		<Container>
 			<div className={styles.crumbs}>
@@ -21,14 +21,13 @@ export const ArticleDetails = () => {
 			</div>
 			<Grid container spacing={3}>
 				<Grid item xs={8}>
-					{isLoading ? <ArticleDetailsSkeleton /> : <ItemCard {...data[0]} />}
-					<Comments />
+					{isLoading ? <ArticleDetailsSkeleton /> : <ItemCard {...data} />}
+					<Comments comments={data.comments} />
 				</Grid>
 				<Grid item xs={4}>
-					<AuthorInfo />
+					<AuthorInfo userName={data.userName} />
 				</Grid>
 			</Grid>
 		</Container>
 	)
 }
-//ToDo rebuild when specific endpoint would be ready

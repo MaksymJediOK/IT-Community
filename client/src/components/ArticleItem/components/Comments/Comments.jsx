@@ -3,7 +3,7 @@ import styles from './Coments.module.scss'
 import { Box } from '@mui/material'
 import { SingleComment } from './SingleComment'
 
-export const Comments = () => {
+export const Comments = ({ comments = [] }) => {
 	return (
 		<div className={styles.section}>
 			<Box sx={{ display: 'flex' }}>
@@ -11,9 +11,10 @@ export const Comments = () => {
 				<span className={styles.stats_number}>2.5K</span>
 			</Box>
 			<div className={styles.comments_container}>
-				<SingleComment />
-				<SingleComment />
-				<SingleComment />
+				{comments &&
+					comments.map((item) => {
+						return <SingleComment key={item.id} {...item} />
+					})}
 			</div>
 		</div>
 	)
