@@ -31,7 +31,13 @@ namespace IT_Community.Server.Controllers
         public async Task<IActionResult> BatchCreateTags([FromBody] List<string> tagNames)
         {
             var tagDtos = tagNames.Select(x => new TagDto { Name = x.Trim() }).ToList();
-            await _tagService.BatchCreateTags(tagDtos);
+            var existingTags = _tagService.GetTags();
+            var tagsToCreate = tagDtos.Where(t => !existingTags.Any(et => et.Name == t.Name)).ToList();
+            if (tagsToCreate.Count == 0)
+            {
+                return BadRequest("All of the tags already exist in the database");
+            }
+            await _tagService.BatchCreateTags(tagsToCreate);
             return Ok(tagDtos);
         }
 
@@ -49,7 +55,6 @@ namespace IT_Community.Server.Controllers
             {
                 return NotFound();
             }
-
             return Ok();
         }
 
