@@ -31,6 +31,7 @@ builder.Services.AddCors(options =>
 
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 builder.Services.AddScoped<IPostsService, PostsService>();
+builder.Services.AddScoped<ITagsService, TagsService>();
 
 builder.Services.AddAutoMapper(typeof(AutoMapperProfile).Assembly);
 
