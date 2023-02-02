@@ -25,6 +25,17 @@ namespace IT_Community.Server.Controllers
         }
 
         /// <summary>
+        /// Batch create tags from a list of tag names
+        /// </summary>
+        [HttpPost]
+        public async Task<IActionResult> BatchCreateTags([FromBody] List<string> tagNames)
+        {
+            var tagDtos = tagNames.Select(x => new TagDto { Name = x.Trim() }).ToList();
+            await _tagService.BatchCreateTags(tagDtos);
+            return Ok(tagDtos);
+        }
+
+        /// <summary>
         /// Delete tag from the database
         /// </summary>
         [HttpDelete]

@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using IT_Community.Server.Core.DataAccess;
+using IT_Community.Server.Core.Entities;
 using IT_Community.Server.Infrastructure.Dtos.TagsDTOs;
 using System;
 using System.Collections.Generic;
@@ -26,11 +27,23 @@ namespace IT_Community.Server.Infrastructure.Services
             var tags1 = tags.Select(t => _mapper.Map(t, new TagDto())).ToList();
             return tags1;
         }
+
+        public async Task BatchCreateTags(List<TagDto> tagDtos)
+        {
+            var tags = _mapper.Map<List<Tag>>(tagDtos);
+            foreach (var tag in tags)
+            {
+                _unitOfWork.TagRepository.Insert(tag);
+            }
+            await _unitOfWork.SaveAsync();
+        }
+
         public async Task DeleteTag(int tagId)
         {
             _unitOfWork.TagRepository.Delete(tagId);
             await _unitOfWork.SaveAsync();
         }
+
         public bool IsExist(int id)
         {
             if (id <= 0) return false;
