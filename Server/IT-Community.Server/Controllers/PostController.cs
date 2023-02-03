@@ -1,6 +1,8 @@
-﻿using IT_Community.Server.Infrastructure.Dtos.PostDtos;
+﻿using IT_Community.Server.Core.Entities;
+using IT_Community.Server.Infrastructure.Dtos.PostDtos;
 using IT_Community.Server.Infrastructure.Services;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 
@@ -28,13 +30,14 @@ namespace IT_Community.Server.Controllers
         }
 
         [HttpGet("{id}")]
+        [Authorize]
         public async Task<PostFullDto>? GetPost(int id)
         {
-                return await _postService.GetPost(id);
+            return await _postService.GetPost(id);
         }
 
         [HttpPost]
-        //[Authorize]
+        [Authorize(Roles = "Common")]
         public async Task<IActionResult> CreatePost([FromForm] PostCreateDto postCteateDto)
         {
             //string userId = HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
