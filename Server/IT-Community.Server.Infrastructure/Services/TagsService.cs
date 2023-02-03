@@ -2,9 +2,12 @@
 using IT_Community.Server.Core.DataAccess;
 using IT_Community.Server.Core.Entities;
 using IT_Community.Server.Infrastructure.Dtos.TagsDTOs;
+using IT_Community.Server.Infrastructure.Exceptions;
+using IT_Community.Server.Infrastructure.Resources;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -24,24 +27,41 @@ namespace IT_Community.Server.Infrastructure.Services
         public List<TagDto> GetTags()
         {
             var tags = _unitOfWork.TagRepository.GetAll();
-            var tags1 = tags.Select(t => _mapper.Map(t, new TagDto())).ToList();
-            return tags1;
+            var tagDtos = _mapper.Map<List<TagDto>>(tags);
+            return tagDtos;
         }
 
-        public async Task BatchCreateTags(List<TagDto> tagDtos)
+        public async Task BatchCreateTags(List<string> tagNames)
         {
-            var tags = _mapper.Map<List<Tag>>(tagDtos);
-            foreach (var tag in tags)
+            var tagDtos = tagNames.Select(x => new TagDto { Name = x.Trim() }).ToList();
+            var existingTags = GetTags();
+            var tagsToCreate = tagDtos.Where(t => !existingTags.Any(et => et.Name == t.Name)).ToList();
+            if (tagsToCreate.Count > 0)
             {
-                _unitOfWork.TagRepository.Insert(tag);
+                var tags = _mapper.Map<List<Tag>>(tagsToCreate);
+                foreach (var tag in tags)
+                {
+                    _unitOfWork.TagRepository.Insert(tag);
+                }
+                await _unitOfWork.SaveAsync();
             }
-            await _unitOfWork.SaveAsync();
+            else
+            {
+                throw new HttpException("All of the tags already exist in the database", HttpStatusCode.BadRequest);
+            }
         }
 
         public async Task DeleteTag(int tagId)
         {
-            _unitOfWork.TagRepository.Delete(tagId);
-            await _unitOfWork.SaveAsync();
+            if (IsExist(tagId))
+            {
+                _unitOfWork.TagRepository.Delete(tagId);
+                await _unitOfWork.SaveAsync();
+            }
+            else
+            {
+                throw new HttpException("Tag not found", HttpStatusCode.NotFound);
+            }
         }
 
         public bool IsExist(int id)

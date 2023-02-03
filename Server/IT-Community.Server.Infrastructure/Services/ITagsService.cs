@@ -10,7 +10,7 @@ namespace IT_Community.Server.Infrastructure.Services
     public interface ITagsService
     {
         List<TagDto> GetTags();
-        Task BatchCreateTags(List<TagDto> tagDtos);
+        Task BatchCreateTags(List<string> tagNames);
         Task DeleteTag(int id);
         bool IsExist(int id);
     }
