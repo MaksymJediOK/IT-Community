@@ -33,6 +33,48 @@ namespace IT_Community.Server.Core.DataAccess
             }
         }
 
+        public IGenericRepository<User> userRepository;
+
+        public IGenericRepository<User> UserRepository
+        {
+            get
+            {
+                if(this.userRepository == null)
+                {
+                    this.userRepository = new GenericRepository<User>(_ctx);
+                }
+                return userRepository;
+            }
+        }
+
+        public IGenericRepository<Forum> forumRepository;
+
+        public IGenericRepository<Forum> ForumRepository
+        {
+            get
+            {
+                if(this.forumRepository == null)
+                {
+                    this.forumRepository = new GenericRepository<Forum>(_ctx);
+                }
+                return forumRepository;
+            }
+        }
+
+        public IGenericRepository<Tag> tagRepository;
+
+        public IGenericRepository<Tag> TagRepository
+        {
+            get
+            {
+                if(this.tagRepository == null)
+                {
+                    this.tagRepository = new GenericRepository<Tag>(_ctx);
+                }
+                return tagRepository;
+            }
+        }
+
         private bool disposed = false;
 
         protected virtual void Dispose(bool disposing)
@@ -53,9 +95,9 @@ namespace IT_Community.Server.Core.DataAccess
             GC.SuppressFinalize(this);
         }
 
-        public void Save()
+        public async Task SaveAsync()
         {
-            _ctx.SaveChanges();
+            await _ctx.SaveChangesAsync();
         }
     }
 }

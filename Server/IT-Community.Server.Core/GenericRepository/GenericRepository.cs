@@ -1,8 +1,11 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using IT_Community.Server.Core.Entities;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Infrastructure.Internal;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -66,9 +69,9 @@ namespace IT_Community.Server.Core.GenericRepository
             return _dbSet.Find(id);
         }
 
-        public void Insert(TEntity obj)
+        public async Task Insert(TEntity obj)
         {
-            _dbSet.Add(obj);
+            await _dbSet.AddAsync(obj);
         }
 
         public void Update(TEntity obj)

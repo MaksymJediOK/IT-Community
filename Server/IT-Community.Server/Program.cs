@@ -9,6 +9,12 @@ using IT_Community.Server.Infrastructure.Helpers;
 using Swashbuckle.AspNetCore.Filters;
 using System.Reflection;
 using IT_Community.Server;
+using FluentValidation.AspNetCore;
+using FluentValidation;
+using Microsoft.Extensions.FileProviders;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -28,26 +34,37 @@ builder.Services.AddCors(options =>
 
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 builder.Services.AddScoped<IPostsService, PostsService>();
+builder.Services.AddScoped<ITagsService, TagsService>();
+builder.Services.AddScoped<IAuthService, AuthService>();
 
 builder.Services.AddAutoMapper(typeof(AutoMapperProfile).Assembly);
 
 builder.Services.AddRouting(options => options.LowercaseUrls = true);
 
 builder.Services.AddSwagger();
-/*
+
 builder.Services.AddDefaultIdentity<User>(options =>
 {
     options.SignIn.RequireConfirmedAccount = false;
-    options.Password.RequireDigit = false;
-    options.Password.RequireLowercase = false;
-    options.Password.RequireUppercase = false;
+    options.Password.RequireDigit = true;
+    options.Password.RequireLowercase = true;
+    options.Password.RequireUppercase = true;
     options.Password.RequireNonAlphanumeric = false;
-    options.Password.RequiredLength = 5;
+    options.Password.RequiredLength = 8;
+    options.User.RequireUniqueEmail = true;
 }).AddRoles<IdentityRole>()
-    .AddEntityFrameworkStores<DataContext>();
-*/
+    .AddEntityFrameworkStores<DataContext>()
+    .AddDefaultTokenProviders();
+
+
 
 builder.Services.AddControllers();
+
+builder.Services.AddFluentValidationAutoValidation();
+builder.Services.AddValidatorsFromAssemblies(AppDomain.CurrentDomain.GetAssemblies());
+
+builder.Services.AddHttpContextAccessor();
+
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
@@ -62,6 +79,12 @@ if (app.Environment.IsDevelopment())
 }
 app.UseCors("CORSPolicy");
 app.UseHttpsRedirection();
+
+app.UseStaticFiles();
+
+app.UseMiddleware<ExceptionMiddleware>();
+
+app.UseAuthentication();
 
 app.UseAuthorization();
 

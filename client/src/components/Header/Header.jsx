@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import AppBar from '@mui/material/AppBar'
 import Box from '@mui/material/Box'
 import Toolbar from '@mui/material/Toolbar'
@@ -6,21 +6,6 @@ import Typography from '@mui/material/Typography'
 import { Button, Container, Stack } from '@mui/material'
 
 export const Header = () => {
-	const [auth, setAuth] = useState(true)
-	const [anchorEl, setAnchorEl] = useState(null)
-
-	const handleChange = (event) => {
-		setAuth(event.target.checked)
-	}
-
-	const handleMenu = (event) => {
-		setAnchorEl(event.currentTarget)
-	}
-
-	const handleClose = () => {
-		setAnchorEl(null)
-	}
-
 	return (
 		<>
 			<Box sx={{ flexGrow: 1 }}>
@@ -35,7 +20,7 @@ export const Header = () => {
 								align='left'
 								color='#111'
 								component='div'
-								sx={{ flexGrow: 3.5, fontWeight: 700, ml: '6px' }}
+								sx={{ flexGrow: 3.5, fontWeight: 700, ml:'10px'}}
 							>
 								IT ROOM
 							</Typography>
@@ -52,18 +37,10 @@ export const Header = () => {
 								<div>Vacancies</div>
 							</Stack>
 							<Box sx={{ textTransform: 'UpperCase' }}>
-								<Button
-									variant='outlined'
-									size='small'
-									sx={{ color: '#111', border: '1px solid #111', mr: '30px' }}
-								>
+								<Button variant='outlined' size='small' sx={{ mr: '30px' }}>
 									Log in
 								</Button>
-								<Button
-									variant='outlined'
-									size='small'
-									sx={{ color: '#111', border: '1px solid #111' }}
-								>
+								<Button variant='outlined' size='small'>
 									Register
 								</Button>
 							</Box>
