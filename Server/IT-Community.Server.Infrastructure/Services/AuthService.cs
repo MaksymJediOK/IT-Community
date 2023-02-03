@@ -96,7 +96,7 @@ namespace IT_Community.Server.Infrastructure.Services
                 _configuration["Jwt:Issuer"],
                 _configuration["Jwt:Audience"],
                 claims,
-                expires: DateTime.Now.AddMinutes(15),
+                expires: DateTime.Now.AddMinutes(Int32.Parse(_configuration.GetSection("Jwt:Lifetime").Value)),
                 signingCredentials: credentials);
 
             return new JwtSecurityTokenHandler().WriteToken(token);
