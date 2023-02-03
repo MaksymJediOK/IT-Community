@@ -75,6 +75,20 @@ namespace IT_Community.Server.Core.DataAccess
             }
         }
 
+        public IGenericRepository<Like> likeRepository;
+
+        public IGenericRepository<Like> LikeRepository
+        {
+            get
+            {
+                if(this.likeRepository == null)
+                {
+                    this.likeRepository = new GenericRepository<Like>(_ctx);
+                }
+                return likeRepository;
+            }
+        }
+
         private bool disposed = false;
 
         protected virtual void Dispose(bool disposing)
