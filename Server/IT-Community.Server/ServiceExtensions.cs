@@ -1,4 +1,5 @@
-﻿using Swashbuckle.AspNetCore.Filters;
+﻿using Microsoft.OpenApi.Models;
+using Swashbuckle.AspNetCore.Filters;
 using System.Reflection;
 
 namespace IT_Community.Server
@@ -9,6 +10,14 @@ namespace IT_Community.Server
         {
             services.AddSwaggerGen(options =>
             {
+                options.AddSecurityDefinition("oauth2", new OpenApiSecurityScheme
+                {
+                    Description = "Standart Authorization header using the BEarer scheme (\"bearer {token}\")",
+                    In = ParameterLocation.Header,
+                    Name = "Authorization",
+                    Type = SecuritySchemeType.ApiKey
+                });
+
                 options.OperationFilter<SecurityRequirementsOperationFilter>();
 
                 options.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo
