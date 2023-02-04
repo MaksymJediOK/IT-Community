@@ -90,8 +90,8 @@ namespace IT_Community.Server.Infrastructure.Services
             {
                 new Claim(ClaimTypes.NameIdentifier, user.Id),
                 new Claim(ClaimTypes.Role, role),
-                new Claim(ClaimTypes.Name, user.UserName),
-                new Claim(ClaimTypes.Email, user.Email)
+                new Claim("Name", user.UserName),
+                new Claim("Email", user.Email)
             };
 
             var token = new JwtSecurityToken(
