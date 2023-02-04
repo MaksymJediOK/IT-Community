@@ -8,6 +8,7 @@ import { Default } from './Default'
 import { ArticleNew } from './ArticleNew'
 import { AuthLayout } from '../components/Layout/AuthLayout'
 import { Login } from '../components/Auth/Login/Login'
+import { Register } from '../components/Auth/Register/Register'
 
 export const Index = () => {
 	return (
@@ -21,6 +22,7 @@ export const Index = () => {
 				</Route>
 				<Route path='/auth' element={<AuthLayout />}>
 					<Route path='login' element={<Login />} />
+					<Route path='register' element={<Register />} />
 				</Route>
 			</Routes>
 		</>

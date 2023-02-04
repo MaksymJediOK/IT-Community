@@ -11,6 +11,8 @@ export const Default = () => {
 			<Link to='articles/new'>New/Edit</Link>
 			<br />
 			<Link to='auth/login'>login</Link>
+			<br />
+			<Link to='auth/register'>Register</Link>
 		</div>
 	)
 }

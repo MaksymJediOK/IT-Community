@@ -1,28 +1,47 @@
-import React from 'react'
+import React, { useState } from 'react'
 import styles from './Login.module.scss'
-import { Button, Stack, TextField } from '@mui/material';
+import {
+	Button,
+	Stack,
+	Box,
+	TextField,
+	FormControl,
+	OutlinedInput,
+	InputAdornment,
+	IconButton,
+	Checkbox,
+	FormControlLabel
+} from '@mui/material'
+import VisibilityOff from '@mui/icons-material/VisibilityOff'
+import Visibility from '@mui/icons-material/Visibility'
 import { Link } from 'react-router-dom'
-import styled from '@emotion/styled'
 import GoogleIcon from '@mui/icons-material/Google'
-import { useForm } from 'react-hook-form'
-import Box from '@mui/material/Box'
-
-const RegisterLink = styled(Link)`
-	color: #000;
-	font-size: 16px;
-	line-height: 120%;
-	opacity: 0.7;
-`
+import { Controller, useForm } from 'react-hook-form'
 
 export const Login = () => {
+	//{
+	//   "email": "RTKQtesting@mail.com",
+	//   "password": "RTKQtesting123",
+	//   "rememberMe": true
+	// }
+	const [showPassword, setShowPassword] = useState(false)
+
 	const {
-		register,
 		formState: { errors },
-		reset,
 		handleSubmit,
+		control,
 	} = useForm({
 		mode: 'onBlur',
 	})
+	const handleOnSubmit = (data) => {
+		console.log(data)
+	}
+
+	const handleClickShowPassword = () => setShowPassword((show) => !show)
+
+	const handleMouseDownPassword = (event) => {
+		event.preventDefault()
+	}
 
 	return (
 		<div className={styles.container}>
@@ -30,7 +49,9 @@ export const Login = () => {
 				<div className={styles.title}>Sign in</div>
 				<Stack spacing={1} direction='row' alignItems='baseline'>
 					<div className={styles.noAccount}> Do not have an account?</div>
-					<RegisterLink to='/auth/register'>Register</RegisterLink>
+					<Link className={styles.reg_link} to='/auth/register'>
+						Register
+					</Link>
 				</Stack>
 				<div className={styles.google}>
 					<Stack spacing={1} direction='row' alignItems='center'>
@@ -43,21 +64,66 @@ export const Login = () => {
 					<div className={styles.or_text}>OR</div>
 					<div className={styles.line}></div>
 				</Stack>
-				<form>
-					<Stack >
-
-					<TextField
-						id='outlined-basic'
-						label='Outlined'
-						variant='outlined'
-						sx={{ mb: '20px' }}
-					/>
-
-					<TextField size='small' id='outlined-basic' label='Outlined' variant='outlined' />
-
-						<Button size='medium' sx={{background: '#000', color: 'white'}}>LOG IN</Button>
+				<Box component='form' onSubmit={handleSubmit(handleOnSubmit)}>
+					<Stack>
+						<Controller
+							control={control}
+							name='email'
+							defaultValue=''
+							render={({ field }) => (
+								<TextField {...field} fullWidth variant='outlined' label='Email' />
+							)}
+						/>
+						<Stack direction='row' justifyContent='space-between' sx={{ m: '24px 0 8px' }}>
+							<div className={styles.password_text}>Password</div>
+							<Link to='/' className={styles.forgot_pass}>
+								Forgot password?
+							</Link>
+						</Stack>
+						<Controller
+							control={control}
+							name='password'
+							defaultValue=''
+							render={({ field }) => (
+								<FormControl fullWidth variant='outlined'>
+									<OutlinedInput
+										{...field}
+										id='outlined-adornment-password'
+										type={showPassword ? 'text' : 'password'}
+										endAdornment={
+											<InputAdornment position='end'>
+												<IconButton
+													aria-label='toggle password visibility'
+													onClick={handleClickShowPassword}
+													onMouseDown={handleMouseDownPassword}
+													edge='end'
+												>
+													{showPassword ? <VisibilityOff /> : <Visibility />}
+												</IconButton>
+											</InputAdornment>
+										}
+									/>
+								</FormControl>
+							)}
+						/>
+						<Controller
+							control={control}
+							name='rememberMe'
+							defaultValue={false}
+							render={({ field: { value, onChange, ...field } }) => (
+								<FormControlLabel
+									sx={{ m: '15px 0 18px' }}
+									control={<Checkbox onChange={onChange} checked={value} {...field} />}
+									label='Remember me?'
+								/>
+							)}
+						/>
 					</Stack>
-				</form>
+
+					<Button type='submit' variant='contained' size='large' fullWidth>
+						LOG IN
+					</Button>
+				</Box>
 			</div>
 		</div>
 	)
