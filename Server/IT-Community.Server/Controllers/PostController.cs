@@ -29,16 +29,13 @@ namespace IT_Community.Server.Controllers
         }
 
         /// <summary>
-        /// Get a list of popular posts based on the specified time period
+        /// Get a list of popular posts
         /// </summary>
-        /// <param name="timePeriod">The time period for which to retrieve popular posts. Acceptable values are "month", "year", and "all time".</param>
-        /// <returns>A list of popular posts based on the specified time period.</returns>
-        [HttpGet("popular/{timePeriod=all time}")]
-        public List<PostPreviewDto> GetPopularPosts(string timePeriod = "all time")
+        [HttpGet("popular")]
+        public List<PostPreviewDto> GetPopularPosts()
         {
-            return _postService.GetPopularPosts(timePeriod.Trim());
+            return _postService.GetPostPreview().OrderByDescending(p => p.Views).ToList();
         }
-
 
         [HttpGet("{id}")]
         [Authorize]

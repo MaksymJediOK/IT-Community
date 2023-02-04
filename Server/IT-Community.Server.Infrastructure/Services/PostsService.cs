@@ -37,30 +37,6 @@ namespace IT_Community.Server.Infrastructure.Services
 
             return posts1;
         }
-
-        public List<PostPreviewDto> GetPopularPosts(string timePeriod)
-        {
-            var posts = _unitOfWork.PostRepository.GetAll();
-            var postsPreview = posts.Select(p => _mapper.Map(p, new PostPreviewDto())).ToList();
-
-            switch (timePeriod)
-            {
-                case "month":
-                case "in a month":
-                    postsPreview = postsPreview.Where(p => p.Date.Month == DateTime.Now.Month).ToList();
-                    break;
-                case "year":
-                case "in a year":
-                    postsPreview = postsPreview.Where(p => p.Date.Year == DateTime.Now.Year).ToList();
-                    break;
-                default:
-                    break;
-            }
-
-            var popularPosts = postsPreview.OrderByDescending(p => p.Views).Take(10).ToList();
-            return popularPosts;
-        }
-
         public async Task CreatePost(PostCreateDto postCreateDto, string userId)
         {
             var postToCreate = _mapper.Map<Post>(postCreateDto);
