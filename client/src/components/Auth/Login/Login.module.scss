@@ -28,12 +28,17 @@
 	&_text {
 		font-weight: 500;
 		font-size: 15px;
-		line-height: 100%;
+		line-height: 26px;
 		letter-spacing: 0.46px;
 		text-transform: uppercase;
 	}
 }
-
+.reg_link {
+	color: #000;
+	font-size: 16px;
+	line-height: 120%;
+	opacity: 0.7;
+}
 .or_text {
 	font-size: 14px;
 	line-height: 120%;
@@ -44,4 +49,19 @@
 	border-top: 1px solid #000;
 	width: 143px;
 	opacity: 0.5;
+}
+
+.password_text {
+	font-weight: 400;
+	font-size: 14px;
+	line-height: 120%;
+}
+.forgot_pass {
+	font-weight: 400;
+	font-size: 14px;
+	line-height: 120%;
+
+	opacity: 0.5;
+	color: #000;
+	text-decoration: none;
 }
