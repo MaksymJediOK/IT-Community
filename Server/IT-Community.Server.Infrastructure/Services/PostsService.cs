@@ -7,6 +7,7 @@ using IT_Community.Server.Infrastructure.Dtos.PostDtos;
 using IT_Community.Server.Infrastructure.Utilities;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -30,12 +31,79 @@ namespace IT_Community.Server.Infrastructure.Services
         }
         public List<PostPreviewDto> GetPostPreview()
         {
-            var posts = _unitOfWork.PostRepository
-                .GetAll(/*includeProperties: new[] { nameof(Post.User), nameof(Post.Tags), nameof(Post.Comments), nameof(Post.Likes) }*/);
+            var posts = _unitOfWork.PostRepository.GetAll();
             var posts1 = posts.Select(p=>_mapper.Map(p, new PostPreviewDto())).ToList();
-            //var posts1 = _mapper.Map(posts, new List<PostPreviewDto>());
 
             return posts1;
+        }
+
+        public List<PostPreviewDto> GetSortedFilteredPostPreview(string? orderBy, string? dateFilter, List<int>? tagIds = null)
+        {
+            var posts = _unitOfWork.PostRepository.GetAll();
+
+            if (dateFilter != null)
+            {
+                switch (dateFilter)
+                {
+                    case "Today":
+                        posts = posts.Where(p => p.Date >= DateTime.Now.AddDays(-1));
+                        break;
+                    case "Week":
+                        posts = posts.Where(p => p.Date >= DateTime.Now.AddDays(-7));
+                        break;
+                    case "Months":
+                        posts = posts.Where(p => p.Date >= DateTime.Now.AddMonths(-1));
+                        break;
+                    case "Year":
+                        posts = posts.Where(p => p.Date >= DateTime.Now.AddYears(-1));
+                        break;
+                    default:
+                        break;
+                }
+            }
+
+            if (tagIds != null)
+            {
+                var tags = new List<Tag>();
+                foreach (var id in tagIds)
+                {
+                    var tag = _unitOfWork.TagRepository.GetById(id);
+                    if(tag!= null)
+                    {
+                        tags.Add(tag);
+                    }
+                }
+
+                foreach(var t in tags)
+                {
+                    posts = posts.Where(x => x.Tags.Contains(t));
+                }
+            }
+
+            if (orderBy != null)
+            {
+                switch (orderBy)
+                {
+                    case "Popularity":
+                        posts = posts.OrderByDescending(x => x.Views).ThenByDescending(x => x.Likes.Count);
+                        break;
+                    case "New on top":
+                        posts = posts.OrderByDescending(x => x.Date);
+                        break;
+                    case "Old on top":
+                        posts = posts.OrderBy(x=>x.Date);
+                        break;
+                    default:
+                        posts = posts.OrderByDescending(x => x.Views).ThenByDescending(x => x.Likes.Count);
+                        break;
+                }
+            }
+            else
+            {
+                posts = posts.OrderByDescending(x => x.Views).ThenByDescending(x => x.Likes.Count);
+            }
+
+            return posts.Select(p => _mapper.Map(p, new PostPreviewDto())).ToList();
         }
 
         public async Task CreatePost(PostCreateDto postCreateDto, string userId)
@@ -43,17 +111,20 @@ namespace IT_Community.Server.Infrastructure.Services
             var postToCreate = _mapper.Map<Post>(postCreateDto);
             postToCreate.Date = DateTime.Now;
             postToCreate.UserId = userId;
-            var query = _unitOfWork.TagRepository.GetAll().ToList();
-            List<Tag> list = new List<Tag>();
-            foreach (var item in postCreateDto.TagsId)
+            if (postCreateDto.TagsId!=null)
             {
-                var tag = query.FirstOrDefault(x => x.Id == item);
-                if (tag != null)
+                var query = _unitOfWork.TagRepository.GetAll().ToList();
+                List<Tag> list = new List<Tag>();
+                foreach (var item in postCreateDto.TagsId)
                 {
-                    list.Add(tag);
+                    var tag = query.FirstOrDefault(x => x.Id == item);
+                    if (tag != null)
+                    {
+                        list.Add(tag);
+                    }
                 }
+                postToCreate.Tags = list;
             }
-            postToCreate.Tags = list;
             postToCreate.Thumbnail = await SaveImage(postCreateDto.ImageFile);
             await _unitOfWork.PostRepository.Insert(postToCreate);
             await _unitOfWork.SaveAsync();
@@ -114,7 +185,7 @@ namespace IT_Community.Server.Infrastructure.Services
         {
             string imageName = new string(Path.GetFileNameWithoutExtension(imageFile.FileName).Take(10).ToArray()).Replace(' ', '-');
             imageName = imageName + DateTime.Now.ToString("yymmssfff")+Path.GetExtension(imageFile.FileName);
-            var imagePath = Path.Combine(_webHostEnvironment.ContentRootPath, WebConstants.imagesPath, imageName);
+            var imagePath = Path.Combine(_webHostEnvironment.WebRootPath, WebConstants.imagesPath, imageName);
             using (var fileStream = new FileStream(imagePath, FileMode.Create))
             {
                 await imageFile.CopyToAsync(fileStream);
@@ -124,7 +195,7 @@ namespace IT_Community.Server.Infrastructure.Services
 
         public void DeleteImage(string imageName)
         {
-            var imagePath = Path.Combine(_webHostEnvironment.ContentRootPath, WebConstants.imagesPath, imageName);
+            var imagePath = Path.Combine(_webHostEnvironment.WebRootPath, WebConstants.imagesPath, imageName);
             if(System.IO.File.Exists(imagePath))
                 System.IO.File.Delete(imagePath);
         }
