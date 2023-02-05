@@ -87,10 +87,10 @@ namespace IT_Community.Server.Infrastructure.Services
                     case "Popularity":
                         posts = posts.OrderByDescending(x => x.Views).ThenByDescending(x => x.Likes.Count);
                         break;
-                    case "New on top":
+                    case "NewOnTop":
                         posts = posts.OrderByDescending(x => x.Date);
                         break;
-                    case "Old on top":
+                    case "OldOnTop":
                         posts = posts.OrderBy(x=>x.Date);
                         break;
                     default:

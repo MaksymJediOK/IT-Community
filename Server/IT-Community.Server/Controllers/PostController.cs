@@ -39,7 +39,6 @@ namespace IT_Community.Server.Controllers
         }
 
         [HttpGet("{id}")]
-        [Authorize]
         public async Task<PostFullDto>? GetPost(int id)
         {
             return await _postService.GetPost(id);

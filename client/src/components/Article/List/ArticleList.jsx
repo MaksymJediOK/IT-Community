@@ -1,33 +1,33 @@
-import React from 'react'
+import React, { useState } from 'react'
 import styles from './ArticleList.module.scss'
-import {
-	Button,
-	FormControl,
-	Grid,
-	IconButton,
-	InputAdornment,
-	InputLabel,
-	OutlinedInput,
-	Stack,
-} from '@mui/material'
+import { FormControl, Grid, IconButton, InputAdornment, OutlinedInput, Stack, Box } from '@mui/material'
 import SearchIcon from '@mui/icons-material/Search'
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
 import { ArticlePreview } from '../Preview/ArticlePreview'
 import { useGetArticlesListQuery } from 'services/articleApi'
 import { ArticleListSkeleton } from './ArticleListSkeleton'
+import Select from 'react-select'
+import { sortOptions, filterOptions } from 'utils/options'
 
 export const ArticleList = () => {
-	const { data = [], isLoading } = useGetArticlesListQuery()
+	const [filter, setFilter] = useState('')
+	const [sort, setSort] = useState('')
+	const [tags, setTags] = useState([])
+
+	const { data = [], isLoading } = useGetArticlesListQuery({ filter, sort, tags })
+
+	const handleFilterBy = (data) => setFilter(data.value)
+
+	const handleSortBy = (data) => setSort(data.value)
 
 	return (
 		<>
 			<h2 className={styles.title}>Articles</h2>
 			<div className={styles.container}>
 				<FormControl sx={{ m: 1, width: '25ch' }} variant='outlined'>
-					<InputLabel htmlFor='outlined-adornment-password'>Search</InputLabel>
 					<OutlinedInput
-						id='outlined-adornment-password'
+						id='outlined-adornment'
 						type='text'
+						size='small'
 						sx={{ width: '368px' }}
 						endAdornment={
 							<InputAdornment position='end'>
@@ -36,29 +36,53 @@ export const ArticleList = () => {
 								</IconButton>
 							</InputAdornment>
 						}
-						label='Search'
 					/>
 				</FormControl>
 				<Stack direction='row' spacing={3}>
-					<Button
-						className={styles.btn_border}
-						variant='outlined'
-						size='medium'
-						endIcon={<ExpandMoreIcon />}
-					>
-						SORT BY
-					</Button>
-					<Button
-						className={styles.btn_border}
-						variant='outlined'
-						size='medium'
-						endIcon={<ExpandMoreIcon />}
-					>
-						FILTER BY
-					</Button>
+					<Box sx={{ minWidth: 172 }}>
+						<Select
+							onChange={handleSortBy}
+							options={sortOptions}
+							defaultValue={sortOptions[0]}
+							theme={(theme) => ({
+								...theme,
+								borderRadius: 4,
+								colors: {
+									...theme.colors,
+									primary: 'black',
+								},
+							})}
+							styles={{
+								control: (baseStyles, state) => ({
+									...baseStyles,
+									borderColor: state.isFocused ? 'grey' : 'black',
+								}),
+							}}
+						/>
+					</Box>
+					<Box sx={{ minWidth: 172 }}>
+						<Select
+							onChange={handleFilterBy}
+							options={filterOptions}
+							defaultValue={filterOptions[0]}
+							theme={(theme) => ({
+								...theme,
+								borderRadius: 4,
+								colors: {
+									...theme.colors,
+									primary: 'black',
+								},
+							})}
+							styles={{
+								control: (baseStyles, state) => ({
+									...baseStyles,
+									borderColor: state.isFocused ? 'grey' : 'black',
+								}),
+							}}
+						/>
+					</Box>
 				</Stack>
 			</div>
-			{/*Render dynamically in future*/}
 			<Grid container spacing={2} sx={{ marginLeft: '-10px', marginTop: '10px' }}>
 				<>
 					{isLoading ? (
