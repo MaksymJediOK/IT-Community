@@ -1,36 +1,29 @@
-import React from 'react'
+import React, { useState } from 'react'
 import styles from './ArticleList.module.scss'
-import {
-	Button,
-	FormControl,
-	Grid,
-	IconButton,
-	InputAdornment,
-	InputLabel,
-	OutlinedInput,
-	Stack,
-	Box
-} from '@mui/material'
+import { FormControl, Grid, IconButton, InputAdornment, OutlinedInput, Stack, Box } from '@mui/material'
 import SearchIcon from '@mui/icons-material/Search'
 import { ArticlePreview } from '../Preview/ArticlePreview'
 import { useGetArticlesListQuery } from 'services/articleApi'
 import { ArticleListSkeleton } from './ArticleListSkeleton'
-import Select from 'react-select';
+import Select from 'react-select'
+import { sortOptions, filterOptions } from 'utils/options'
 
 export const ArticleList = () => {
-	const { data = [], isLoading } = useGetArticlesListQuery()
+	const [filter, setFilter] = useState('')
+	const [sort, setSort] = useState('')
+	const [tags, setTags] = useState([])
 
-	const options = [
-		{ value: 'chocolate', label: 'Filter by' },
-		{ value: 'strawberry', label: 'Date' },
-		{ value: 'vanilla', label: 'Tags' }
-	]
+	const { data = [], isLoading } = useGetArticlesListQuery({ filter, sort, tags })
+
+	const handleFilterBy = (data) => setFilter(data.value)
+
+	const handleSortBy = (data) => setSort(data.value)
+
 	return (
 		<>
 			<h2 className={styles.title}>Articles</h2>
 			<div className={styles.container}>
 				<FormControl sx={{ m: 1, width: '25ch' }} variant='outlined'>
-					{/*<InputLabel htmlFor='outlined-adornment' >Search</InputLabel>*/}
 					<OutlinedInput
 						id='outlined-adornment'
 						type='text'
@@ -43,14 +36,14 @@ export const ArticleList = () => {
 								</IconButton>
 							</InputAdornment>
 						}
-						// label='Search'
 					/>
 				</FormControl>
 				<Stack direction='row' spacing={3}>
 					<Box sx={{ minWidth: 172 }}>
 						<Select
-							options={options}
-							defaultValue={options[0]}
+							onChange={handleSortBy}
+							options={sortOptions}
+							defaultValue={sortOptions[0]}
 							theme={(theme) => ({
 								...theme,
 								borderRadius: 4,
@@ -69,8 +62,9 @@ export const ArticleList = () => {
 					</Box>
 					<Box sx={{ minWidth: 172 }}>
 						<Select
-							options={options}
-							defaultValue={options[0]}
+							onChange={handleFilterBy}
+							options={filterOptions}
+							defaultValue={filterOptions[0]}
 							theme={(theme) => ({
 								...theme,
 								borderRadius: 4,
