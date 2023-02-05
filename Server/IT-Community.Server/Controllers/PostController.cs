@@ -1,9 +1,12 @@
 ﻿using IT_Community.Server.Core.Entities;
 using IT_Community.Server.Infrastructure.Dtos.PostDtos;
+using IT_Community.Server.Infrastructure.Exceptions;
 using IT_Community.Server.Infrastructure.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.IdentityModel.Tokens;
+using System.Net;
 using System.Security.Claims;
 
 namespace IT_Community.Server.Controllers
@@ -29,6 +32,12 @@ namespace IT_Community.Server.Controllers
             return _postService.GetPostPreview();
         }
 
+        [HttpGet("parameters")]
+        public List<PostPreviewDto> GetPreviewPostsWithFilter([FromQuery] List<int>? tagIds, string? dateFilter, string? orderBy)
+        {
+            return _postService.GetSortedFilteredPostPreview(orderBy, dateFilter, tagIds);
+        }
+
         [HttpGet("{id}")]
         [Authorize]
         public async Task<PostFullDto>? GetPost(int id)
@@ -40,12 +49,17 @@ namespace IT_Community.Server.Controllers
         [Authorize(Roles = "Common")]
         public async Task<IActionResult> CreatePost([FromForm] PostCreateDto postCteateDto)
         {
-            //string userId = HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
-            //if (userId == null)
-            //{
-            //    return BadRequest("Немає залогіненого юзера");
-            //}
-            string userId = "1";
+            string userId = "";
+            var identity = HttpContext.User.Identity as ClaimsIdentity;
+            if(identity!=null)
+            {
+                var userClaims = identity.Claims;
+                userId = userClaims.FirstOrDefault(x=>x.Type==ClaimTypes.NameIdentifier)?.Value;
+            }
+            if(userId.IsNullOrEmpty())
+            {
+                throw new HttpException("User id null", HttpStatusCode.BadRequest);
+            }
             await _postService.CreatePost(postCteateDto, userId);
             return Ok();
         }

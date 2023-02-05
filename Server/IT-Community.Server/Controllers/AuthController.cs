@@ -46,7 +46,7 @@ namespace IT_Community.Server.Controllers
             return Ok();
         }
         
-        [HttpPost]
+        [HttpPost("logout")]
         public async Task<IActionResult> Logout()
         {
             await _authService.Logout();
