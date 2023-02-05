@@ -56,7 +56,7 @@ builder.Services.AddDefaultIdentity<User>(options =>
     .AddEntityFrameworkStores<DataContext>()
     .AddDefaultTokenProviders();
 
-
+builder.Services.AddJwtAuthentication(builder.Configuration);
 
 builder.Services.AddControllers();
 

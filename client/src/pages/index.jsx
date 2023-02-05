@@ -6,6 +6,10 @@ import { Articles } from './Articles'
 import { Article } from './Article'
 import { Default } from './Default'
 import { ArticleNew } from './ArticleNew'
+import { AuthLayout } from '../components/Layout/AuthLayout'
+import { Login } from '../components/Auth/Login/Login'
+import { Register } from '../components/Auth/Register/Register'
+import { RequireAuth } from '../components/Layout/RequireAuth';
 
 export const Index = () => {
 	return (
@@ -16,6 +20,11 @@ export const Index = () => {
 					<Route index element={<Articles />} />
 					<Route path=':id' element={<Article />} />
 					<Route path='new' element={<ArticleNew />} />
+				</Route>
+				<Route path='/auth' element={<AuthLayout />}>
+					<Route index element={<RequireAuth />} />
+					<Route path='login' element={<Login />} />
+					<Route path='register' element={<Register />} />
 				</Route>
 			</Routes>
 		</>
