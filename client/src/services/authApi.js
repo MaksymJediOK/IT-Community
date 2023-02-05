@@ -2,10 +2,10 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 import { logOut, setCredentials } from '../store/reducers/authSlice'
 
 const baseQuery = fetchBaseQuery({
-	baseUrl: 'https://localhost:7230/api/auth',
-	credentials: 'include',
+	baseUrl: 'https://localhost:7230/api',
+	// credentials: 'include',
 	prepareHeaders: (headers, { getState }) => {
-		const token = getState().auth.token
+		const token = localStorage.getItem('token')
 		if (token) {
 			headers.set('Authorization', `Bearer ${token}`)
 		}
@@ -37,13 +37,25 @@ export const authApi = createApi({
 	endpoints: (builder) => ({
 		login: builder.mutation({
 			query: (credentials) => ({
-				url: '/login',
+				url: '/auth/login',
 				method: 'POST',
 				body: { ...credentials },
+			}),
+		}),
+		register: builder.mutation({
+			query: (credentials) => ({
+				url: '/auth/register',
+				method: 'POST',
+				body: { ...credentials },
+			}),
+		}),
+		testAuth: builder.query({
+			query: () => '/auth',
+			transformResponse: (baseQueryReturnValue, meta, arg) => ({
+				baseQueryReturnValue,
 			}),
 		}),
 	}),
 })
 
-export const {useLoginMutation} = authApi
-
+export const { useLoginMutation, useRegisterMutation, useTestAuthQuery } = authApi

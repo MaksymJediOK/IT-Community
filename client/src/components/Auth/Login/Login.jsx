@@ -10,37 +10,58 @@ import {
 	InputAdornment,
 	IconButton,
 	Checkbox,
-	FormControlLabel
+	FormControlLabel,
 } from '@mui/material'
 import VisibilityOff from '@mui/icons-material/VisibilityOff'
 import Visibility from '@mui/icons-material/Visibility'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import GoogleIcon from '@mui/icons-material/Google'
 import { Controller, useForm } from 'react-hook-form'
+import { useDispatch } from 'react-redux'
+import { useLoginMutation } from '../../../services/authApi'
+import { setCredentials } from '../../../store/reducers/authSlice'
 
 export const Login = () => {
-	//{
-	//   "email": "RTKQtesting@mail.com",
-	//   "password": "RTKQtesting123",
-	//   "rememberMe": true
-	// }
 	const [showPassword, setShowPassword] = useState(false)
-
+	const [errorMsg, setErrMsg] = useState('')
+	const navigate = useNavigate()
 	const {
 		formState: { errors },
 		handleSubmit,
 		control,
+		reset,
 	} = useForm({
 		mode: 'onBlur',
 	})
-	const handleOnSubmit = (data) => {
-		console.log(data)
-	}
 
 	const handleClickShowPassword = () => setShowPassword((show) => !show)
 
 	const handleMouseDownPassword = (event) => {
 		event.preventDefault()
+	}
+	const dispatch = useDispatch()
+	const [login, { isLoading }] = useLoginMutation()
+
+	const handleOnSubmit = async (data) => {
+		//Try figuring out why data is in error
+		try {
+			await login(data).unwrap()
+		} catch (err) {
+			if (err.originalStatus === 403) {
+				setErrMsg('forbidden')
+			} else if (err.originalStatus === 400) {
+				setErrMsg('Missing Username or Password')
+			} else if (err.originalStatus === 401) {
+				setErrMsg('Unauthorized')
+			} else {
+				setErrMsg('Login Failed')
+			}
+			if (err.originalStatus === 200) {
+				dispatch(setCredentials({ accessToken: err?.data, user: { ...data } }))
+				reset()
+				navigate('/auth')
+			}
+		}
 	}
 
 	return (

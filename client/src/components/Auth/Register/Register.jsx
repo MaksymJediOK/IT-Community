@@ -12,15 +12,16 @@ import {
 } from '@mui/material'
 import VisibilityOff from '@mui/icons-material/VisibilityOff'
 import Visibility from '@mui/icons-material/Visibility'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import GoogleIcon from '@mui/icons-material/Google'
 import { Controller, useForm } from 'react-hook-form'
+import { useRegisterMutation } from '../../../services/authApi'
 
 //ToDo divide view from logic
 export const Register = () => {
 	const [showPassword, setShowPassword] = useState(false)
 	const [showPasswordConfirm, setShowPasswordConfirm] = useState(false)
-
+	const navigate = useNavigate()
 	const {
 		formState: { errors },
 		handleSubmit,
@@ -28,17 +29,23 @@ export const Register = () => {
 	} = useForm({
 		mode: 'onBlur',
 	})
-	const handleOnSubmit = (data) => {
-		console.log(data)
-	}
-
 	const handleClickShowPassword = () => setShowPassword((show) => !show)
-	const handleClickShowPasswordConfirm = () => setShowPasswordConfirm((show) => !show)
+	const handleClickShowPasswordConfirm = () => setShowPasswordConfirm((prevState) => !prevState)
+
+	const [register, { isError }] = useRegisterMutation()
+
+	const handleOnSubmit = async (data) => {
+		try {
+			await register(data).unwrap()
+			navigate('/auth/login')
+		} catch (e) {
+			console.log(e)
+		}
+	}
 
 	const handleMouseDownPassword = (event) => {
 		event.preventDefault()
 	}
-
 	return (
 		<div className={styles.container}>
 			<div className={styles.auth_container}>
@@ -62,6 +69,22 @@ export const Register = () => {
 				</Stack>
 				<Box component='form' onSubmit={handleSubmit(handleOnSubmit)}>
 					<Stack spacing={3}>
+						<Box componet='div'>
+							<div className={styles.label_text}>Your name</div>
+							<Controller
+								control={control}
+								name='userName'
+								defaultValue=''
+								render={({ field }) => (
+									<TextField
+										{...field}
+										fullWidth
+										variant='outlined'
+										placeholder='John Doe'
+									/>
+								)}
+							/>
+						</Box>
 						<Box componet='div'>
 							<div className={styles.label_text}>Email</div>
 							<Controller
@@ -124,7 +147,7 @@ export const Register = () => {
 											{...field}
 											id='outlined-adornment-password-confirm'
 											placeholder='******'
-											type={showPassword ? 'text' : 'password'}
+											type={showPasswordConfirm ? 'text' : 'password'}
 											endAdornment={
 												<InputAdornment position='end'>
 													<IconButton
