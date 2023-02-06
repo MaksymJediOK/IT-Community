@@ -31,7 +31,7 @@ namespace IT_Community.Server.Infrastructure.Services
                 throw new HttpException("Post not found", HttpStatusCode.NotFound);
             }
 
-            var like = _unitOfWork.LikeRepository.GetAll().FirstOrDefault(l => l.PostId == postId && l.UserId == userId);
+            var like = _unitOfWork.LikeRepository.GetAll(l => l.PostId == postId && l.UserId == userId).FirstOrDefault();
             if (like == null)
             {
                 like = new Like
@@ -50,12 +50,7 @@ namespace IT_Community.Server.Infrastructure.Services
 
         public List<PostPreviewDto> GetLikedPosts(string userId)
         {
-            var likedPostIds = _unitOfWork.LikeRepository.GetAll()
-                .Where(l => l.UserId == userId)
-                .Select(l => l.PostId)
-                .ToList();
-
-            var posts = _unitOfWork.PostRepository.GetAll().Where(p => likedPostIds.Contains(p.Id));
+            var posts = _unitOfWork.PostRepository.GetAll().Where(p => p.Likes.Any(l => l.UserId == userId));
             return posts.Select(p => _mapper.Map(p, new PostPreviewDto())).ToList();
         }
     }
