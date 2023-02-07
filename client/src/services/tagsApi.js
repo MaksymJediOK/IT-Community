@@ -1,6 +1,6 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 
-export const TagsApi = createApi({
+export const tagsApi = createApi({
 	reducerPath: 'tags',
 	baseQuery: fetchBaseQuery({ baseUrl: 'https://localhost:7230/api' }),
 	endpoints: (build) => ({
@@ -10,4 +10,4 @@ export const TagsApi = createApi({
 	}),
 })
 
-export const { useGetAllTagsQuery } = TagsApi
+export const { useGetAllTagsQuery } = tagsApi
