@@ -1,6 +1,7 @@
 ﻿using IT_Community.Server.Infrastructure.Dtos.PostDtos;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -14,7 +15,7 @@ namespace IT_Community.Server.Infrastructure.Services
         Task<PostFullDto> GetPost(int id);
         Task CreatePost(PostCreateDto postCreateDto, string userId);
         Task EditPost(PostCreateDto postCreateDto, string userId, int postId);
-        Task DeletePost(int id);
+        Task DeletePost(int id, string userId);
         bool IsExist(int id);
     }
 }

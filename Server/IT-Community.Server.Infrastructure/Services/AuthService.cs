@@ -15,6 +15,7 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.Extensions.Configuration;
 using System.Security.Claims;
 using System.IdentityModel.Tokens.Jwt;
+using IT_Community.Server.Infrastructure.Dtos.AuthDTOs;
 
 namespace IT_Community.Server.Infrastructure.Services
 {
@@ -57,7 +58,7 @@ namespace IT_Community.Server.Infrastructure.Services
             await _userManager.AddToRoleAsync(userInDb, "Common");
         }
 
-        public async Task<string> Login(UserLoginDto userLoginDto)
+        public async Task<LoginAnswerDto> Login(UserLoginDto userLoginDto)
         {
             var user = await _userManager.FindByEmailAsync(userLoginDto.Email);
 
@@ -68,7 +69,7 @@ namespace IT_Community.Server.Infrastructure.Services
 
             await _signInManager.SignInAsync(user, userLoginDto.RememberMe);
 
-            return await GenerateTokenAsync(user);
+            return new LoginAnswerDto { Key = await GenerateTokenAsync(user) };
 
         }
 

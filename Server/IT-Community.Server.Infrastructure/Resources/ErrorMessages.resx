@@ -117,7 +117,16 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="ArcticleDoesNotExist" xml:space="preserve">
+    <value>Article you`re trying to edit doesn`t exist</value>
+  </data>
   <data name="InvalidCredentials" xml:space="preserve">
     <value>Invalid email or password.</value>
+  </data>
+  <data name="InvalidPermission" xml:space="preserve">
+    <value>You don`t have permission to do this.</value>
+  </data>
+  <data name="InvalidUserId" xml:space="preserve">
+    <value>Invalid user id.</value>
   </data>
 </root>

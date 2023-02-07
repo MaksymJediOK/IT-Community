@@ -61,11 +61,38 @@ namespace IT_Community.Server.Infrastructure.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Article you`re trying to edit doesn`t exist.
+        /// </summary>
+        internal static string ArcticleDoesNotExist {
+            get {
+                return ResourceManager.GetString("ArcticleDoesNotExist", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Invalid email or password..
         /// </summary>
         internal static string InvalidCredentials {
             get {
                 return ResourceManager.GetString("InvalidCredentials", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You don`t have permission to do this..
+        /// </summary>
+        internal static string InvalidPermission {
+            get {
+                return ResourceManager.GetString("InvalidPermission", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Invalid user id..
+        /// </summary>
+        internal static string InvalidUserId {
+            get {
+                return ResourceManager.GetString("InvalidUserId", resourceCulture);
             }
         }
     }
