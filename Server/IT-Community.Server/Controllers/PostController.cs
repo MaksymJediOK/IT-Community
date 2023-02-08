@@ -38,6 +38,12 @@ namespace IT_Community.Server.Controllers
             return _postService.GetSortedFilteredPostPreview(orderBy, dateFilter, tagIds);
         }
 
+        [HttpGet("search")]
+        public List<PostPreviewDto> SearchPosts(string? searchString)
+        {
+            return _postService.SearchPosts(searchString);
+        }
+
         [HttpGet("{id}")]
         public async Task<PostFullDto>? GetPost(int id)
         {

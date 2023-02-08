@@ -112,6 +112,18 @@ namespace IT_Community.Server.Infrastructure.Services
             return posts.Select(p => _mapper.Map(p, new PostPreviewDto())).ToList();
         }
 
+        public List<PostPreviewDto> SearchPosts(string? searchString)
+        {
+            var posts = _unitOfWork.PostRepository.GetAll();
+
+            if (searchString != null)
+            {
+                posts = posts.Where(p => p.Title.ToLower().Contains(searchString.ToLower()));
+            }
+
+            return posts.Select(p => _mapper.Map(p, new PostPreviewDto())).ToList();
+        }
+
         public async Task CreatePost(PostCreateDto postCreateDto, string userId)
         {
             var postToCreate = _mapper.Map<Post>(postCreateDto);

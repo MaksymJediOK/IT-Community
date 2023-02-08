@@ -12,6 +12,7 @@ namespace IT_Community.Server.Infrastructure.Services
     {
         List<PostPreviewDto> GetPostPreview();
         public List<PostPreviewDto> GetSortedFilteredPostPreview(string? orderBy, string? dateFilter, List<int>? tagIds = null);
+        List<PostPreviewDto> SearchPosts(string? searchString);
         Task<PostFullDto> GetPost(int id);
         Task CreatePost(PostCreateDto postCreateDto, string userId);
         Task EditPost(PostCreateDto postCreateDto, string userId, int postId);
