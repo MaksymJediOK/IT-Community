@@ -6,18 +6,17 @@ import { ArticlePreview } from '../Preview/ArticlePreview'
 import { useGetArticlesListQuery } from 'services/articleApi'
 import { ArticleListSkeleton } from './ArticleListSkeleton'
 import Select from 'react-select'
-import { sortOptions, filterOptions } from 'utils/options'
+import { sortOptions } from 'utils/options'
+import { FilterDrawer } from './FilterDrawer'
+import { useSelector, useDispatch } from 'react-redux'
+import { setSort } from 'store/reducers/filterSlice'
 
 export const ArticleList = () => {
-	const [filter, setFilter] = useState('')
-	const [sort, setSort] = useState('')
-	const [tags, setTags] = useState([])
+	const dispatch = useDispatch()
+	const filters = useSelector((state) => state.filter)
+	const { data = [], isLoading } = useGetArticlesListQuery(filters)
 
-	const { data = [], isLoading } = useGetArticlesListQuery({ filter, sort, tags })
-
-	const handleFilterBy = (data) => setFilter(data.value)
-
-	const handleSortBy = (data) => setSort(data.value)
+	const handleSortBy = (data) => dispatch(setSort(data.value))
 
 	return (
 		<>
@@ -61,25 +60,7 @@ export const ArticleList = () => {
 						/>
 					</Box>
 					<Box sx={{ minWidth: 172 }}>
-						<Select
-							onChange={handleFilterBy}
-							options={filterOptions}
-							defaultValue={filterOptions[0]}
-							theme={(theme) => ({
-								...theme,
-								borderRadius: 4,
-								colors: {
-									...theme.colors,
-									primary: 'black',
-								},
-							})}
-							styles={{
-								control: (baseStyles, state) => ({
-									...baseStyles,
-									borderColor: state.isFocused ? 'grey' : 'black',
-								}),
-							}}
-						/>
+						<FilterDrawer />
 					</Box>
 				</Stack>
 			</div>
