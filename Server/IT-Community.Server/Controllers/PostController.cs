@@ -45,45 +45,49 @@ namespace IT_Community.Server.Controllers
         }
 
         [HttpPost]
-        [Authorize(Roles = "Common")]
+        [Authorize]
         public async Task<IActionResult> CreatePost([FromForm] PostCreateDto postCteateDto)
         {
-            string userId = "";
-            var identity = HttpContext.User.Identity as ClaimsIdentity;
-            if(identity!=null)
-            {
-                var userClaims = identity.Claims;
-                userId = userClaims.FirstOrDefault(x=>x.Type==ClaimTypes.NameIdentifier)?.Value;
-            }
-            if(userId.IsNullOrEmpty())
-            {
-                throw new HttpException("User id null", HttpStatusCode.BadRequest);
-            }
+            var userId = GetUserId();
             await _postService.CreatePost(postCteateDto, userId);
             return Ok();
         }
 
         [HttpPut("{id}")]
+        [Authorize]
         public async Task<IActionResult> EditPost(int id, [FromForm] PostCreateDto postCteateDto)
         {
-            string userId = "1";
+            string userId = GetUserId();
             await _postService.EditPost(postCteateDto, userId, id);
             return Ok();
         }
 
         [HttpDelete]
+        [Authorize]
         public async Task<IActionResult> DeletePost(int id)
         {
-            if (_postService.IsExist(id))
-            {
-                await _postService.DeletePost(id);
-            } 
-            else
-            {
-                return NotFound();
-            }
-            
+            string userId = GetUserId();
+
+            await _postService.DeletePost(id, userId);
+
             return Ok();
+        }
+
+        [NonAction]
+        public string GetUserId()
+        {
+            string userId = "";
+            var identity = HttpContext.User.Identity as ClaimsIdentity;
+            if (identity != null)
+            {
+                var userClaims = identity.Claims;
+                userId = userClaims.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier)?.Value;
+            }
+            if (userId.IsNullOrEmpty())
+            {
+                throw new HttpException("User id null", HttpStatusCode.BadRequest);
+            }
+            return userId;
         }
     }
 }

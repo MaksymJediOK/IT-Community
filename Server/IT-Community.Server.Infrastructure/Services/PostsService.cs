@@ -4,6 +4,9 @@ using IT_Community.Server.Core.DataAccess;
 using IT_Community.Server.Core.Entities;
 using IT_Community.Server.Core.GenericRepository;
 using IT_Community.Server.Infrastructure.Dtos.PostDtos;
+using IT_Community.Server.Infrastructure.Dtos.UserDTOs;
+using IT_Community.Server.Infrastructure.Exceptions;
+using IT_Community.Server.Infrastructure.Resources;
 using IT_Community.Server.Infrastructure.Utilities;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -13,6 +16,7 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -23,11 +27,13 @@ namespace IT_Community.Server.Infrastructure.Services
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
         private readonly IWebHostEnvironment _webHostEnvironment;
-        public PostsService(IUnitOfWork _unitOfWork, IMapper mapper, IWebHostEnvironment _webHostEnvironment)
+        private readonly UserManager<User> _userManager;
+        public PostsService(IUnitOfWork _unitOfWork, IMapper mapper, IWebHostEnvironment _webHostEnvironment, UserManager<User> userManager)
         {
             this._unitOfWork = _unitOfWork;
             _mapper = mapper;
             this._webHostEnvironment = _webHostEnvironment;
+            _userManager = userManager;
         }
         public List<PostPreviewDto> GetPostPreview()
         {
@@ -132,24 +138,45 @@ namespace IT_Community.Server.Infrastructure.Services
 
         public async Task EditPost(PostCreateDto postEditDto, string userId, int postId)
         {
-            /*var postToEdit = _mapper.Map<Post>(postEditDto);*/
-            var postToEdit = _unitOfWork.PostRepository.GetById(postId);
-            List<Tag> list = new List<Tag>();
-            foreach (var item in postEditDto.TagsId)
+            if (!IsExist(postId))
             {
-                var tag = _unitOfWork.TagRepository.GetById(item);
-                if (tag != null)
-                {
-                    list.Add(tag);
-                }
+                throw new HttpException(ErrorMessages.ArcticleDoesNotExist, HttpStatusCode.BadRequest);
             }
-            postToEdit.Tags = list;
+
+            var user = await _userManager.FindByIdAsync(userId);
+
+            if (user == null)
+            {
+                throw new HttpException(ErrorMessages.InvalidUserId, HttpStatusCode.BadRequest);
+            }
+
+            var postToEdit = _unitOfWork.PostRepository.GetById(postId);
+
+            if (postToEdit.UserId != userId && !await _userManager.IsInRoleAsync(user, "Admin"))
+            {
+                throw new HttpException(ErrorMessages.InvalidPermission, HttpStatusCode.BadRequest);
+            }
+
+            if (postEditDto.TagsId != null)
+            {
+                List<Tag> list = new List<Tag>();
+                foreach (var item in postEditDto.TagsId)
+                {
+                    var tag = _unitOfWork.TagRepository.GetById(item);
+                    if (tag != null)
+                    {
+                        list.Add(tag);
+                    }
+                }
+                postToEdit.Tags = list;
+            }
 
             if (postEditDto.ImageFile != null)
             {
                 DeleteImage(postToEdit.Thumbnail);
                 postToEdit.Thumbnail = await SaveImage(postEditDto.ImageFile);
             }
+
             if(postToEdit.Title!=postEditDto.Title)
                 postToEdit.Title=postEditDto.Title;
             if(postToEdit.Description!=postEditDto.Description)
@@ -162,9 +189,27 @@ namespace IT_Community.Server.Infrastructure.Services
             await _unitOfWork.SaveAsync();
         }
 
-        public async Task DeletePost(int postId)
+        public async Task DeletePost(int postId, string userId)
         {
+            if (!IsExist(postId))
+            {
+                throw new HttpException(ErrorMessages.ArcticleDoesNotExist, HttpStatusCode.BadRequest);
+            }
+
+            var user = await _userManager.FindByIdAsync(userId);
+
+            if (user == null)
+            {
+                throw new HttpException(ErrorMessages.InvalidUserId, HttpStatusCode.BadRequest);
+            }
+
             var postDelete = _unitOfWork.PostRepository.GetById(postId);
+
+            if (postDelete.UserId != userId && !await _userManager.IsInRoleAsync(user, "Admin"))
+            {
+                throw new HttpException(ErrorMessages.InvalidPermission, HttpStatusCode.BadRequest);
+            }
+
             DeleteImage(postDelete.Thumbnail);
             _unitOfWork.PostRepository.Delete(postId);
             await _unitOfWork.SaveAsync();
