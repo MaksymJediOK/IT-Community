@@ -33,9 +33,9 @@ namespace IT_Community.Server.Controllers
         }
 
         [HttpGet("parameters")]
-        public List<PostPreviewDto> GetPreviewPostsWithFilter([FromQuery] List<int>? tagIds, string? dateFilter, string? orderBy)
+        public List<PostPreviewDto> GetPreviewPostsWithFilter([FromQuery] List<int>? tagIds, string? searchString, string? dateFilter, string? orderBy)
         {
-            return _postService.GetSortedFilteredPostPreview(orderBy, dateFilter, tagIds);
+            return _postService.GetSortedFilteredPostPreview(searchString, orderBy, dateFilter, tagIds);
         }
 
         [HttpGet("{id}")]

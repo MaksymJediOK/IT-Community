@@ -43,9 +43,14 @@ namespace IT_Community.Server.Infrastructure.Services
             return posts1;
         }
 
-        public List<PostPreviewDto> GetSortedFilteredPostPreview(string? orderBy, string? dateFilter, List<int>? tagIds = null)
+        public List<PostPreviewDto> GetSortedFilteredPostPreview(string? searchString, string? orderBy, string? dateFilter, List<int>? tagIds = null)
         {
             var posts = _unitOfWork.PostRepository.GetAll();
+
+            if (searchString != null)
+            {
+                posts = posts.Where(p => p.Title.ToLower().Contains(searchString.ToLower()));
+            }
 
             if (dateFilter != null)
             {
