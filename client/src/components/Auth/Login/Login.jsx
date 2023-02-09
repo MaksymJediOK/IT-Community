@@ -11,6 +11,7 @@ import {
 	IconButton,
 	Checkbox,
 	FormControlLabel,
+	Typography,
 } from '@mui/material'
 import VisibilityOff from '@mui/icons-material/VisibilityOff'
 import Visibility from '@mui/icons-material/Visibility'
@@ -26,7 +27,6 @@ export const Login = () => {
 	const [errorMsg, setErrMsg] = useState('')
 	const navigate = useNavigate()
 	const {
-		formState: { errors },
 		handleSubmit,
 		control,
 		reset,
@@ -43,23 +43,24 @@ export const Login = () => {
 	const [login, { isLoading }] = useLoginMutation()
 
 	const handleOnSubmit = async (data) => {
-		//Try figuring out why data is in error
 		try {
-			await login(data).unwrap()
+			const { key } = await login(data).unwrap()
+			dispatch(setCredentials({ accessToken: key, user: { ...data } }))
+			reset()
+			navigate('/auth')
 		} catch (err) {
-			if (err.originalStatus === 403) {
-				setErrMsg('forbidden')
-			} else if (err.originalStatus === 400) {
-				setErrMsg('Missing Username or Password')
-			} else if (err.originalStatus === 401) {
-				setErrMsg('Unauthorized')
+			const {
+				data: { ErrorMessage },
+				status,
+			} = err
+			if (status === 403) {
+				setErrMsg(ErrorMessage)
+			} else if (status === 400) {
+				setErrMsg(ErrorMessage)
+			} else if (status === 401) {
+				setErrMsg(ErrorMessage)
 			} else {
 				setErrMsg('Login Failed')
-			}
-			if (err.originalStatus === 200) {
-				dispatch(setCredentials({ accessToken: err?.data, user: { ...data } }))
-				reset()
-				navigate('/auth')
 			}
 		}
 	}
@@ -140,7 +141,9 @@ export const Login = () => {
 							)}
 						/>
 					</Stack>
-
+					<Typography sx={{ mb: '10px' }} color='error'>
+						{errorMsg ? errorMsg : ''}
+					</Typography>
 					<Button type='submit' variant='contained' size='large' fullWidth>
 						LOG IN
 					</Button>
