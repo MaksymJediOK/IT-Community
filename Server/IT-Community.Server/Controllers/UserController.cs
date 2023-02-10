@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using IT_Community.Server.Infrastructure.Services;
+using Microsoft.AspNetCore.Authorization;
 
 namespace IT_Community.Server.Controllers
 {
@@ -15,6 +16,7 @@ namespace IT_Community.Server.Controllers
         }
 
         [HttpPost("change-password")]
+        [Authorize]
         public async Task<IActionResult> ChangePassword(string currentPassword, string newPassword)
         {
             var userId = await _userService.GetUserId(User);
