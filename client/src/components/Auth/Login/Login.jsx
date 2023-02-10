@@ -26,11 +26,7 @@ export const Login = () => {
 	const [showPassword, setShowPassword] = useState(false)
 	const [errorMsg, setErrMsg] = useState('')
 	const navigate = useNavigate()
-	const {
-		handleSubmit,
-		control,
-		reset,
-	} = useForm({
+	const { handleSubmit, control, reset } = useForm({
 		mode: 'onBlur',
 	})
 
@@ -40,7 +36,7 @@ export const Login = () => {
 		event.preventDefault()
 	}
 	const dispatch = useDispatch()
-	const [login, { isLoading }] = useLoginMutation()
+	const [login] = useLoginMutation()
 
 	const handleOnSubmit = async (data) => {
 		try {
@@ -53,11 +49,7 @@ export const Login = () => {
 				data: { ErrorMessage },
 				status,
 			} = err
-			if (status === 403) {
-				setErrMsg(ErrorMessage)
-			} else if (status === 400) {
-				setErrMsg(ErrorMessage)
-			} else if (status === 401) {
+			if (status) {
 				setErrMsg(ErrorMessage)
 			} else {
 				setErrMsg('Login Failed')
