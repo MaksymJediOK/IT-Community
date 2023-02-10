@@ -37,6 +37,7 @@ builder.Services.AddScoped<IPostsService, PostsService>();
 builder.Services.AddScoped<ITagsService, TagsService>();
 builder.Services.AddScoped<ILikeService, LikeService>();
 builder.Services.AddScoped<IAuthService, AuthService>();
+builder.Services.AddScoped<IUserService, UserService>();
 
 builder.Services.AddAutoMapper(typeof(AutoMapperProfile).Assembly);
 
