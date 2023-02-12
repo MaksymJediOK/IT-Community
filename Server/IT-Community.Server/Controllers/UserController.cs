@@ -32,5 +32,14 @@ namespace IT_Community.Server.Controllers
             await _userService.ChangeEmail(userId, currentPassword, newEmail);
             return Ok("Email changed successfully");
         }
+
+        [HttpPost("change-profile-photo")]
+        [Authorize]
+        public async Task<IActionResult> ChangeProfilePhoto(IFormFile? photo)
+        {
+            var userId = await _userService.GetUserId(User);
+            await _userService.ChangeProfilePhoto(userId, photo);
+            return Ok("Profile photo changed successfully");
+        }
     }
 }
