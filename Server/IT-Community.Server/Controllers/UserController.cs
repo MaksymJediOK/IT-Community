@@ -19,7 +19,7 @@ namespace IT_Community.Server.Controllers
         [Authorize]
         public async Task<IActionResult> ChangePassword(string currentPassword, string newPassword)
         {
-            var userId = await _userService.GetUserId(User);
+            string userId = await _userService.GetUserId(User);
             await _userService.ChangePassword(userId, currentPassword, newPassword);
             return Ok("Password changed successfully");
         }

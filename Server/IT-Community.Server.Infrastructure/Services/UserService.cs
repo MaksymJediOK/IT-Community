@@ -44,9 +44,14 @@ namespace IT_Community.Server.Infrastructure.Services
         {
             var user = await _userManager.FindByIdAsync(userId);
 
-            if (user == null || !await _userManager.CheckPasswordAsync(user, currentPassword))
+            if (user == null)
             {
-                throw new HttpException(ErrorMessages.InvalidCredentials, HttpStatusCode.BadRequest);
+                throw new HttpException(ErrorMessages.InvalidUserId, HttpStatusCode.BadRequest);
+            }
+
+            if (!await _userManager.CheckPasswordAsync(user, currentPassword))
+            {
+                throw new HttpException("Invalid password.", HttpStatusCode.BadRequest);
             }
 
             if (currentPassword == newPassword)
