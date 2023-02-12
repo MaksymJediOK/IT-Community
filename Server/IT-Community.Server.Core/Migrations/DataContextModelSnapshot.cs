@@ -34,7 +34,7 @@ namespace IT_Community.Server.Core.Migrations
 
                     b.HasIndex("VacanciesId");
 
-                    b.ToTable("CategoryVacancy", (string)null);
+                    b.ToTable("CategoryVacancy");
                 });
 
             modelBuilder.Entity("IT_Community.Server.Core.Entities.Comment", b =>
@@ -64,7 +64,7 @@ namespace IT_Community.Server.Core.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Comments", (string)null);
+                    b.ToTable("Comments");
 
                     b.HasData(
                         new
@@ -98,7 +98,7 @@ namespace IT_Community.Server.Core.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Forums", (string)null);
+                    b.ToTable("Forums");
 
                     b.HasData(
                         new
@@ -174,7 +174,7 @@ namespace IT_Community.Server.Core.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Likes", (string)null);
+                    b.ToTable("Likes");
 
                     b.HasData(
                         new
@@ -230,7 +230,7 @@ namespace IT_Community.Server.Core.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Posts", (string)null);
+                    b.ToTable("Posts");
 
                     b.HasData(
                         new
@@ -296,7 +296,7 @@ namespace IT_Community.Server.Core.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Tags", (string)null);
+                    b.ToTable("Tags");
 
                     b.HasData(
                         new
@@ -418,7 +418,7 @@ namespace IT_Community.Server.Core.Migrations
                         .HasDatabaseName("UserNameIndex")
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
-                    b.ToTable("AspNetUsers", (string)null);
+                    b.ToTable("AspNetUsers");
 
                     b.HasData(
                         new
@@ -500,7 +500,7 @@ namespace IT_Community.Server.Core.Migrations
 
                     b.HasIndex("VacancyId");
 
-                    b.ToTable("Answers", (string)null);
+                    b.ToTable("Answers");
                 });
 
             modelBuilder.Entity("IT_Community.Server.Core.Entities.Vacancies.Category", b =>
@@ -516,7 +516,7 @@ namespace IT_Community.Server.Core.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Categories", (string)null);
+                    b.ToTable("Categories");
                 });
 
             modelBuilder.Entity("IT_Community.Server.Core.Entities.Vacancies.Company", b =>
@@ -547,7 +547,7 @@ namespace IT_Community.Server.Core.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Companies", (string)null);
+                    b.ToTable("Companies");
                 });
 
             modelBuilder.Entity("IT_Community.Server.Core.Entities.Vacancies.Vacancy", b =>
@@ -583,7 +583,7 @@ namespace IT_Community.Server.Core.Migrations
 
                     b.HasIndex("CompanyId");
 
-                    b.ToTable("Vacancies", (string)null);
+                    b.ToTable("Vacancies");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -610,7 +610,7 @@ namespace IT_Community.Server.Core.Migrations
                         .HasDatabaseName("RoleNameIndex")
                         .HasFilter("[NormalizedName] IS NOT NULL");
 
-                    b.ToTable("AspNetRoles", (string)null);
+                    b.ToTable("AspNetRoles");
 
                     b.HasData(
                         new
@@ -658,7 +658,7 @@ namespace IT_Community.Server.Core.Migrations
 
                     b.HasIndex("RoleId");
 
-                    b.ToTable("AspNetRoleClaims", (string)null);
+                    b.ToTable("AspNetRoleClaims");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
@@ -683,7 +683,7 @@ namespace IT_Community.Server.Core.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("AspNetUserClaims", (string)null);
+                    b.ToTable("AspNetUserClaims");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
@@ -705,7 +705,7 @@ namespace IT_Community.Server.Core.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("AspNetUserLogins", (string)null);
+                    b.ToTable("AspNetUserLogins");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<string>", b =>
@@ -720,7 +720,7 @@ namespace IT_Community.Server.Core.Migrations
 
                     b.HasIndex("RoleId");
 
-                    b.ToTable("AspNetUserRoles", (string)null);
+                    b.ToTable("AspNetUserRoles");
 
                     b.HasData(
                         new
@@ -756,7 +756,7 @@ namespace IT_Community.Server.Core.Migrations
 
                     b.HasKey("UserId", "LoginProvider", "Name");
 
-                    b.ToTable("AspNetUserTokens", (string)null);
+                    b.ToTable("AspNetUserTokens");
                 });
 
             modelBuilder.Entity("PostTag", b =>
@@ -771,7 +771,7 @@ namespace IT_Community.Server.Core.Migrations
 
                     b.HasIndex("TagsId");
 
-                    b.ToTable("PostTag", (string)null);
+                    b.ToTable("PostTag");
                 });
 
             modelBuilder.Entity("CategoryVacancy", b =>
