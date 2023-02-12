@@ -67,5 +67,29 @@ namespace IT_Community.Server.Infrastructure.Services
                 throw new HttpException(errors, HttpStatusCode.BadRequest);
             }
         }
+
+        public async Task ChangeEmail(string userId, string currentPassword, string newEmail)
+        {
+            var user = await _userManager.FindByIdAsync(userId);
+
+            if (user == null)
+            {
+                throw new HttpException(ErrorMessages.InvalidUserId, HttpStatusCode.BadRequest);
+            }
+
+            if (!await _userManager.CheckPasswordAsync(user, currentPassword))
+            {
+                throw new HttpException("Invalid password", HttpStatusCode.BadRequest);
+            }
+
+            var token = await _userManager.GenerateChangeEmailTokenAsync(user, newEmail);
+            var result = await _userManager.ChangeEmailAsync(user, newEmail, token);
+
+            if (!result.Succeeded)
+            {
+                string errors = string.Join(", ", result.Errors.Select(e => e.Description));
+                throw new HttpException(errors, HttpStatusCode.BadRequest);
+            }
+        }
     }
 }

@@ -23,5 +23,14 @@ namespace IT_Community.Server.Controllers
             await _userService.ChangePassword(userId, currentPassword, newPassword);
             return Ok("Password changed successfully");
         }
+
+        [HttpPost("change-email")]
+        [Authorize]
+        public async Task<IActionResult> ChangeEmail(string currentPassword, string newEmail)
+        {
+            string userId = await _userService.GetUserId(User);
+            await _userService.ChangeEmail(userId, currentPassword, newEmail);
+            return Ok("Email changed successfully");
+        }
     }
 }
