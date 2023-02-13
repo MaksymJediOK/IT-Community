@@ -27,6 +27,7 @@ namespace IT_Community.Server.Core
             builder.Entity<Post>().Navigation(e => e.Forum).AutoInclude();
             builder.Entity<Comment>().Navigation(e => e.User).AutoInclude();
 
+
             new PostEntityTypeConfiguration().Configure(builder.Entity<Post>());
 
             new VacancyEntityTypeConfiguration().Configure(builder.Entity<Vacancy>());

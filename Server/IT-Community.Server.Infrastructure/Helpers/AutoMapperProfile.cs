@@ -30,7 +30,8 @@ namespace IT_Community.Server.Infrastructure.Helpers
             CreateMap<User, UserPostDto>();
 
             CreateMap<Comment, CommentPostDto>()
-                .ForMember(dest => dest.UserName, opt => opt.MapFrom(c => c.User.UserName));
+                .ForMember(dest => dest.UserName, opt => opt.MapFrom(c => c.User.UserName))
+                .ForMember(dest => dest.ReplyList, opt => opt.MapFrom(c => c.Comments));
             CreateMap<CommentCreateDto, Comment>();
 
             CreateMap<Post, PostPreviewDto>()

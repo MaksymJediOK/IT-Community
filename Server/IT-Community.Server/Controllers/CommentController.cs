@@ -2,6 +2,7 @@
 using IT_Community.Server.Infrastructure.Dtos.CommentDTOs;
 using IT_Community.Server.Infrastructure.Exceptions;
 using IT_Community.Server.Infrastructure.Interfaces;
+using IT_Community.Server.Infrastructure.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -16,10 +17,12 @@ namespace IT_Community.Server.Controllers
     public class CommentController : ControllerBase
     {
         private readonly ICommentService _commentService;
+        private readonly IUserService _userService;
 
-        public CommentController(ICommentService commentService)
+        public CommentController(ICommentService commentService, IUserService userService)
         {
             _commentService = commentService;
+            _userService = userService;
         }
 
         /// <summary>
@@ -38,7 +41,7 @@ namespace IT_Community.Server.Controllers
         [Authorize]
         public async Task<IActionResult> CreateComment(CommentCreateDto comment)
         {
-            var userId = GetUserId();
+            var userId = await _userService.GetUserId(User);
             await _commentService.CreateComment(comment, userId);
             return Ok();
         }
@@ -50,7 +53,7 @@ namespace IT_Community.Server.Controllers
         [Authorize]
         public async Task<IActionResult> UpdatePost(CommentUpdateDto comment)
         {
-            var userId = GetUserId();
+            var userId = await _userService.GetUserId(User);
             await _commentService.UpdateComment(comment, userId);
             return Ok();
         }
@@ -62,26 +65,9 @@ namespace IT_Community.Server.Controllers
         [Authorize]
         public async Task<IActionResult> DeletePost(int id)
         {
-            var userId = GetUserId();
+            var userId = await _userService.GetUserId(User);
             await _commentService.DeleteComment(id, userId);
             return Ok();
-        }
-
-        [NonAction]
-        public string GetUserId()
-        {
-            string userId = "";
-            var identity = HttpContext.User.Identity as ClaimsIdentity;
-            if (identity != null)
-            {
-                var userClaims = identity.Claims;
-                userId = userClaims.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier)?.Value;
-            }
-            if (userId.IsNullOrEmpty())
-            {
-                throw new HttpException("User id null", HttpStatusCode.BadRequest);
-            }
-            return userId;
         }
     }
 }

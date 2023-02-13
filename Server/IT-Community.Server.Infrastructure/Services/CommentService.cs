@@ -31,29 +31,26 @@ namespace IT_Community.Server.Infrastructure.Services
 
         public List<CommentPostDto> GetCommentsWithReplies(int postId)
         {
-            List<CommentPostDto> mainResult = new();
-            List<CommentPostDto> subtList = new();
-
-            var commentList = _mapper.Map<List<CommentPostDto>>(_unitOfWork.CommentRepository.GetAll(x => x.PostId == postId && x.ParentId == null).ToList());
-            var allList = _mapper.Map<List<CommentPostDto>>(_unitOfWork.CommentRepository.GetAll(x => x.PostId == postId).ToList());
-
-            foreach (var item in commentList)
+            var commentList = _mapper.Map<List<CommentPostDto>>
+                (_unitOfWork.CommentRepository.GetAll(x => x.PostId == postId && x.ParentId == null, includeProperties: new[] {"Comments"}));
+            foreach(var comment in commentList)
             {
-                subtList = commentList.Where(x => x.Id == item.Id).Select(x => new CommentPostDto()
-                {
-                    Id = x.Id,
-                    UserId = x.UserId,
-                    UserName = x.UserName,
-                    Date = x.Date,
-                    PostId = x.PostId,
-                    Body = x.Body,
-                    ParentId = x.ParentId,
-                    ReplyList = GetAllReplies(ref allList, x.Id)
-                }).ToList();
-                mainResult.AddRange(subtList);
+                LoadComments(comment, postId);
             }
 
-            return mainResult;
+            return commentList;
+        }
+
+        private void LoadComments(CommentPostDto comment, int postId)
+        {
+            foreach(var c in comment.ReplyList)
+            {
+                c.ReplyList = _mapper.Map<List<CommentPostDto>>(_unitOfWork.CommentRepository.GetAll(x => x.PostId == postId && x.ParentId == c.Id, includeProperties: new[] { "Comments" }));
+                foreach(var c2 in c.ReplyList)
+                {
+                    LoadComments(c2, postId);
+                }
+            }
         }
 
         private List<CommentPostDto> GetAllReplies(ref List<CommentPostDto> comments, int parentId)
