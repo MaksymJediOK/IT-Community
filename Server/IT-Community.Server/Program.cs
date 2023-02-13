@@ -15,7 +15,6 @@ using Microsoft.Extensions.FileProviders;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
-using IT_Community.Server.Infrastructure.Interfaces;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -38,7 +37,7 @@ builder.Services.AddScoped<IPostsService, PostsService>();
 builder.Services.AddScoped<ITagsService, TagsService>();
 builder.Services.AddScoped<ILikeService, LikeService>();
 builder.Services.AddScoped<IAuthService, AuthService>();
-builder.Services.AddScoped<ICommentService, CommentService>();
+builder.Services.AddScoped<IUserService, UserService>();
 
 builder.Services.AddAutoMapper(typeof(AutoMapperProfile).Assembly);
 

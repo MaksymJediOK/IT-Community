@@ -1,0 +1,42 @@
+using Microsoft.AspNetCore.Mvc;
+using IT_Community.Server.Infrastructure.Services;
+using Microsoft.AspNetCore.Authorization;
+
+namespace IT_Community.Server.Controllers
+{
+    [Route("api/[controller]")]
+    [ApiController]
+    public class UserController : ControllerBase
+    {
+        private readonly IUserService _userService;
+
+        public UserController(IUserService userService)
+        {
+            _userService = userService;
+        }
+
+        [HttpPost("change-password")]
+        [Authorize]
+        public async Task<IActionResult> ChangePassword(string currentPassword, string newPassword)
+        {
+            await _userService.ChangePassword(User, currentPassword, newPassword);
+            return Ok("Password changed successfully");
+        }
+
+        [HttpPost("change-email")]
+        [Authorize]
+        public async Task<IActionResult> ChangeEmail(string currentPassword, string newEmail)
+        {
+            await _userService.ChangeEmail(User, currentPassword, newEmail);
+            return Ok("Email changed successfully");
+        }
+
+        [HttpPost("change-profile-photo")]
+        [Authorize]
+        public async Task<IActionResult> ChangeProfilePhoto(IFormFile? photo)
+        {
+            await _userService.ChangeProfilePhoto(User, photo);
+            return Ok("Profile photo changed successfully");
+        }
+    }
+}
