@@ -19,8 +19,7 @@ namespace IT_Community.Server.Controllers
         [Authorize]
         public async Task<IActionResult> ChangePassword(string currentPassword, string newPassword)
         {
-            string userId = await _userService.GetUserId(User);
-            await _userService.ChangePassword(userId, currentPassword, newPassword);
+            await _userService.ChangePassword(User, currentPassword, newPassword);
             return Ok("Password changed successfully");
         }
 
@@ -28,8 +27,7 @@ namespace IT_Community.Server.Controllers
         [Authorize]
         public async Task<IActionResult> ChangeEmail(string currentPassword, string newEmail)
         {
-            string userId = await _userService.GetUserId(User);
-            await _userService.ChangeEmail(userId, currentPassword, newEmail);
+            await _userService.ChangeEmail(User, currentPassword, newEmail);
             return Ok("Email changed successfully");
         }
 
@@ -37,8 +35,7 @@ namespace IT_Community.Server.Controllers
         [Authorize]
         public async Task<IActionResult> ChangeProfilePhoto(IFormFile? photo)
         {
-            var userId = await _userService.GetUserId(User);
-            await _userService.ChangeProfilePhoto(userId, photo);
+            await _userService.ChangeProfilePhoto(User, photo);
             return Ok("Profile photo changed successfully");
         }
     }

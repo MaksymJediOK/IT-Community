@@ -6,8 +6,8 @@ namespace IT_Community.Server.Infrastructure.Services
     public interface IUserService
     {
         Task<string> GetUserId(ClaimsPrincipal user);
-        Task ChangePassword(string userId, string currentPassword, string newPassword);
-        Task ChangeEmail(string userId, string currentPassword, string newEmail);
-        Task ChangeProfilePhoto(string userId, IFormFile photo);
+        Task ChangePassword(ClaimsPrincipal claimsPrincipal, string currentPassword, string newPassword);
+        Task ChangeEmail(ClaimsPrincipal claimsPrincipal, string currentPassword, string newEmail);
+        Task ChangeProfilePhoto(ClaimsPrincipal claimsPrincipal, IFormFile photo);
     }
 }

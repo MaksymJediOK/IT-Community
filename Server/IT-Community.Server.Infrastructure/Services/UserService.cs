@@ -45,9 +45,9 @@ namespace IT_Community.Server.Infrastructure.Services
             return userId;
         }
 
-        public async Task ChangePassword(string userId, string currentPassword, string newPassword)
+        public async Task ChangePassword(ClaimsPrincipal claimsPrincipal, string currentPassword, string newPassword)
         {
-            var user = await _userManager.FindByIdAsync(userId);
+            var user = await _userManager.FindByIdAsync(await GetUserId(claimsPrincipal));
 
             if (user == null)
             {
@@ -73,9 +73,9 @@ namespace IT_Community.Server.Infrastructure.Services
             }
         }
 
-        public async Task ChangeEmail(string userId, string currentPassword, string newEmail)
+        public async Task ChangeEmail(ClaimsPrincipal claimsPrincipal, string currentPassword, string newEmail)
         {
-            var user = await _userManager.FindByIdAsync(userId);
+            var user = await _userManager.FindByIdAsync(await GetUserId(claimsPrincipal));
 
             if (user == null)
             {
@@ -97,9 +97,9 @@ namespace IT_Community.Server.Infrastructure.Services
             }
         }
 
-        public async Task ChangeProfilePhoto(string userId, IFormFile photo)
+        public async Task ChangeProfilePhoto(ClaimsPrincipal claimsPrincipal, IFormFile photo)
         {
-            var user = await _userManager.FindByIdAsync(userId);
+            var user = await _userManager.FindByIdAsync(await GetUserId(claimsPrincipal));
 
             if (user == null)
             {
@@ -132,20 +132,29 @@ namespace IT_Community.Server.Infrastructure.Services
 
         public void DeleteImage(string imageName)
         {
-            var imagePath = Path.Combine(_webHostEnvironment.WebRootPath, WebConstants.imagesPath, imageName);
-            if(System.IO.File.Exists(imagePath))
+            var imagePath = Path.Combine(_webHostEnvironment.WebRootPath, WebConstants.imagesPath, "Profile", imageName);
+            if (System.IO.File.Exists(imagePath))
                 System.IO.File.Delete(imagePath);
         }
 
         public async Task<string> SaveImage(IFormFile imageFile)
         {
             string imageName = new string(Path.GetFileNameWithoutExtension(imageFile.FileName).Take(10).ToArray()).Replace(' ', '-');
-            imageName = imageName + DateTime.Now.ToString("yymmssfff")+Path.GetExtension(imageFile.FileName);
-            var imagePath = Path.Combine(_webHostEnvironment.WebRootPath, WebConstants.imagesPath, imageName);
+            imageName = imageName + DateTime.Now.ToString("yymmssfff") + Path.GetExtension(imageFile.FileName);
+            var profileFolder = Path.Combine(_webHostEnvironment.WebRootPath, WebConstants.imagesPath, "Profile");
+            var imagePath = Path.Combine(profileFolder, imageName);
+            bool isExists = Directory.Exists(profileFolder);
+
+            if (!isExists)
+            {
+                Directory.CreateDirectory(profileFolder);
+            }
+
             using (var fileStream = new FileStream(imagePath, FileMode.Create))
             {
                 await imageFile.CopyToAsync(fileStream);
             }
+
             return imageName;
         }
     }
