@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import styles from './ArticleList.module.scss'
 import { FormControl, Grid, IconButton, InputAdornment, OutlinedInput, Stack, Box } from '@mui/material'
 import SearchIcon from '@mui/icons-material/Search'
@@ -30,7 +30,7 @@ export const ArticleList = () => {
 						sx={{ width: '368px' }}
 						endAdornment={
 							<InputAdornment position='end'>
-								<IconButton aria-label='toggle password visibility' edge='end'>
+								<IconButton  edge='end'>
 									<SearchIcon />
 								</IconButton>
 							</InputAdornment>

@@ -15,6 +15,12 @@ export const Default = () => {
 			<Link to='auth/register'>Register</Link>
 			<br />
 			<Link to='auth'>Auth test</Link>
+			<br />
+			<Link to='vacancies'>vacancies</Link>
+			<br />
+			<Link to='vacancies/1'>vacancies Detailed</Link>
+			<br />
+			<Link to='vacancies/approval'>Approval page</Link>
 		</div>
 	)
 }

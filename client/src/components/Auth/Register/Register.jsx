@@ -9,6 +9,7 @@ import {
 	OutlinedInput,
 	InputAdornment,
 	IconButton,
+	Typography,
 } from '@mui/material'
 import VisibilityOff from '@mui/icons-material/VisibilityOff'
 import Visibility from '@mui/icons-material/Visibility'
@@ -19,6 +20,7 @@ import { useRegisterMutation } from '../../../services/authApi'
 
 //ToDo divide view from logic
 export const Register = () => {
+	const [errorMsg, setErrMsg] = useState('')
 	const [showPassword, setShowPassword] = useState(false)
 	const [showPasswordConfirm, setShowPasswordConfirm] = useState(false)
 	const navigate = useNavigate()
@@ -38,8 +40,16 @@ export const Register = () => {
 		try {
 			await register(data).unwrap()
 			navigate('/auth/login')
-		} catch (e) {
-			console.log(e)
+		} catch (err) {
+			const {
+				data: { ErrorMessage },
+				status,
+			} = err
+			if (status) {
+				setErrMsg(ErrorMessage)
+			} else {
+				setErrMsg('Registration Failed')
+			}
 		}
 	}
 
@@ -170,7 +180,9 @@ export const Register = () => {
 							/>
 						</Box>
 					</Stack>
-
+					<Typography sx={{ mt: '5px' }} color='error'>
+						{errorMsg ? errorMsg : ''}
+					</Typography>
 					<Button type='submit' variant='contained' size='large' fullWidth sx={{ mt: '32px' }}>
 						REGISTER
 					</Button>
