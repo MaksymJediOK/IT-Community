@@ -31,6 +31,7 @@ namespace IT_Community.Server.Infrastructure.Helpers
 
             CreateMap<Comment, CommentPostDto>()
                 .ForMember(dest => dest.UserName, opt => opt.MapFrom(c => c.User.UserName));
+            CreateMap<CommentCreateDto, Comment>();
 
             CreateMap<Post, PostPreviewDto>()
                 .ConvertUsing<PostWithImgSourceConverter>();

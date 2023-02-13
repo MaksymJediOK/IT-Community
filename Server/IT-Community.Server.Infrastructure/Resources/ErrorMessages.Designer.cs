@@ -61,11 +61,20 @@ namespace IT_Community.Server.Infrastructure.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Article you`re trying to edit doesn`t exist.
+        ///   Looks up a localized string similar to Article you`re trying to reach doesn`t exist.
         /// </summary>
         internal static string ArcticleDoesNotExist {
             get {
                 return ResourceManager.GetString("ArcticleDoesNotExist", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Comment you`re trying to reach doesn`t exist.
+        /// </summary>
+        internal static string CommentDoesNotExist {
+            get {
+                return ResourceManager.GetString("CommentDoesNotExist", resourceCulture);
             }
         }
         
