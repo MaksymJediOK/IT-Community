@@ -15,6 +15,7 @@ namespace IT_Community.Server.Core.DataAccess
         IGenericRepository<Forum> ForumRepository { get; }
         IGenericRepository<Tag> TagRepository { get; }
         IGenericRepository<Like> LikeRepository { get; }
+        IGenericRepository<Comment> CommentRepository { get; }
         Task SaveAsync();
     }
 }

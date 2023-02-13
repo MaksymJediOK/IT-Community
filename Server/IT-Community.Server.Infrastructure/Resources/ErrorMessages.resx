@@ -118,7 +118,10 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="ArcticleDoesNotExist" xml:space="preserve">
-    <value>Article you`re trying to edit doesn`t exist</value>
+    <value>Article you`re trying to reach doesn`t exist</value>
+  </data>
+  <data name="CommentDoesNotExist" xml:space="preserve">
+    <value>Comment you`re trying to reach doesn`t exist</value>
   </data>
   <data name="InvalidCredentials" xml:space="preserve">
     <value>Invalid email or password.</value>

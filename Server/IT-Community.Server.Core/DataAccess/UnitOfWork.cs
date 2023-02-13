@@ -89,6 +89,20 @@ namespace IT_Community.Server.Core.DataAccess
             }
         }
 
+        public IGenericRepository<Comment> commentRepository;
+
+        public IGenericRepository<Comment> CommentRepository
+        {
+            get
+            {
+                if(this.commentRepository == null)
+                {
+                    this.commentRepository = new GenericRepository<Comment>(_ctx);
+                }
+                return commentRepository;
+            }
+        }
+
         private bool disposed = false;
 
         protected virtual void Dispose(bool disposing)

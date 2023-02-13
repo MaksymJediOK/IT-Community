@@ -16,10 +16,12 @@ namespace IT_Community.Server.Controllers
     public class PostController : ControllerBase
     {
         private readonly IPostsService _postService;
+        private readonly IUserService _userService;
 
-        public PostController(IPostsService _postService)
+        public PostController(IPostsService _postService, IUserService userService)
         {
             this._postService = _postService;
+            _userService = userService;
         }
 
         /// <summary>
@@ -48,7 +50,7 @@ namespace IT_Community.Server.Controllers
         [Authorize]
         public async Task<IActionResult> CreatePost([FromForm] PostCreateDto postCteateDto)
         {
-            var userId = GetUserId();
+            var userId = await _userService.GetUserId(User);
             await _postService.CreatePost(postCteateDto, userId);
             return Ok();
         }
@@ -57,7 +59,7 @@ namespace IT_Community.Server.Controllers
         [Authorize]
         public async Task<IActionResult> EditPost(int id, [FromForm] PostCreateDto postCteateDto)
         {
-            string userId = GetUserId();
+            var userId = await _userService.GetUserId(User);
             await _postService.EditPost(postCteateDto, userId, id);
             return Ok();
         }
@@ -66,28 +68,11 @@ namespace IT_Community.Server.Controllers
         [Authorize]
         public async Task<IActionResult> DeletePost(int id)
         {
-            string userId = GetUserId();
+            var userId = await _userService.GetUserId(User);
 
             await _postService.DeletePost(id, userId);
 
             return Ok();
-        }
-
-        [NonAction]
-        public string GetUserId()
-        {
-            string userId = "";
-            var identity = HttpContext.User.Identity as ClaimsIdentity;
-            if (identity != null)
-            {
-                var userClaims = identity.Claims;
-                userId = userClaims.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier)?.Value;
-            }
-            if (userId.IsNullOrEmpty())
-            {
-                throw new HttpException("User id null", HttpStatusCode.BadRequest);
-            }
-            return userId;
         }
     }
 }
