@@ -86,7 +86,7 @@ app.UseHttpsRedirection();
 
 app.UseStaticFiles();
 
-//app.UseMiddleware<ExceptionMiddleware>();
+app.UseMiddleware<ExceptionMiddleware>();
 
 app.UseAuthentication();
 

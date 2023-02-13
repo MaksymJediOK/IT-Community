@@ -53,23 +53,6 @@ namespace IT_Community.Server.Infrastructure.Services
             }
         }
 
-        private List<CommentPostDto> GetAllReplies(ref List<CommentPostDto> comments, int parentId)
-        {
-            List<CommentPostDto> innerComments = comments;
-
-            return comments.Where(x => x.ParentId == parentId).Select(m => new CommentPostDto()
-            {
-                Id = m.Id,
-                UserId = m.UserId,
-                UserName = m.UserName,
-                Date = m.Date,
-                PostId = m.PostId,
-                Body = m.Body,
-                ParentId = parentId,
-                ReplyList = innerComments.Where(x => x.ParentId == m.Id).Count() > 0 ? GetAllReplies(ref innerComments, m.Id) : null
-            }).ToList();
-        }
-
         public async Task CreateComment(CommentCreateDto commentCreateDto, string userId)
         {
             var commentToCreate = _mapper.Map<Comment>(commentCreateDto);
