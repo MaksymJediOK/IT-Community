@@ -65,7 +65,7 @@ namespace IT_Community.Server.Core
             {
                 Id = USER_ID,
                 UserName = "user@gmail.com",
-                Email = "user@gmails.com",
+                Email = "user@gmail.com",
                 EmailConfirmed = true,
                 NormalizedEmail = "user@gmail.com".ToUpper(),
                 NormalizedUserName = "user@gmail.com".ToUpper()

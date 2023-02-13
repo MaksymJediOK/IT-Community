@@ -10,6 +10,7 @@ namespace IT_Community.Server.Core.Entities
 {
     public class User : IdentityUser
     {
+        public string? ProfilePhoto { get; set; }
         public Company? Company { get; set; }
         public int? CompanyId { get; set; }
         public virtual ICollection<Post> Posts { get; set; }
