@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import styles from './ArticleList.module.scss'
 import { FormControl, Grid, IconButton, InputAdornment, OutlinedInput, Stack, Box } from '@mui/material'
 import SearchIcon from '@mui/icons-material/Search'
@@ -9,14 +9,16 @@ import Select from 'react-select'
 import { sortOptions } from 'utils/options'
 import { FilterDrawer } from './FilterDrawer'
 import { useSelector, useDispatch } from 'react-redux'
-import { setSort } from 'store/reducers/filterSlice'
+import { setSort, setSearch } from 'store/reducers/filterSlice'
 
 export const ArticleList = () => {
+	const [currentSearch, setCurrentSearch] = useState('')
 	const dispatch = useDispatch()
 	const filters = useSelector((state) => state.filter)
 	const { data = [], isLoading } = useGetArticlesListQuery(filters)
 
 	const handleSortBy = (data) => dispatch(setSort(data.value))
+	const handleSearch = (data) => dispatch(setSearch(data))
 
 	return (
 		<>
@@ -24,13 +26,14 @@ export const ArticleList = () => {
 			<div className={styles.container}>
 				<FormControl sx={{ m: 1, width: '25ch' }} variant='outlined'>
 					<OutlinedInput
+						onChange={(e) => setCurrentSearch(e.target.value)}
 						id='outlined-adornment'
 						type='text'
 						size='small'
 						sx={{ width: '368px' }}
 						endAdornment={
 							<InputAdornment position='end'>
-								<IconButton  edge='end'>
+								<IconButton edge='end' onClick={() => handleSearch(currentSearch)}>
 									<SearchIcon />
 								</IconButton>
 							</InputAdornment>
