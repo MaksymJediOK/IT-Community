@@ -4,6 +4,7 @@ import { VacanciesList } from './VacanciesList/VacanciesList'
 import { PopularVacancy } from './VacanciesList/PopularVacancy/PopularVacancy'
 
 export const Vacancies = () => {
+
 	return (
 		<Container>
 			<Grid container spacing={3} sx={{ mt: '0px!important' }}>
