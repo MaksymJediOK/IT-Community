@@ -139,7 +139,7 @@ namespace IT_Community.Server.Infrastructure.Services
 
         public List<CompanyPreviewDto> GetAllCompanyPreviews()
         {
-            return _unitOfWork.CompanyRepository.GetAll().Select(c => _mapper.Map(c, new CompanyPreviewDto())).ToList();
+            return _mapper.Map<List<CompanyPreviewDto>>(_unitOfWork.CompanyRepository.GetAll());
         }
 
 
@@ -151,7 +151,7 @@ namespace IT_Community.Server.Infrastructure.Services
             }
             else
             {
-                return _mapper.Map(_unitOfWork.CompanyRepository.GetById(id), new CompanyFullDto());
+                return _mapper.Map<CompanyFullDto>(_unitOfWork.CompanyRepository.GetById(id));
             }
         }
 
