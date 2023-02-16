@@ -15,10 +15,9 @@ namespace IT_Community.Server.Controllers
         }
 
         /// <summary>
-        /// Toggle like/unlike on a specific post for a user
+        /// Toggles like/unlike on a specific post for a user
         /// </summary>
-        /// <param name="postId">The id of the post</param>
-        /// <param name="userId">The id of the user</param>
+        /// <param name="postId">The ID of the post</param>
         [HttpPost("{postId}")]
         public async Task<IActionResult> ToggleLike(int postId, string userId)
         {
@@ -27,10 +26,8 @@ namespace IT_Community.Server.Controllers
         }
 
         /// <summary>
-        /// Get the list of posts liked by a specific user
+        /// Gets the list of posts liked by a user
         /// </summary>
-        /// <param name="userId">The id of the user</param>
-        /// <returns>The list of posts liked by the user</returns>
         [HttpGet("user/{userId}")]
         public async Task<IActionResult> GetLikedPosts(string userId)
         {

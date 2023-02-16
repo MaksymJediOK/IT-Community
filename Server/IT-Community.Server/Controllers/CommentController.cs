@@ -26,7 +26,7 @@ namespace IT_Community.Server.Controllers
         }
 
         /// <summary>
-        /// Method returns list of comments for a cpecific post
+        /// Returns the list of comments for a specific post
         /// </summary>
         [HttpGet("{postId}")]
         public List<CommentPostDto> GetComments(int postId)
@@ -35,7 +35,7 @@ namespace IT_Community.Server.Controllers
         }
 
         /// <summary>
-        /// Method creates comment in DB
+        /// Creates a new comment on a post
         /// </summary>
         [HttpPost]
         [Authorize]
@@ -47,7 +47,7 @@ namespace IT_Community.Server.Controllers
         }
 
         /// <summary>
-        /// Method updates comment in DB
+        /// Updates an existing comment on a post
         /// </summary>
         [HttpPut]
         [Authorize]
@@ -59,8 +59,9 @@ namespace IT_Community.Server.Controllers
         }
 
         /// <summary>
-        /// Method deletes comment in DB
+        /// Deletes an existing comment on a post
         /// </summary>
+        /// <param name="id">ID of the comment to delete</param>
         [HttpDelete("{id}")]
         [Authorize]
         public async Task<IActionResult> DeletePost(int id)

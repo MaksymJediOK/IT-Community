@@ -24,6 +24,9 @@ namespace IT_Community.Server.Controllers
             _authService = authService;
         }
 
+        /// <summary>
+        /// Registers a new user
+        /// </summary>
         [HttpPost("register")]
         public async Task<IActionResult> Register(UserRegisterDto userRegisterDto)
         {
@@ -31,6 +34,9 @@ namespace IT_Community.Server.Controllers
             return Ok();
         }
 
+        /// <summary>
+        /// Logins an existing user and returns a JWT bearer token
+        /// </summary>
         [HttpPost("login")]
         public async Task<IActionResult> Login(UserLoginDto userLoginDto)
         {
@@ -38,13 +44,19 @@ namespace IT_Community.Server.Controllers
             return Ok(token);
         }
 
+        /// <summary>
+        /// Checks if the user is authorized with a "Common" role
+        /// </summary>
         [HttpGet]
         [Authorize(Roles = "Common")]
         public IActionResult CheckAuthorize()
         {
             return Ok();
         }
-        
+
+        /// <summary>
+        /// Logs out the currently logged in user
+        /// </summary>
         [HttpPost("logout")]
         public async Task<IActionResult> Logout()
         {
