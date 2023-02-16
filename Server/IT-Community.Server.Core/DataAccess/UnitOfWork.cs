@@ -1,4 +1,5 @@
 ﻿using IT_Community.Server.Core.Entities;
+using IT_Community.Server.Core.Entities.Vacancies;
 using IT_Community.Server.Core.GenericRepository;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -100,6 +101,20 @@ namespace IT_Community.Server.Core.DataAccess
                     this.commentRepository = new GenericRepository<Comment>(_ctx);
                 }
                 return commentRepository;
+            }
+        }
+
+        public IGenericRepository<Company> companyRepository;
+
+        public IGenericRepository<Company> CompanyRepository
+        {
+            get
+            {
+                if(this.companyRepository == null)
+                {
+                    this.companyRepository = new GenericRepository<Company>(_ctx);
+                }
+                return companyRepository;
             }
         }
 

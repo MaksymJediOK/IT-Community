@@ -79,6 +79,15 @@ namespace IT_Community.Server.Infrastructure.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Company you`re trying to reach doesn`t exist.
+        /// </summary>
+        internal static string CompanyDoesNotExist {
+            get {
+                return ResourceManager.GetString("CompanyDoesNotExist", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Invalid email or password..
         /// </summary>
         internal static string InvalidCredentials {
