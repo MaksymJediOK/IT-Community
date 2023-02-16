@@ -123,6 +123,9 @@
   <data name="CommentDoesNotExist" xml:space="preserve">
     <value>Comment you`re trying to reach doesn`t exist</value>
   </data>
+  <data name="CompanyDoesNotExist" xml:space="preserve">
+    <value>Company you`re trying to reach doesn`t exist</value>
+  </data>
   <data name="InvalidCredentials" xml:space="preserve">
     <value>Invalid email or password.</value>
   </data>

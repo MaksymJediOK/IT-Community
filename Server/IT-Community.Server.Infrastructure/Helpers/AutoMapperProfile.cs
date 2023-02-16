@@ -1,6 +1,8 @@
 ﻿using AutoMapper;
 using IT_Community.Server.Core.Entities;
+using IT_Community.Server.Core.Entities.Vacancies;
 using IT_Community.Server.Infrastructure.Dtos.CommentDTOs;
+using IT_Community.Server.Infrastructure.Dtos.CompanyDTOs;
 using IT_Community.Server.Infrastructure.Dtos.PostDtos;
 using IT_Community.Server.Infrastructure.Dtos.TagsDTOs;
 using IT_Community.Server.Infrastructure.Dtos.UserDTOs;
@@ -42,6 +44,13 @@ namespace IT_Community.Server.Infrastructure.Helpers
 
             CreateMap<Tag, TagDto>();
             CreateMap<TagDto, Tag>();
+
+            CreateMap<CompanyCreateDto, Company>();
+            CreateMap<CompanyEditDto, Company>();
+            CreateMap<Company, CompanyPreviewDto>()
+                .ConvertUsing<CompanyWithImgSourceConverter>();
+            CreateMap<Company, CompanyFullDto>()
+                .ConvertUsing<CompanyWithFullInformationConverter>();
         }
     }
 
@@ -102,6 +111,52 @@ namespace IT_Community.Server.Infrastructure.Helpers
             destination.UserName = source.User.UserName;
             destination.Likes = source.Likes.Count;
             destination.Comments = source.Comments.Count;
+
+            return destination;
+        }
+    }
+
+    public class CompanyWithImgSourceConverter : ITypeConverter<Company, CompanyPreviewDto>
+    {
+        private readonly IWebHostEnvironment _webHostEnvironment;
+        private readonly IMapper mapper;
+
+        public CompanyWithImgSourceConverter(IWebHostEnvironment _webHostEnvironmen, IMapper mapper)
+        {
+            this.mapper = mapper;
+             this._webHostEnvironment = _webHostEnvironmen;
+        }
+
+        public CompanyPreviewDto Convert(Company source, CompanyPreviewDto destination, ResolutionContext context)
+        {
+            destination.Id = source.Id;
+            destination.Name = source.Name;
+            destination.ImageSrc = Path.Combine(_webHostEnvironment.WebRootPath, WebConstants.companiesImagesPath, source.Thumbnail);
+            destination.EmployeesAmount = source.EmployeesAmount;
+
+            return destination;
+        }
+    }
+
+    public class CompanyWithFullInformationConverter : ITypeConverter<Company, CompanyFullDto>
+    {
+        private readonly IWebHostEnvironment _webHostEnvironment;
+        private readonly IMapper mapper;
+
+        public CompanyWithFullInformationConverter(IWebHostEnvironment _webHostEnvironmen, IMapper mapper)
+        {
+            this.mapper = mapper;
+             this._webHostEnvironment = _webHostEnvironmen;
+        }
+
+        public CompanyFullDto Convert(Company source, CompanyFullDto destination, ResolutionContext context)
+        {
+            destination.Id = source.Id;
+            destination.Name = source.Name;
+            destination.Description = source.Description;
+            destination.Site = source.Site;
+            destination.ImageSrc = Path.Combine(_webHostEnvironment.WebRootPath, WebConstants.companiesImagesPath, source.Thumbnail);
+            destination.EmployeesAmount = source.EmployeesAmount;
 
             return destination;
         }

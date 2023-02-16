@@ -40,6 +40,7 @@ builder.Services.AddScoped<ILikeService, LikeService>();
 builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<ICommentService, CommentService>();
+builder.Services.AddScoped<ICompanyService, CompanyService>();
 
 builder.Services.AddAutoMapper(typeof(AutoMapperProfile).Assembly);
 

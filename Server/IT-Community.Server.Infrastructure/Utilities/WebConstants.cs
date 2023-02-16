@@ -9,5 +9,6 @@ namespace IT_Community.Server.Infrastructure.Utilities
     public static class WebConstants
     {
         public const string imagesPath = "Images";
+        public const string companiesImagesPath = "Images/Companies";
     }
 }
