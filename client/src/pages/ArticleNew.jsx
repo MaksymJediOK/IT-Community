@@ -1,10 +1,10 @@
 import React from 'react'
-import { ArticleEdit } from '../components/ArticleActions/ArticleEdit'
+import { ArticleCreate } from '../components/ArticleActions/Create/ArticleCreate';
 
 export const ArticleNew = () => {
 	return (
 		<>
-			<ArticleEdit />
+			<ArticleCreate />
 		</>
 	)
 }
