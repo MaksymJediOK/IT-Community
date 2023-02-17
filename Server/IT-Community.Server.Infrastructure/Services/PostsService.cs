@@ -255,7 +255,6 @@ namespace IT_Community.Server.Infrastructure.Services
 
             if (!string.IsNullOrEmpty(userId))
             {
-                var user = await _userManager.FindByIdAsync(userId);
                 var isBookmarked = _unitOfWork.BookmarkRepository.GetAll(b => b.UserId == userId && b.PostId == post.Id).Any();
                 postToSend.IsBookmarked = isBookmarked;
             }
