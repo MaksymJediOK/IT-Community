@@ -1,26 +1,14 @@
 ﻿using AutoMapper;
-using IT_Community.Server.Core;
 using IT_Community.Server.Core.DataAccess;
 using IT_Community.Server.Core.Entities;
-using IT_Community.Server.Core.GenericRepository;
 using IT_Community.Server.Infrastructure.Dtos.PostDtos;
-using IT_Community.Server.Infrastructure.Dtos.TagsDTOs;
-using IT_Community.Server.Infrastructure.Dtos.UserDTOs;
 using IT_Community.Server.Infrastructure.Exceptions;
 using IT_Community.Server.Infrastructure.Resources;
 using IT_Community.Server.Infrastructure.Utilities;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net;
-using System.Security.Claims;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace IT_Community.Server.Infrastructure.Services
 {
@@ -252,37 +240,27 @@ namespace IT_Community.Server.Infrastructure.Services
                 System.IO.File.Delete(imagePath);
         }
 
-        public async Task<PostFullDto> GetPost(int id, ClaimsPrincipal user)
+        public async Task<PostFullDto> GetPost(int postId, string userId = null)
         {
-            if (IsExist(id))
-            {
-                var post = _unitOfWork.PostRepository.GetById(id);
-                post.Views++;
-                _unitOfWork.PostRepository.Update(post);
-                await _unitOfWork.SaveAsync();
-                var postToSend = _mapper.Map<PostFullDto>(post);
-
-                if (user.Identity.IsAuthenticated)
-                {
-                    var userId = _userManager.GetUserId(user);
-                    var bookmark = _unitOfWork.BookmarkRepository.GetAll().Any(b => b.UserId == userId && b.PostId == postToSend.Id);
-                    postToSend.IsBookmarked = bookmark;
-                }
-
-
-                /*                var userId = _userManager.GetUserId(user);
-                                if (userId != null)
-                                {
-                                    var bookmark = _unitOfWork.BookmarkRepository.GetAll().Any(b => b.UserId == userId && b.PostId == postToSend.Id);
-                                    postToSend.IsBookmarked = bookmark;
-                                }
-                */
-                return postToSend;
-            }
-            else
+            if (!IsExist(postId))
             {
                 return new PostFullDto();
             }
+
+            var post = _unitOfWork.PostRepository.GetById(postId);
+            post.Views++;
+            _unitOfWork.PostRepository.Update(post);
+            await _unitOfWork.SaveAsync();
+            var postToSend = _mapper.Map<PostFullDto>(post);
+
+            if (!string.IsNullOrEmpty(userId))
+            {
+                var user = await _userManager.FindByIdAsync(userId);
+                var isBookmarked = _unitOfWork.BookmarkRepository.GetAll(b => b.UserId == userId && b.PostId == post.Id).Any();
+                postToSend.IsBookmarked = isBookmarked;
+            }
+
+            return postToSend;
         }
     }
 }

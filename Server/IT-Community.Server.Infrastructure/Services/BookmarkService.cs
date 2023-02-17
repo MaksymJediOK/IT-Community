@@ -50,7 +50,7 @@ namespace IT_Community.Server.Infrastructure.Services
         public List<PostPreviewDto> GetBookmarkedPosts(string userId)
         {
             var posts = _unitOfWork.PostRepository.GetAll().Where(p => p.Bookmarks.Any(l => l.UserId == userId));
-            return posts.Select(p => _mapper.Map(p, new PostPreviewDto())).ToList();
+            return _mapper.Map<List<PostPreviewDto>>(posts);
         }
     }
 }

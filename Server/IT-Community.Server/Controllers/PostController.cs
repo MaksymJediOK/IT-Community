@@ -1,14 +1,7 @@
-﻿using IT_Community.Server.Core.Entities;
-using IT_Community.Server.Infrastructure.Dtos.PostDtos;
-using IT_Community.Server.Infrastructure.Exceptions;
+﻿using IT_Community.Server.Infrastructure.Dtos.PostDtos;
 using IT_Community.Server.Infrastructure.Services;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.IdentityModel.Tokens;
-using System.Net;
-using System.Security.Claims;
 
 namespace IT_Community.Server.Controllers
 {
@@ -19,9 +12,9 @@ namespace IT_Community.Server.Controllers
         private readonly IPostsService _postService;
         private readonly IUserService _userService;
 
-        public PostController(IPostsService _postService, IUserService userService)
+        public PostController(IPostsService postService, IUserService userService)
         {
-            this._postService = _postService;
+            _postService = postService;
             _userService = userService;
         }
 
@@ -51,13 +44,23 @@ namespace IT_Community.Server.Controllers
         /// <summary>
         /// Gets full post by ID
         /// </summary>
-        /// <param name="id">Post ID</param>
-        [HttpGet("{id}")]
-        // [Authorize(JwtBearerDefaults.AuthenticationScheme)]
-        //[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
-        public async Task<PostFullDto>? GetPost(int id)
+        /// <param name="postId">Post ID</param>
+        [HttpGet("{postId}")]
+        public async Task<PostFullDto>? GetPost(int postId)
         {
-            return await _postService.GetPost(id, User);
+            return await _postService.GetPost(postId);
+        }
+
+        /// <summary>
+        /// Gets full post by ID for authorized users
+        /// </summary>
+        /// <param name="postId">Post ID</param>
+        [HttpGet("authorized/{postId}")]
+        [Authorize]
+        public async Task<PostFullDto>? GetAuthorizedPost(int postId)
+        {
+            var userId = await _userService.GetUserId(User);
+            return await _postService.GetPost(postId, userId);
         }
 
         /// <summary>
