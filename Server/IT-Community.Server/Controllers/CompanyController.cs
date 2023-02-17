@@ -68,13 +68,27 @@ namespace IT_Community.Server.Controllers
         /// <summary>
         /// Deletes company by id
         /// </summary>
-        /// <param name="companyId">Id of the post to delete</param>
+        /// <param name="companyId">Id of the company to delete</param>
         [HttpDelete("{companyId}")]
         [Authorize]
         public async Task<IActionResult> DeleteCompany(int companyId)
         {
             var userId = await _userService.GetUserId(User);
             await _companyService.DeleteCompany(companyId, userId);
+
+            return Ok();
+        }
+
+        /// <summary>
+        /// Approves company by id
+        /// </summary>
+        /// <param name="companyId">Id of the company to approve</param>
+        [HttpPut("{companyId}")]
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> ApproveCompany(int companyId)
+        {
+            var userId = await _userService.GetUserId(User);
+            await _companyService.ApproveCompany(companyId, userId);
 
             return Ok();
         }

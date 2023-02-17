@@ -191,5 +191,32 @@ namespace IT_Community.Server.Infrastructure.Services
             if (post == null) return false;
             return true;
         }
+
+        public async Task ApproveCompany(int companyId, string userId)
+        {
+            if (!IsExist(companyId))
+            {
+                throw new HttpException(ErrorMessages.CompanyDoesNotExist, HttpStatusCode.BadRequest);
+            }
+
+            var user = await _userManager.FindByIdAsync(userId);
+
+            if (user == null)
+            {
+                throw new HttpException(ErrorMessages.InvalidUserId, HttpStatusCode.BadRequest);
+            }
+
+            var companyToEdit = _unitOfWork.CompanyRepository.GetById(companyId);
+
+            if (!await _userManager.IsInRoleAsync(user, "Admin"))
+            {
+                throw new HttpException(ErrorMessages.InvalidPermission, HttpStatusCode.BadRequest);
+            }
+
+            companyToEdit.IsApproved = true;
+
+            _unitOfWork.CompanyRepository.Update(companyToEdit);
+            await _unitOfWork.SaveAsync();
+        }
     }
 }
