@@ -269,6 +269,14 @@ namespace IT_Community.Server.Infrastructure.Services
                     postToSend.IsBookmarked = bookmark;
                 }
 
+
+                /*                var userId = _userManager.GetUserId(user);
+                                if (userId != null)
+                                {
+                                    var bookmark = _unitOfWork.BookmarkRepository.GetAll().Any(b => b.UserId == userId && b.PostId == postToSend.Id);
+                                    postToSend.IsBookmarked = bookmark;
+                                }
+                */
                 return postToSend;
             }
             else

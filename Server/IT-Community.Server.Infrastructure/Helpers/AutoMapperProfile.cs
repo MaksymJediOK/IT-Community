@@ -49,6 +49,7 @@ namespace IT_Community.Server.Infrastructure.Helpers
                 .ForMember(dest => dest.Comments, opt => opt.MapFrom(x => x.Comments.ToList()))
                 .ForMember(dest => dest.UserName, opt => opt.MapFrom(x => x.User.UserName))
                 .ForMember(dest => dest.Likes, opt => opt.MapFrom(x => x.Likes.Count))
+                .ForMember(dest => dest.IsBookmarked, opt => opt.MapFrom(x => false))
                 .ForMember(dest => dest.ForumName, opt => opt.MapFrom(x => x.Forum.Name));
 
             CreateMap<PostCreateDto, Post>();
