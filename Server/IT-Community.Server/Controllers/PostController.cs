@@ -44,23 +44,11 @@ namespace IT_Community.Server.Controllers
         /// <summary>
         /// Gets full post by ID
         /// </summary>
-        /// <param name="postId">Post ID</param>
-        [HttpGet("{postId}")]
-        public async Task<PostFullDto>? GetPost(int postId)
+        /// <param name="id">Post ID</param>
+        [HttpGet("{id}")]
+        public async Task<PostFullDto>? GetPost(int id)
         {
-            return await _postService.GetPost(postId);
-        }
-
-        /// <summary>
-        /// Gets full post by ID for authorized users
-        /// </summary>
-        /// <param name="postId">Post ID</param>
-        [HttpGet("authorized/{postId}")]
-        [Authorize]
-        public async Task<PostFullDto>? GetAuthorizedPost(int postId)
-        {
-            var userId = await _userService.GetUserId(User);
-            return await _postService.GetPost(postId, userId);
+            return await _postService.GetPost(id);
         }
 
         /// <summary>

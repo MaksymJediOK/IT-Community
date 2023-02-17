@@ -45,13 +45,13 @@ namespace IT_Community.Server.Controllers
         }
 
         /// <summary>
-        /// Checks if the user is authorized with a "Common" role
+        /// Checks if the user is authorized
         /// </summary>
         [HttpGet]
-        [Authorize(Roles = "Common")]
+        [Authorize]
         public IActionResult CheckAuthorize()
         {
-            return Ok();
+            return new JsonResult(new { IsAuthorized = true });
         }
 
         /// <summary>

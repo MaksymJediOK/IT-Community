@@ -6,8 +6,10 @@ using System.Threading.Tasks;
 using AutoMapper;
 using IT_Community.Server.Core.DataAccess;
 using IT_Community.Server.Core.Entities;
+using IT_Community.Server.Infrastructure.Dtos;
 using IT_Community.Server.Infrastructure.Dtos.PostDtos;
 using IT_Community.Server.Infrastructure.Exceptions;
+using Microsoft.AspNetCore.Mvc;
 
 namespace IT_Community.Server.Infrastructure.Services
 {
@@ -51,6 +53,12 @@ namespace IT_Community.Server.Infrastructure.Services
         {
             var posts = _unitOfWork.PostRepository.GetAll().Where(p => p.Bookmarks.Any(l => l.UserId == userId));
             return _mapper.Map<List<PostPreviewDto>>(posts);
+        }
+
+        public async Task<JsonResult> IsBookmarked(int postId, string userId)
+        {
+            var isBookmarked = _unitOfWork.BookmarkRepository.GetAll(b => b.UserId == userId && b.PostId == postId).Any();
+            return new JsonResult(new { IsBookmarked = isBookmarked });
         }
     }
 }

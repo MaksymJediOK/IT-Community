@@ -240,26 +240,21 @@ namespace IT_Community.Server.Infrastructure.Services
                 System.IO.File.Delete(imagePath);
         }
 
-        public async Task<PostFullDto> GetPost(int postId, string userId = null)
+        public async Task<PostFullDto> GetPost(int id)
         {
-            if (!IsExist(postId))
+            if (IsExist(id))
+            {
+                var post = _unitOfWork.PostRepository.GetById(id);
+                post.Views++;
+                _unitOfWork.PostRepository.Update(post);
+                await _unitOfWork.SaveAsync();
+                var postToSend = _mapper.Map<PostFullDto>(post);
+                return postToSend;
+            }
+            else
             {
                 return new PostFullDto();
             }
-
-            var post = _unitOfWork.PostRepository.GetById(postId);
-            post.Views++;
-            _unitOfWork.PostRepository.Update(post);
-            await _unitOfWork.SaveAsync();
-            var postToSend = _mapper.Map<PostFullDto>(post);
-
-            if (!string.IsNullOrEmpty(userId))
-            {
-                var isBookmarked = _unitOfWork.BookmarkRepository.GetAll(b => b.UserId == userId && b.PostId == post.Id).Any();
-                postToSend.IsBookmarked = isBookmarked;
-            }
-
-            return postToSend;
         }
     }
 }

@@ -45,5 +45,16 @@ namespace IT_Community.Server.Controllers
             var bookmarkedPosts = _bookmarkService.GetBookmarkedPosts(userId);
             return Ok(bookmarkedPosts);
         }
+
+        /// <summary>
+        /// Checks if the post is bookmarked
+        /// </summary>
+        [HttpGet("user/{postId}")]
+        [Authorize]
+        public async Task<IActionResult> IsBookmarked(int postId)
+        {
+            var userId = await _userService.GetUserId(User);
+            return await _bookmarkService.IsBookmarked(postId, userId);
+        }
     }
 }
