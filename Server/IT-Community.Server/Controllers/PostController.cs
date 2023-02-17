@@ -52,9 +52,28 @@ namespace IT_Community.Server.Controllers
         /// </summary>
         /// <param name="id">Post ID</param>
         [HttpGet("{id}")]
+        [Authorize]
         public async Task<PostFullDto>? GetPost(int id)
         {
-            return await _postService.GetPost(id);
+            return await _postService.GetPost(id, User);
+        }
+
+        //[Authorize]
+        [AllowAnonymous]
+        [HttpGet("test")]
+        public async Task<IActionResult> AuthenticateUser()
+        {
+            // Authorize attribute is required to have User populated
+
+            // if (User.Identity.IsAuthenticated)
+            if (User.Identity.IsAuthenticated)
+            {
+                return Ok("User is authenticated");
+            }
+            else
+            {
+                return Ok("nooooo");
+            }
         }
 
         /// <summary>

@@ -25,6 +25,7 @@ namespace IT_Community.Server.Infrastructure.Dtos.PostDtos
         public string UserName { get; set; }
         public List<TagDto> Tags { get; set; }
         public int Likes { get; set; }
+        public bool IsBookmarked { get; set; }
         public List<CommentPostDto> Comments { get; set; }
     }
 }

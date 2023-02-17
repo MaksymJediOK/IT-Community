@@ -89,6 +89,20 @@ namespace IT_Community.Server.Core.DataAccess
             }
         }
 
+        public IGenericRepository<Bookmark> bookmarkRepository;
+
+        public IGenericRepository<Bookmark> BookmarkRepository
+        {
+            get
+            {
+                if(this.bookmarkRepository == null)
+                {
+                    this.bookmarkRepository = new GenericRepository<Bookmark>(_ctx);
+                }
+                return bookmarkRepository;
+            }
+        }
+
         public IGenericRepository<Comment> commentRepository;
 
         public IGenericRepository<Comment> CommentRepository

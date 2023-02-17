@@ -72,6 +72,7 @@ namespace IT_Community.Server.Infrastructure.Helpers
             destination.UserId = source.UserId;
             destination.UserName = source.User.UserName;
             destination.Likes = source.Likes.Count;
+            destination.IsBookmarked = false;
             destination.Comments = mapper.Map<List<CommentPostDto>>(source.Comments.ToList());
 
             return destination;
@@ -86,7 +87,7 @@ namespace IT_Community.Server.Infrastructure.Helpers
         public PostWithImgSourceConverter(IWebHostEnvironment _webHostEnvironmen, IMapper mapper)
         {
             this.mapper = mapper;
-             this._webHostEnvironment = _webHostEnvironmen;
+            this._webHostEnvironment = _webHostEnvironmen;
         }
 
         public PostPreviewDto Convert(Post source, PostPreviewDto destination, ResolutionContext context)

@@ -24,6 +24,7 @@ namespace IT_Community.Server.Core
             builder.Entity<Post>().Navigation(e => e.Comments).AutoInclude();
             builder.Entity<Post>().Navigation(e => e.User).AutoInclude();
             builder.Entity<Post>().Navigation(e => e.Likes).AutoInclude();
+            builder.Entity<Post>().Navigation(e => e.Bookmarks).AutoInclude();
             builder.Entity<Post>().Navigation(e => e.Forum).AutoInclude();
             builder.Entity<Comment>().Navigation(e => e.User).AutoInclude();
 
@@ -40,6 +41,7 @@ namespace IT_Community.Server.Core
         public DbSet<Tag> Tags { get; set; }
         public DbSet<Comment> Comments { get; set; }
         public DbSet<Like> Likes { get; set; }
+        public DbSet<Bookmark> Bookmarks { get; set; }
         public DbSet<Vacancy> Vacancies { get; set; }
         public DbSet<Company> Companies { get; set; }
         public DbSet<Category> Categories { get; set; }
