@@ -1,4 +1,5 @@
 ﻿using IT_Community.Server.Core.Entities;
+using IT_Community.Server.Core.Entities.Vacancies;
 using IT_Community.Server.Core.GenericRepository;
 using System;
 using System.Collections.Generic;
@@ -17,6 +18,7 @@ namespace IT_Community.Server.Core.DataAccess
         IGenericRepository<Like> LikeRepository { get; }
         IGenericRepository<Bookmark> BookmarkRepository { get; }
         IGenericRepository<Comment> CommentRepository { get; }
+        IGenericRepository<Company> CompanyRepository { get; }
         Task SaveAsync();
     }
 }

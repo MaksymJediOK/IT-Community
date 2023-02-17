@@ -1,9 +1,10 @@
 import { createSlice } from '@reduxjs/toolkit'
 
 const initialState = {
-	filter: '',
-	sort: '',
+	filter: 'nv',
+	sort: 'nv',
 	tags: [],
+	search: '',
 }
 
 export const filterSlice = createSlice({
@@ -19,8 +20,11 @@ export const filterSlice = createSlice({
 		setSort: (state, action) => {
 			state.sort = action.payload
 		},
+		setSearch: (state, action) => {
+			state.search = action.payload
+		},
 	},
 })
 
-export const { setTags, setFilter, setSort } = filterSlice.actions
+export const { setTags, setFilter, setSort, setSearch } = filterSlice.actions
 export const filterReducer = filterSlice.reducer

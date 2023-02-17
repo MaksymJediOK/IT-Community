@@ -1,6 +1,8 @@
 ﻿using AutoMapper;
 using IT_Community.Server.Core.Entities;
+using IT_Community.Server.Core.Entities.Vacancies;
 using IT_Community.Server.Infrastructure.Dtos.CommentDTOs;
+using IT_Community.Server.Infrastructure.Dtos.CompanyDTOs;
 using IT_Community.Server.Infrastructure.Dtos.PostDtos;
 using IT_Community.Server.Infrastructure.Dtos.TagsDTOs;
 using IT_Community.Server.Infrastructure.Dtos.UserDTOs;
@@ -20,7 +22,7 @@ namespace IT_Community.Server.Infrastructure.Helpers
 {
     public class AutoMapperProfile : Profile
     {
-        public AutoMapperProfile()
+        public AutoMapperProfile(IWebHostEnvironment _webHostEnvironment)
         {
             /*            CreateMap<Post, PostPreviewDto>()
                             .ForMember(dest => dest.UserName, opt => opt.MapFrom(c => c.User.UserName))
@@ -35,76 +37,33 @@ namespace IT_Community.Server.Infrastructure.Helpers
             CreateMap<CommentCreateDto, Comment>();
 
             CreateMap<Post, PostPreviewDto>()
-                .ConvertUsing<PostWithImgSourceConverter>();
+                .ForMember(dest => dest.ImageSrc, opt => opt.MapFrom(x => Path.Combine(_webHostEnvironment.WebRootPath, WebConstants.imagesPath, x.Thumbnail)))
+                .ForMember(dest => dest.Tags, opt => opt.MapFrom(x => x.Tags.ToList()))
+                .ForMember(dest => dest.Comments, opt => opt.MapFrom(x => x.Comments.Count))
+                .ForMember(dest => dest.UserName, opt => opt.MapFrom(x => x.User.UserName))
+                .ForMember(dest => dest.Likes, opt => opt.MapFrom(x => x.Likes.Count));
+
             CreateMap<Post, PostFullDto>()
-                .ConvertUsing<PostWithFullInformationConverter>();
+                .ForMember(dest => dest.ImageSrc, opt => opt.MapFrom(x => Path.Combine(_webHostEnvironment.WebRootPath, WebConstants.imagesPath, x.Thumbnail)))
+                .ForMember(dest => dest.Tags, opt => opt.MapFrom(x => x.Tags.ToList()))
+                .ForMember(dest => dest.Comments, opt => opt.MapFrom(x => x.Comments.ToList()))
+                .ForMember(dest => dest.UserName, opt => opt.MapFrom(x => x.User.UserName))
+                .ForMember(dest => dest.Likes, opt => opt.MapFrom(x => x.Likes.Count))
+                .ForMember(dest => dest.ForumName, opt => opt.MapFrom(x => x.Forum.Name));
+
             CreateMap<PostCreateDto, Post>();
 
             CreateMap<Tag, TagDto>();
             CreateMap<TagDto, Tag>();
-        }
-    }
 
-    public class PostWithFullInformationConverter : ITypeConverter<Post, PostFullDto>
-    {
-        private readonly IWebHostEnvironment _webHostEnvironment;
-        private readonly IMapper mapper;
+            CreateMap<CompanyCreateDto, Company>();
+            CreateMap<CompanyEditDto, Company>();
 
-        public PostWithFullInformationConverter(IWebHostEnvironment _webHostEnvironmen, IMapper mapper)
-        {
-            this.mapper = mapper;
-            this._webHostEnvironment = _webHostEnvironmen;
-        }
+            CreateMap<Company, CompanyFullDto>()
+                .ForMember(dest => dest.ImageSrc, opt => opt.MapFrom(x => Path.Combine(_webHostEnvironment.WebRootPath, WebConstants.companiesImagesPath, x.Thumbnail)));
 
-        public PostFullDto Convert(Post source, PostFullDto destination, ResolutionContext context)
-        {
-            destination.Id = source.Id;
-            destination.Title = source.Title;
-            destination.Description = source.Description;
-            destination.Body = source.Body;
-            destination.Views = source.Views;
-            destination.Date = source.Date;
-            destination.Thumbnail = source.Thumbnail;
-            destination.ImageSrc = Path.Combine(_webHostEnvironment.WebRootPath, WebConstants.imagesPath, source.Thumbnail);
-            destination.ForumId = source.ForumId;
-            destination.ForumName = source.Forum.Name;
-            destination.Tags = mapper.Map<List<TagDto>>(source.Tags.ToList());
-            destination.UserId = source.UserId;
-            destination.UserName = source.User.UserName;
-            destination.Likes = source.Likes.Count;
-            destination.IsBookmarked = false;
-            destination.Comments = mapper.Map<List<CommentPostDto>>(source.Comments.ToList());
-
-            return destination;
-        }
-    }
-
-    public class PostWithImgSourceConverter : ITypeConverter<Post, PostPreviewDto>
-    {
-        private readonly IWebHostEnvironment _webHostEnvironment;
-        private readonly IMapper mapper;
-
-        public PostWithImgSourceConverter(IWebHostEnvironment _webHostEnvironmen, IMapper mapper)
-        {
-            this.mapper = mapper;
-            this._webHostEnvironment = _webHostEnvironmen;
-        }
-
-        public PostPreviewDto Convert(Post source, PostPreviewDto destination, ResolutionContext context)
-        {
-            destination.Id = source.Id;
-            destination.Title = source.Title;
-            destination.Views = source.Views;
-            destination.Date = source.Date;
-            destination.Thumbnail = source.Thumbnail;
-            destination.ImageSrc = Path.Combine(_webHostEnvironment.WebRootPath, WebConstants.imagesPath, source.Thumbnail);
-            destination.Tags = mapper.Map<List<TagDto>>(source.Tags.ToList());
-            destination.UserId = source.UserId;
-            destination.UserName = source.User.UserName;
-            destination.Likes = source.Likes.Count;
-            destination.Comments = source.Comments.Count;
-
-            return destination;
+            CreateMap<Company, CompanyPreviewDto>()
+                    .ForMember(dest => dest.ImageSrc, opt => opt.MapFrom(x => Path.Combine(_webHostEnvironment.WebRootPath, WebConstants.companiesImagesPath, x.Thumbnail)));
         }
     }
 }
