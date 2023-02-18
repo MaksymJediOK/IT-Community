@@ -25,6 +25,7 @@ namespace IT_Community.Server.Core.Entities
         public User? User { get; set; }
         public virtual ICollection<Tag> Tags { get; set; }
         public virtual ICollection<Like> Likes { get; set; }
+        public virtual ICollection<Bookmark> Bookmarks { get; set; }
         public virtual ICollection<Comment> Comments { get; set; }
     }
 }

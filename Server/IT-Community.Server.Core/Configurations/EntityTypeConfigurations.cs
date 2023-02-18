@@ -17,6 +17,7 @@ namespace IT_Community.Server.Core.Configurations
             builder.HasMany(x => x.Tags).WithMany(x => x.Posts);
             builder.HasMany(x => x.Comments).WithOne(x => x.Post).HasForeignKey(x => x.PostId).OnDelete(DeleteBehavior.Restrict);
             builder.HasMany(x => x.Likes).WithOne(x => x.Post).HasForeignKey(x => x.PostId).OnDelete(DeleteBehavior.Restrict);
+            builder.HasMany(x => x.Bookmarks).WithOne(x => x.Post).HasForeignKey(x => x.PostId).OnDelete(DeleteBehavior.Restrict);
         }
     }
     public class VacancyEntityTypeConfiguration : IEntityTypeConfiguration<Vacancy>

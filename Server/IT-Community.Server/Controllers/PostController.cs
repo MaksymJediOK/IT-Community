@@ -1,13 +1,7 @@
-﻿using IT_Community.Server.Core.Entities;
-using IT_Community.Server.Infrastructure.Dtos.PostDtos;
-using IT_Community.Server.Infrastructure.Exceptions;
+﻿using IT_Community.Server.Infrastructure.Dtos.PostDtos;
 using IT_Community.Server.Infrastructure.Services;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.IdentityModel.Tokens;
-using System.Net;
-using System.Security.Claims;
 
 namespace IT_Community.Server.Controllers
 {
@@ -18,9 +12,9 @@ namespace IT_Community.Server.Controllers
         private readonly IPostsService _postService;
         private readonly IUserService _userService;
 
-        public PostController(IPostsService _postService, IUserService userService)
+        public PostController(IPostsService postService, IUserService userService)
         {
-            this._postService = _postService;
+            _postService = postService;
             _userService = userService;
         }
 
