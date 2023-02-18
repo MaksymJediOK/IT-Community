@@ -9,6 +9,7 @@ using System.Linq;
 using System.Net;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
 
 namespace IT_Community.Server.Infrastructure.Services
 {
@@ -51,7 +52,13 @@ namespace IT_Community.Server.Infrastructure.Services
         public List<PostPreviewDto> GetLikedPosts(string userId)
         {
             var posts = _unitOfWork.PostRepository.GetAll().Where(p => p.Likes.Any(l => l.UserId == userId));
-            return posts.Select(p => _mapper.Map(p, new PostPreviewDto())).ToList();
+            return _mapper.Map<List<PostPreviewDto>>(posts);
+        }
+
+        public async Task<JsonResult> IsLiked(int postId, string userId)
+        {
+            var isLiked = _unitOfWork.LikeRepository.GetAll(b => b.UserId == userId && b.PostId == postId).Any();
+            return new JsonResult(new { IsLiked = isLiked });
         }
     }
 }

@@ -41,5 +41,16 @@ namespace IT_Community.Server.Controllers
             var likedPosts = _likeService.GetLikedPosts(userId);
             return Ok(likedPosts);
         }
+
+        /// <summary>
+        /// Checks if the post is liked
+        /// </summary>
+        [HttpGet("user/{postId}")]
+        [Authorize]
+        public async Task<IActionResult> IsLiked(int postId)
+        {
+            var userId = await _userService.GetUserId(User);
+            return await _likeService.IsLiked(postId, userId);
+        }
     }
 }
