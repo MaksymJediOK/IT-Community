@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Ardalis.Specification;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
@@ -17,5 +18,7 @@ namespace IT_Community.Server.Core.GenericRepository
         void Update(TEntity obj);
         void Delete(TEntity obj);
         void Delete(object id);
+        IEnumerable<TEntity> GetListBySpec(ISpecification<TEntity> specification);
+        TEntity? GetFirstBySpec(ISpecification<TEntity> specification);
     }
 }

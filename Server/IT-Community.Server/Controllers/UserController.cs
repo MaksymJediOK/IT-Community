@@ -15,7 +15,10 @@ namespace IT_Community.Server.Controllers
             _userService = userService;
         }
 
-        [HttpPost("change-password")]
+        /// <summary>
+        /// Changes the user's password
+        /// </summary>
+        [HttpPost("password")]
         [Authorize]
         public async Task<IActionResult> ChangePassword(string currentPassword, string newPassword)
         {
@@ -23,7 +26,10 @@ namespace IT_Community.Server.Controllers
             return Ok("Password changed successfully");
         }
 
-        [HttpPost("change-email")]
+        /// <summary>
+        /// Changes the user's email
+        /// </summary>
+        [HttpPost("email")]
         [Authorize]
         public async Task<IActionResult> ChangeEmail(string currentPassword, string newEmail)
         {
@@ -31,7 +37,10 @@ namespace IT_Community.Server.Controllers
             return Ok("Email changed successfully");
         }
 
-        [HttpPost("change-profile-photo")]
+        /// <summary>
+        /// Changes the user's profile photo
+        /// </summary>
+        [HttpPost("photo")]
         [Authorize]
         public async Task<IActionResult> ChangeProfilePhoto(IFormFile? photo)
         {

@@ -1,24 +1,14 @@
 ﻿using AutoMapper;
-using IT_Community.Server.Core;
 using IT_Community.Server.Core.DataAccess;
 using IT_Community.Server.Core.Entities;
-using IT_Community.Server.Core.GenericRepository;
 using IT_Community.Server.Infrastructure.Dtos.PostDtos;
-using IT_Community.Server.Infrastructure.Dtos.UserDTOs;
 using IT_Community.Server.Infrastructure.Exceptions;
 using IT_Community.Server.Infrastructure.Resources;
 using IT_Community.Server.Infrastructure.Utilities;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace IT_Community.Server.Infrastructure.Services
 {
@@ -38,7 +28,7 @@ namespace IT_Community.Server.Infrastructure.Services
         public List<PostPreviewDto> GetPostPreview()
         {
             var posts = _unitOfWork.PostRepository.GetAll();
-            var posts1 = posts.Select(p=>_mapper.Map(p, new PostPreviewDto())).ToList();
+            var posts1 = _mapper.Map<List<PostPreviewDto>>(posts);
 
             return posts1;
         }
@@ -79,13 +69,13 @@ namespace IT_Community.Server.Infrastructure.Services
                 foreach (var id in tagIds)
                 {
                     var tag = _unitOfWork.TagRepository.GetById(id);
-                    if(tag!= null)
+                    if (tag != null)
                     {
                         tags.Add(tag);
                     }
                 }
 
-                foreach(var t in tags)
+                foreach (var t in tags)
                 {
                     posts = posts.Where(x => x.Tags.Contains(t));
                 }
@@ -102,7 +92,7 @@ namespace IT_Community.Server.Infrastructure.Services
                         posts = posts.OrderByDescending(x => x.Date);
                         break;
                     case "OldOnTop":
-                        posts = posts.OrderBy(x=>x.Date);
+                        posts = posts.OrderBy(x => x.Date);
                         break;
                     default:
                         posts = posts.OrderByDescending(x => x.Views).ThenByDescending(x => x.Likes.Count);
@@ -114,7 +104,7 @@ namespace IT_Community.Server.Infrastructure.Services
                 posts = posts.OrderByDescending(x => x.Views).ThenByDescending(x => x.Likes.Count);
             }
 
-            return posts.Select(p => _mapper.Map(p, new PostPreviewDto())).ToList();
+            return _mapper.Map<List<PostPreviewDto>>(posts);
         }
 
         public async Task CreatePost(PostCreateDto postCreateDto, string userId)
@@ -122,7 +112,7 @@ namespace IT_Community.Server.Infrastructure.Services
             var postToCreate = _mapper.Map<Post>(postCreateDto);
             postToCreate.Date = DateTime.Now;
             postToCreate.UserId = userId;
-            if (postCreateDto.TagsId!=null)
+            if (postCreateDto.TagsId != null)
             {
                 var query = _unitOfWork.TagRepository.GetAll().ToList();
                 List<Tag> list = new List<Tag>();
@@ -182,12 +172,12 @@ namespace IT_Community.Server.Infrastructure.Services
                 postToEdit.Thumbnail = await SaveImage(postEditDto.ImageFile);
             }
 
-            if(postToEdit.Title!=postEditDto.Title)
-                postToEdit.Title=postEditDto.Title;
-            if(postToEdit.Description!=postEditDto.Description)
-                postToEdit.Description=postEditDto.Description;
-            if(postToEdit.Body!=postEditDto.Body)
-                postToEdit.Body =postEditDto.Body;
+            if (postToEdit.Title != postEditDto.Title)
+                postToEdit.Title = postEditDto.Title;
+            if (postToEdit.Description != postEditDto.Description)
+                postToEdit.Description = postEditDto.Description;
+            if (postToEdit.Body != postEditDto.Body)
+                postToEdit.Body = postEditDto.Body;
 
 
             _unitOfWork.PostRepository.Update(postToEdit);
@@ -226,7 +216,7 @@ namespace IT_Community.Server.Infrastructure.Services
 
             var post = _unitOfWork.PostRepository.GetById(id);
 
-            if(post==null) return false;
+            if (post == null) return false;
             return true;
         }
 
@@ -234,7 +224,7 @@ namespace IT_Community.Server.Infrastructure.Services
         public async Task<string> SaveImage(IFormFile imageFile)
         {
             string imageName = new string(Path.GetFileNameWithoutExtension(imageFile.FileName).Take(10).ToArray()).Replace(' ', '-');
-            imageName = imageName + DateTime.Now.ToString("yymmssfff")+Path.GetExtension(imageFile.FileName);
+            imageName = imageName + DateTime.Now.ToString("yymmssfff") + Path.GetExtension(imageFile.FileName);
             var imagePath = Path.Combine(_webHostEnvironment.WebRootPath, WebConstants.imagesPath, imageName);
             using (var fileStream = new FileStream(imagePath, FileMode.Create))
             {
@@ -246,7 +236,7 @@ namespace IT_Community.Server.Infrastructure.Services
         public void DeleteImage(string imageName)
         {
             var imagePath = Path.Combine(_webHostEnvironment.WebRootPath, WebConstants.imagesPath, imageName);
-            if(System.IO.File.Exists(imagePath))
+            if (System.IO.File.Exists(imagePath))
                 System.IO.File.Delete(imagePath);
         }
 
@@ -258,7 +248,7 @@ namespace IT_Community.Server.Infrastructure.Services
                 post.Views++;
                 _unitOfWork.PostRepository.Update(post);
                 await _unitOfWork.SaveAsync();
-                var postToSend = _mapper.Map(post, new PostFullDto());
+                var postToSend = _mapper.Map<PostFullDto>(post);
                 return postToSend;
             }
             else

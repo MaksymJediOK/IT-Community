@@ -1,22 +1,25 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
-import { TagsQueryBuilder } from '../utils/TagsQueryBuilder'
+import { ParametersQueryBuilder } from '../utils/ParametersQueryBuilder'
+
+const baseQuery = fetchBaseQuery({
+	baseUrl: 'https://localhost:7230/api',
+	prepareHeaders: (headers) => {
+		const token = localStorage.getItem('token')
+		if (token) {
+			headers.set('Authorization', `Bearer ${token}`)
+		}
+		return headers
+	},
+})
 
 export const articleApi = createApi({
 	reducerPath: '@article',
 	tagTypes: ['Articles'],
-	baseQuery: fetchBaseQuery({ baseUrl: 'https://localhost:7230/api' }),
+	baseQuery: baseQuery,
 	endpoints: (build) => ({
 		getArticlesList: build.query({
-			query: ({ filter, sort, tags }) => {
-				if (filter) return `/post/parameters?dateFilter=${filter}`
-				if (sort) return `/post/parameters?orderBy=${sort}`
-				if (filter && sort) return `/post/parameters?dateFilter=${filter}&orderBy=${sort}`
-				if (tags) return TagsQueryBuilder(tags)
-				if (tags && filter) return `${TagsQueryBuilder(tags)}&dateFilter=${filter}`
-				if (tags && filter && sort)
-					return `${TagsQueryBuilder(tags)}&dateFilter=${filter}&orderBy=${sort}`
-
-				return '/post/parameters'
+			query: ({ filter, sort, tags, search }) => {
+				return ParametersQueryBuilder(filter, sort, tags, search)
 			},
 			providesTags: (result) =>
 				result
@@ -29,7 +32,14 @@ export const articleApi = createApi({
 		getSingleArticle: build.query({
 			query: (articleId = 1) => `/post/${articleId}`,
 		}),
+		createArticle: build.mutation({
+			query: (article) => ({
+				url: '/post',
+				method: 'POST',
+				body: article,
+			}),
+		}),
 	}),
 })
 
-export const { useGetArticlesListQuery, useGetSingleArticleQuery } = articleApi
+export const { useGetArticlesListQuery, useGetSingleArticleQuery, useCreateArticleMutation } = articleApi

@@ -16,6 +16,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using IT_Community.Server.Infrastructure.Interfaces;
+using AutoMapper;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -37,11 +38,16 @@ builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 builder.Services.AddScoped<IPostsService, PostsService>();
 builder.Services.AddScoped<ITagsService, TagsService>();
 builder.Services.AddScoped<ILikeService, LikeService>();
+builder.Services.AddScoped<IBookmarkService, BookmarkService>();
 builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<ICommentService, CommentService>();
+builder.Services.AddScoped<ICompanyService, CompanyService>();
 
-builder.Services.AddAutoMapper(typeof(AutoMapperProfile).Assembly);
+builder.Services.AddSingleton(provider => new MapperConfiguration(cfg =>
+{
+    cfg.AddProfile(new AutoMapperProfile(provider.CreateScope().ServiceProvider.GetService<IWebHostEnvironment>()));
+}).CreateMapper());
 
 builder.Services.AddRouting(options => options.LowercaseUrls = true);
 

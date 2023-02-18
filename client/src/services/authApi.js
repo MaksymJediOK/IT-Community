@@ -3,8 +3,7 @@ import { logOut, setCredentials } from '../store/reducers/authSlice'
 
 const baseQuery = fetchBaseQuery({
 	baseUrl: 'https://localhost:7230/api',
-	// credentials: 'include',
-	prepareHeaders: (headers, { getState }) => {
+	prepareHeaders: (headers) => {
 		const token = localStorage.getItem('token')
 		if (token) {
 			headers.set('Authorization', `Bearer ${token}`)

@@ -5,6 +5,7 @@ import { authApi } from '../services/authApi'
 import { authReducer } from './reducers/authSlice'
 import { tagsApi } from '../services/tagsApi'
 import { filterReducer } from './reducers/filterSlice'
+import { articleActionReducer } from './reducers/articleActionSlice'
 
 export const store = configureStore({
 	reducer: {
@@ -14,6 +15,7 @@ export const store = configureStore({
 		auth: authReducer,
 		[tagsApi.reducerPath]: tagsApi.reducer,
 		filter: filterReducer,
+		articleErrors: articleActionReducer,
 	},
 	middleware: (getDefaultMiddleware) =>
 		getDefaultMiddleware().concat(articleApi.middleware, authApi.middleware, tagsApi.middleware),

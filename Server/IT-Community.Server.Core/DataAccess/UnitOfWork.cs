@@ -1,4 +1,5 @@
 ﻿using IT_Community.Server.Core.Entities;
+using IT_Community.Server.Core.Entities.Vacancies;
 using IT_Community.Server.Core.GenericRepository;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -89,6 +90,20 @@ namespace IT_Community.Server.Core.DataAccess
             }
         }
 
+        public IGenericRepository<Bookmark> bookmarkRepository;
+
+        public IGenericRepository<Bookmark> BookmarkRepository
+        {
+            get
+            {
+                if(this.bookmarkRepository == null)
+                {
+                    this.bookmarkRepository = new GenericRepository<Bookmark>(_ctx);
+                }
+                return bookmarkRepository;
+            }
+        }
+
         public IGenericRepository<Comment> commentRepository;
 
         public IGenericRepository<Comment> CommentRepository
@@ -100,6 +115,20 @@ namespace IT_Community.Server.Core.DataAccess
                     this.commentRepository = new GenericRepository<Comment>(_ctx);
                 }
                 return commentRepository;
+            }
+        }
+
+        public IGenericRepository<Company> companyRepository;
+
+        public IGenericRepository<Company> CompanyRepository
+        {
+            get
+            {
+                if(this.companyRepository == null)
+                {
+                    this.companyRepository = new GenericRepository<Company>(_ctx);
+                }
+                return companyRepository;
             }
         }
 
