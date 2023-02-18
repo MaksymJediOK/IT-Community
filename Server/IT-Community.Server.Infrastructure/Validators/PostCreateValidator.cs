@@ -19,9 +19,9 @@ namespace IT_Community.Server.Infrastructure.Validators
                 .Length(5,60)
                 .WithMessage("Title must be between 5 and 60 symbols");
 
-            RuleFor(p => p.ImageFile)
-                .NotNull()
-                .NotEmpty();
+            //RuleFor(p => p.ImageFile)
+            //    .NotNull()
+            //    .NotEmpty();
 
             RuleFor(p => p.Description)
                 .NotNull()

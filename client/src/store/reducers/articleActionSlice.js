@@ -1,10 +1,10 @@
 import { createSlice } from '@reduxjs/toolkit'
 
 const initialState = {
-	title: '',
-	body: '',
-	imageFile: '',
-	desc: '',
+	title: [],
+	body: [],
+	imageFile: [],
+	desc: [],
 }
 
 const articleActionSlice = createSlice({
@@ -12,7 +12,7 @@ const articleActionSlice = createSlice({
 	initialState,
 	reducers: {
 		setErrors: (state, action) => {
-			const { Title, Body, ImageFile, Description } = action.payload
+			const { Title = [], Body = [], ImageFile = [], Description = [] } = action.payload
 			state.title = Title
 			state.body = Body
 			state.imageFile = ImageFile
@@ -23,4 +23,3 @@ const articleActionSlice = createSlice({
 
 export const { setErrors } = articleActionSlice.actions
 export const articleActionReducer = articleActionSlice.reducer
-//Todo dont forget to register reducer

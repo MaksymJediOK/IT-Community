@@ -21,6 +21,8 @@ export const Default = () => {
 			<Link to='vacancies/1'>vacancies Detailed</Link>
 			<br />
 			<Link to='vacancies/approval'>Approval page</Link>
+			<br />
+			<Link to='articles/edit/5'>Edit page</Link>
 		</div>
 	)
 }
