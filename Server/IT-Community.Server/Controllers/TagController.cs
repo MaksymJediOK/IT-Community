@@ -16,7 +16,7 @@ namespace IT_Community.Server.Controllers
         }
 
         /// <summary>
-        /// Return list of tags
+        /// Returns the list of existing tags
         /// </summary>
         [HttpGet]
         public List<TagDto> GetPreviewTags()
@@ -25,8 +25,9 @@ namespace IT_Community.Server.Controllers
         }
 
         /// <summary>
-        /// Batch create tags from a list of tag names
+        /// Batch creates tags from a list of tags separated by commas
         /// </summary>
+        /// <example>["tag1", "tag2", "tag3"]</example>
         [HttpPost]
         public async Task<IActionResult> BatchCreateTags([FromBody] List<string> tagNames)
         {
@@ -35,8 +36,9 @@ namespace IT_Community.Server.Controllers
         }
 
         /// <summary>
-        /// Delete tag from the database
+        /// Deletes tag from the database
         /// </summary>
+        /// <remarks>If the post is associated with any tags, those tags will be removed from the post</remarks>
         [HttpDelete]
         public async Task<IActionResult> DeleteTag(int id)
         {

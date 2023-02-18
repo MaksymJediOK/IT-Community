@@ -1,4 +1,6 @@
-﻿using IT_Community.Server.Core.Entities;
+﻿using Ardalis.Specification;
+using Ardalis.Specification.EntityFrameworkCore;
+using IT_Community.Server.Core.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure.Internal;
 using System;
@@ -78,6 +80,22 @@ namespace IT_Community.Server.Core.GenericRepository
         {
             _dbSet.Attach(obj);
             _ctx.Entry(obj).State = EntityState.Modified;
+        }
+
+        public IEnumerable<TEntity> GetListBySpec(ISpecification<TEntity> specification)
+        {
+            return ApplySpecification(specification).ToList();
+        }
+
+        public TEntity? GetFirstBySpec(ISpecification<TEntity> specification)
+        {
+            return ApplySpecification(specification).FirstOrDefault();
+        }
+
+        private IQueryable<TEntity> ApplySpecification(ISpecification<TEntity> specification)
+        {
+            var evaluator = new SpecificationEvaluator();
+            return evaluator.GetQuery(_dbSet, specification);
         }
     }
 }

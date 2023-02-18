@@ -1,4 +1,5 @@
 ﻿using IT_Community.Server.Infrastructure.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace IT_Community.Server.Controllers
@@ -8,34 +9,48 @@ namespace IT_Community.Server.Controllers
     public class LikeController : ControllerBase
     {
         private readonly ILikeService _likeService;
+        private readonly IUserService _userService;
 
-        public LikeController(ILikeService likeService)
+        public LikeController(ILikeService likeService, IUserService userService)
         {
             _likeService = likeService;
+            _userService = userService;
         }
 
         /// <summary>
-        /// Toggle like/unlike on a specific post for a user
+        /// Toggles like/unlike on a specific post for a user
         /// </summary>
-        /// <param name="postId">The id of the post</param>
-        /// <param name="userId">The id of the user</param>
+        /// <param name="postId">The ID of the post</param>
         [HttpPost("{postId}")]
-        public async Task<IActionResult> ToggleLike(int postId, string userId)
+        [Authorize]
+        public async Task<IActionResult> ToggleLike(int postId)
         {
+            var userId = await _userService.GetUserId(User);
             await _likeService.ToggleLike(postId, userId);
             return Ok();
         }
 
         /// <summary>
-        /// Get the list of posts liked by a specific user
+        /// Gets the list of posts liked by a user
         /// </summary>
-        /// <param name="userId">The id of the user</param>
-        /// <returns>The list of posts liked by the user</returns>
-        [HttpGet("user/{userId}")]
-        public async Task<IActionResult> GetLikedPosts(string userId)
+        [HttpGet("user")]
+        [Authorize]
+        public async Task<IActionResult> GetLikedPosts()
         {
+            var userId = await _userService.GetUserId(User);
             var likedPosts = _likeService.GetLikedPosts(userId);
             return Ok(likedPosts);
+        }
+
+        /// <summary>
+        /// Checks if the post is liked
+        /// </summary>
+        [HttpGet("user/{postId}")]
+        [Authorize]
+        public async Task<IActionResult> IsLiked(int postId)
+        {
+            var userId = await _userService.GetUserId(User);
+            return await _likeService.IsLiked(postId, userId);
         }
     }
 }

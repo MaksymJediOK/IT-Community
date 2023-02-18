@@ -1,24 +1,14 @@
 ﻿using AutoMapper;
-using IT_Community.Server.Core;
 using IT_Community.Server.Core.DataAccess;
 using IT_Community.Server.Core.Entities;
-using IT_Community.Server.Core.GenericRepository;
 using IT_Community.Server.Infrastructure.Dtos.PostDtos;
-using IT_Community.Server.Infrastructure.Dtos.UserDTOs;
 using IT_Community.Server.Infrastructure.Exceptions;
 using IT_Community.Server.Infrastructure.Resources;
 using IT_Community.Server.Infrastructure.Utilities;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace IT_Community.Server.Infrastructure.Services
 {
@@ -38,7 +28,7 @@ namespace IT_Community.Server.Infrastructure.Services
         public List<PostPreviewDto> GetPostPreview()
         {
             var posts = _unitOfWork.PostRepository.GetAll();
-            var posts1 = posts.Select(p => _mapper.Map(p, new PostPreviewDto())).ToList();
+            var posts1 = _mapper.Map<List<PostPreviewDto>>(posts);
 
             return posts1;
         }
@@ -114,7 +104,7 @@ namespace IT_Community.Server.Infrastructure.Services
                 posts = posts.OrderByDescending(x => x.Views).ThenByDescending(x => x.Likes.Count);
             }
 
-            return posts.Select(p => _mapper.Map(p, new PostPreviewDto())).ToList();
+            return _mapper.Map<List<PostPreviewDto>>(posts);
         }
 
         public async Task CreatePost(PostCreateDto postCreateDto, string userId)
@@ -262,7 +252,7 @@ namespace IT_Community.Server.Infrastructure.Services
                 post.Views++;
                 _unitOfWork.PostRepository.Update(post);
                 await _unitOfWork.SaveAsync();
-                var postToSend = _mapper.Map(post, new PostFullDto());
+                var postToSend = _mapper.Map<PostFullDto>(post);
                 return postToSend;
             }
             else
