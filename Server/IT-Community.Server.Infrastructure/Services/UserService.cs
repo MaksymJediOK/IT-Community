@@ -1,13 +1,8 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using IT_Community.Server.Infrastructure.Exceptions;
 using IT_Community.Server.Infrastructure.Resources;
 using System.Net;
 using IT_Community.Server.Core.Entities;
-using Microsoft.IdentityModel.Tokens;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Hosting;
@@ -26,51 +21,16 @@ namespace IT_Community.Server.Infrastructure.Services
             _webHostEnvironment = webHostEnvironment;
         }
 
-        public async Task<string> GetUserId(ClaimsPrincipal user)
-        {
-            string userId = "";
-            var identity = user.Identity as ClaimsIdentity;
-
-            if (identity != null)
-            {
-                var userClaims = identity.Claims;
-                userId = userClaims.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier)?.Value;
-            }
-
-            if (userId.IsNullOrEmpty())
-            {
-                throw new HttpException("User id null", HttpStatusCode.BadRequest);
-            }
-
-            return userId;
-        }
-
         public async Task ChangeUserName(ClaimsPrincipal claimsPrincipal, string name)
         {
-            var user = await _userManager.FindByIdAsync(await GetUserId(claimsPrincipal));
-
-            if (user == null)
-            {
-                throw new HttpException(ErrorMessages.InvalidUserId, HttpStatusCode.BadRequest);
-            }
-
+            var user = await GetUser(claimsPrincipal);
             var result = await _userManager.SetUserNameAsync(user, name);
-
-            if (!result.Succeeded)
-            {
-                string errors = string.Join(", ", result.Errors.Select(e => e.Description));
-                throw new HttpException(errors, HttpStatusCode.BadRequest);
-            }
+            HandleResult(result);
         }
 
         public async Task ChangePassword(ClaimsPrincipal claimsPrincipal, string currentPassword, string newPassword)
         {
-            var user = await _userManager.FindByIdAsync(await GetUserId(claimsPrincipal));
-
-            if (user == null)
-            {
-                throw new HttpException(ErrorMessages.InvalidUserId, HttpStatusCode.BadRequest);
-            }
+            var user = await GetUser(claimsPrincipal);
 
             if (!await _userManager.CheckPasswordAsync(user, currentPassword))
             {
@@ -83,22 +43,12 @@ namespace IT_Community.Server.Infrastructure.Services
             }
 
             var result = await _userManager.ChangePasswordAsync(user, currentPassword, newPassword);
-
-            if (!result.Succeeded)
-            {
-                string errors = string.Join(", ", result.Errors.Select(e => e.Description));
-                throw new HttpException(errors, HttpStatusCode.BadRequest);
-            }
+            HandleResult(result);
         }
 
         public async Task ChangeEmail(ClaimsPrincipal claimsPrincipal, string currentPassword, string newEmail)
         {
-            var user = await _userManager.FindByIdAsync(await GetUserId(claimsPrincipal));
-
-            if (user == null)
-            {
-                throw new HttpException(ErrorMessages.InvalidUserId, HttpStatusCode.BadRequest);
-            }
+            var user = await GetUser(claimsPrincipal);
 
             if (!await _userManager.CheckPasswordAsync(user, currentPassword))
             {
@@ -107,64 +57,72 @@ namespace IT_Community.Server.Infrastructure.Services
 
             var token = await _userManager.GenerateChangeEmailTokenAsync(user, newEmail);
             var result = await _userManager.ChangeEmailAsync(user, newEmail, token);
-
-            if (!result.Succeeded)
-            {
-                string errors = string.Join(", ", result.Errors.Select(e => e.Description));
-                throw new HttpException(errors, HttpStatusCode.BadRequest);
-            }
+            HandleResult(result);
         }
 
         public async Task ChangeBio(ClaimsPrincipal claimsPrincipal, string bio)
         {
-            var user = await _userManager.FindByIdAsync(await GetUserId(claimsPrincipal));
+            var user = await GetUser(claimsPrincipal);
 
-            if (user == null)
-            {
-                throw new HttpException(ErrorMessages.InvalidUserId, HttpStatusCode.BadRequest);
-            }
-
-            if (bio == null)
+            if (string.IsNullOrEmpty(bio))
             {
                 throw new HttpException("The bio field is required.", HttpStatusCode.BadRequest);
             }
 
             user.Bio = bio;
             var result = await _userManager.UpdateAsync(user);
-
-            if (!result.Succeeded)
-            {
-                string errors = string.Join(", ", result.Errors.Select(e => e.Description));
-                throw new HttpException(errors, HttpStatusCode.BadRequest);
-            }
+            HandleResult(result);
         }
 
         public async Task ChangeProfilePhoto(ClaimsPrincipal claimsPrincipal, IFormFile photo)
         {
-            var user = await _userManager.FindByIdAsync(await GetUserId(claimsPrincipal));
-
-            if (user == null)
-            {
-                throw new HttpException(ErrorMessages.InvalidUserId, HttpStatusCode.BadRequest);
-            }
+            var user = await GetUser(claimsPrincipal);
 
             if (photo == null)
             {
                 throw new HttpException("The photo field is required.", HttpStatusCode.BadRequest);
             }
 
-            if (user.ProfilePhoto == null)
+            if (!IsImage(photo))
             {
-                user.ProfilePhoto = await SaveImage(photo);
+                throw new HttpException("The file must be an image.", HttpStatusCode.BadRequest);
             }
-            else
+
+            if (photo.Length > 5 * 1024 * 1024)
+            {
+                throw new HttpException("The file size must be at most 5 MB.", HttpStatusCode.BadRequest);
+            }
+
+            if (user.ProfilePhoto != null)
             {
                 DeleteImage(user.ProfilePhoto);
-                user.ProfilePhoto = await SaveImage(photo);
             }
 
+            user.ProfilePhoto = await SaveImage(photo);
             var result = await _userManager.UpdateAsync(user);
+            HandleResult(result);
+        }
 
+        private async Task<User> GetUser(ClaimsPrincipal claimsPrincipal)
+        {
+            var user = await _userManager.GetUserAsync(claimsPrincipal);
+
+            if (user == null)
+            {
+                throw new HttpException(ErrorMessages.InvalidUserId, HttpStatusCode.BadRequest);
+            }
+
+            return user;
+        }
+
+        public async Task<string> GetUserId(ClaimsPrincipal claimsPrincipal)
+        {
+            var user = await GetUser(claimsPrincipal);
+            return user.Id;
+        }
+
+        private void HandleResult(IdentityResult result)
+        {
             if (!result.Succeeded)
             {
                 string errors = string.Join(", ", result.Errors.Select(e => e.Description));
@@ -172,11 +130,18 @@ namespace IT_Community.Server.Infrastructure.Services
             }
         }
 
+        private bool IsImage(IFormFile file)
+        {
+            return file.ContentType.StartsWith("image/");
+        }
+
         public void DeleteImage(string imageName)
         {
             var imagePath = Path.Combine(_webHostEnvironment.WebRootPath, WebConstants.imagesPath, "Profile", imageName);
-            if (System.IO.File.Exists(imagePath))
-                System.IO.File.Delete(imagePath);
+            if (File.Exists(imagePath))
+            {
+                File.Delete(imagePath);
+            }
         }
 
         public async Task<string> SaveImage(IFormFile imageFile)
