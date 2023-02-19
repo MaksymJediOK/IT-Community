@@ -19,6 +19,7 @@ namespace IT_Community.Server.Core.DataAccess
         IGenericRepository<Bookmark> BookmarkRepository { get; }
         IGenericRepository<Comment> CommentRepository { get; }
         IGenericRepository<Company> CompanyRepository { get; }
+        IGenericRepository<Category> CategoryRepository { get; }
         Task SaveAsync();
     }
 }

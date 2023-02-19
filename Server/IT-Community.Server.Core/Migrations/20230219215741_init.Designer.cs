@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace IT_Community.Server.Core.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20230217093752_Init")]
-    partial class Init
+    [Migration("20230219215741_init")]
+    partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -102,17 +102,17 @@ namespace IT_Community.Server.Core.Migrations
                         {
                             Id = 1,
                             Body = "Дуже якісна та інформативна статистика!\nРаджу почитати оригінальне дослідження щоб зрозуміти масштаби\nitukraine.org.ua/...​2/DoITLikeUkraine2022.pdf",
-                            Date = new DateTime(2023, 2, 17, 11, 37, 51, 908, DateTimeKind.Local).AddTicks(7506),
+                            Date = new DateTime(2023, 2, 19, 23, 57, 41, 225, DateTimeKind.Local).AddTicks(3434),
                             PostId = 1,
-                            UserId = "f7a93e68-d5a7-4171-976f-cc04b5904575"
+                            UserId = "1da01d9b-f53e-4278-83ee-c0b1c74bf0c0"
                         },
                         new
                         {
                             Id = 2,
                             Body = "Як створювали саму структуру проекту? Через можливості IDE або maven generate?",
-                            Date = new DateTime(2023, 2, 17, 11, 37, 51, 908, DateTimeKind.Local).AddTicks(7513),
+                            Date = new DateTime(2023, 2, 19, 23, 57, 41, 225, DateTimeKind.Local).AddTicks(3437),
                             PostId = 4,
-                            UserId = "f7a93e68-d5a7-4171-976f-cc04b5904575"
+                            UserId = "1da01d9b-f53e-4278-83ee-c0b1c74bf0c0"
                         });
                 });
 
@@ -212,13 +212,13 @@ namespace IT_Community.Server.Core.Migrations
                         {
                             Id = 1,
                             PostId = 1,
-                            UserId = "f7a93e68-d5a7-4171-976f-cc04b5904575"
+                            UserId = "1da01d9b-f53e-4278-83ee-c0b1c74bf0c0"
                         },
                         new
                         {
                             Id = 2,
                             PostId = 3,
-                            UserId = "f7a93e68-d5a7-4171-976f-cc04b5904575"
+                            UserId = "1da01d9b-f53e-4278-83ee-c0b1c74bf0c0"
                         });
                 });
 
@@ -268,48 +268,48 @@ namespace IT_Community.Server.Core.Migrations
                         {
                             Id = 1,
                             Body = "2022 рік став складним для держави, всіх українців і зокрема для ІТ-індустрії. Ми вирішили розібратися, чого галузі чекати від наступного 2023 року.\nМи поспілкувалися з представниками державних установ, кластерами, компаніями та айтівцями про те, які виклики чекають на ІТ у майбутньому, чи зможе галузь відновити зростання, утримувати та залучати нових клієнтів та ключових розробників.\n\n## Плани Мінцифри: military-tech, Дія City, стартапи\n\nУ Міністерстві цифрової трансформації 2023 року сфокусуються на підтриманні та розвитку таких великих проєктів, як Дія City (нині там уже 413 резидентів), military-tech, технологічних стартапів на основі систем штучного інтелекту й робототехніки.\n«Наша країна має всі шанси стати світовим лідером з розвитку military-tech. У нас для цього є високопрофесійні розробники, сильна ІТ-індустрія, яка демонструє зростання навіть під час війни, та можливість оперативного випробування технологій на полі бою», — коментують у Мінцифри.\nВідомство також має план розвитку ІТ, розроблений спільно з представниками галузі, що передбачає підтримку чотирьох напрямів: венчурної та стартап-екосистеми, ІТ-освіти, digital resistance, просування бренду України як IT-держави.\nКрім того, у своїй діяльності міністерство робитиме акцент на підтриманні продуктового напряму.",
-                            Date = new DateTime(2023, 2, 17, 11, 37, 51, 908, DateTimeKind.Local).AddTicks(7419),
+                            Date = new DateTime(2023, 2, 19, 23, 57, 41, 225, DateTimeKind.Local).AddTicks(3377),
                             Description = "Ми вирішили розібратися, чого галузі чекати від наступного 2023 року. Поспілкувалися з представниками державних установ, кластерами, компаніями та айтівцями про те, які виклики чекають на ІТ у майбутньому, чи зможе галузь відновити зростання, утримувати та залучати нових клієнтів та ключових розробників.",
                             ForumId = 10,
                             Thumbnail = "https://s.dou.ua/img/announces/forecasts_cover-840.jpg",
                             Title = "«Українці — пункт № 1 в будь-якому Risk Assessment Report». До чого готуватись українському IT у 2023 році",
-                            UserId = "f7a93e68-d5a7-4171-976f-cc04b5904575",
+                            UserId = "1da01d9b-f53e-4278-83ee-c0b1c74bf0c0",
                             Views = 10
                         },
                         new
                         {
                             Id = 2,
                             Body = "Всім привіт! Мене звати Богдан Чупіка, я працюю в Edtech-стартапі Mate academy на позиції Team Lead/ Java Coach. Серед моїх обовʼязків є рев’ю коду нашої команди девелоперів, перевірка коду студентів і проведення співбесід в команду.\n\nПід час лайв кодингу на співбесідах (один з обовʼязкових етапів) я зустрічав дуже багато випадків, коли кандидати пишуть не ок код. Навіть після прохання привести їх до вигляду, який буде запушений в мастер. При чому помилки бувають як в джунів, так і в сеньйорів (у меншій кількості, але все ж).\n\nУ цій статті я зберу не тільки власний весь досвід, а і досвід команди з понад 70 девелоперів і менторів у нашій компанії. І, головне — відповім на питання: Як потрібно якісно писати код? Звичайно ж, з прикладами і порадами. Текст буде корисний і тим, хто пише код, і тим, хто його читає.\n\nПогодьтеся, що набагато приємніше і швидше читати код, який за своїм стилем схожий на той, що ви пишете в рамках поточного проєкту. Якби щодо код стайлу панувала анархія, скоро цей код було б дуже важко і читати, і підтримувати.\n\nНЕ якісний код НЕ повинен потрапити в мастер (мейн) гілку. Для цього існує процес code review. ",
-                            Date = new DateTime(2023, 2, 17, 11, 37, 51, 908, DateTimeKind.Local).AddTicks(7468),
+                            Date = new DateTime(2023, 2, 19, 23, 57, 41, 225, DateTimeKind.Local).AddTicks(3414),
                             Description = "Team Lead і Java Coach Богдан Чупіка зібрав у цьому матеріалі досвід колег щодо проведення code review і розбирає на конкретному прикладі, як організувати цей процес якісно та корисно для проєкту.",
                             ForumId = 4,
                             Thumbnail = "https://s.dou.ua/img/announces/23tech_review_2.jpg",
                             Title = "Хороший, поганий код: як code review рятує проєкт",
-                            UserId = "f7a93e68-d5a7-4171-976f-cc04b5904575",
+                            UserId = "1da01d9b-f53e-4278-83ee-c0b1c74bf0c0",
                             Views = 10
                         },
                         new
                         {
                             Id = 3,
                             Body = "Усім привіт, на зв’язку Богдан Свердлюк, я люблю розбиратись у налаштуваннях «розумного» будинку та IoT, і ділитись своїм досвідом з українською ІТ-спільнотою. Сьогодні поговоримо про те, як встановити Node-Red в Home Assistant. російський військовий корабель, іди нах***!\n\nNode-RED — це інструмент блокового програмування потоків даних пристроїв, API та онлайн-сервісів. Часто використовується для створення автоматизацій. Це браузерний редактор, який спрощує об’єднання потоків, використовуючи широкий діапазон вузлів (нодів) у палітрі, виконання яких можна запустити в один клік.\n\nЩоб встановити додаток в інтерфейсі Home Assistant перейдіть у бічне меню >> Конфігурація >> Додатки >> Магазин доповнень >> у розділі Community Add-ons натисніть та встановіть додаток Node-RED.",
-                            Date = new DateTime(2023, 2, 17, 11, 37, 51, 908, DateTimeKind.Local).AddTicks(7473),
+                            Date = new DateTime(2023, 2, 19, 23, 57, 41, 225, DateTimeKind.Local).AddTicks(3417),
                             Description = "Node-RED — це інструмент блокового програмування потоків даних пристроїв, API та онлайн-сервісів. Як налаштувати цей додаток в інтерфейсі Home Assistant — розповідає Богдан Свердлюк.",
                             ForumId = 10,
                             Thumbnail = "https://s.dou.ua/img/announces/tech_nr_image.jpg",
                             Title = "Встановлюємо Node-Red в Home Assistant. Інструкція",
-                            UserId = "f7a93e68-d5a7-4171-976f-cc04b5904575",
+                            UserId = "1da01d9b-f53e-4278-83ee-c0b1c74bf0c0",
                             Views = 10
                         },
                         new
                         {
                             Id = 4,
                             Body = "Всім привіт! Мене звати Олександр, час від часу я ділюся своїм досвідом роботи з Java з технічною спільнотою. В попередній раз я писав про фреймворк для тестування API сервісів на Java і в мене виникла ідея написати про загальніший фреймворк, який буде додатково містити частини для тестування UI, можливість взаємодіяти з базою даних та логування з репортом.\nДо об’єкта тестування я висував наступні вимоги:\n\nсистема має мати UI та API інтерфейси;\nсистема має мати взаємодією з базою даних;\nсистема має бути опенсорс та безкоштовною;\nрозгортання системи локально має бути максимально простим.\n\nЯк об’єкт тестування я вибрав KanBoard, оскільки це програмне забезпечення задовольняє всім моїм вимогам. Kanboard — це опенсорс програмне забезпечення, яке дозволяє створювати проєктні дашборди із завданнями.\n\nРозгортається система локально однією командою docker compose up з папки, де знаходиться docker-compose.yml. У випадку фреймворку цей файл знаходиться у root папці. Я не буду описувати, як встановити docker, цю інформацію можна отримати за посиланням. Якщо не змінювати налаштування у docker-compose.yml файлі, то інтерфейс буде доступний за лінкою http://127.0.0.1/login, юзер має креди admin/admin.",
-                            Date = new DateTime(2023, 2, 17, 11, 37, 51, 908, DateTimeKind.Local).AddTicks(7478),
+                            Date = new DateTime(2023, 2, 19, 23, 57, 41, 225, DateTimeKind.Local).AddTicks(3419),
                             Description = "Олександр Подоляко розбирає приклад використання фреймворку для автоматичного тестування UI, зокрема і розповідає, як налаштувати можливість взаємодіяти з базою даних та логування з репортом.",
                             ForumId = 4,
                             Thumbnail = "https://s.dou.ua/img/announces/tech_frontend_j_2.png",
                             Title = "Фреймворк для тестування UI. Як його налаштувати на Java",
-                            UserId = "f7a93e68-d5a7-4171-976f-cc04b5904575",
+                            UserId = "1da01d9b-f53e-4278-83ee-c0b1c74bf0c0",
                             Views = 5
                         });
                 });
@@ -457,49 +457,49 @@ namespace IT_Community.Server.Core.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "51743e7a-4a83-4fea-8030-759ad8a6da9d",
+                            Id = "eec75f95-6b3f-4cab-9c3d-38b40ef8830b",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "ade5c716-9abb-4851-837f-cf135449ba65",
+                            ConcurrencyStamp = "a6bb5560-f967-4b0b-bf91-7615f9f944fd",
                             Email = "admin@gmail.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@GMAIL.COM",
                             NormalizedUserName = "ADMIN@GMAIL.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEP63hP/mqxkswl/QJ0X1Huty0tupAt5e45eOjPDusSS5QqhM5o9hDFb0BbxnKhpTxA==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEMOpb9sozSrlKYvYW8/iZCkgJPi6eKhEhrjANa9A4++oe8bBevIKda4oo5OqEF7EIg==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "32012612-a81d-4b28-9fa1-f14aad7394b4",
+                            SecurityStamp = "f716e5cc-8e62-42c5-b0a4-4ec3afb46853",
                             TwoFactorEnabled = false,
                             UserName = "admin@gmail.com"
                         },
                         new
                         {
-                            Id = "4d1f7aea-7d1f-44d0-a1d8-f174968a0847",
+                            Id = "336c5c59-c28e-4fc5-8b8a-95c8e83c7035",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "4d92bed3-d047-4e8e-961f-62c57291bd52",
+                            ConcurrencyStamp = "24253d0f-7e6e-4762-9c09-3ee394094319",
                             Email = "moder@gmail.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "MODER@GMAIL.COM",
                             NormalizedUserName = "MODER@GMAIL.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEEjxwyzhDDibvQ3PvpU+D6I8bg8TxGePCjmmFF69N5mlWPfaFSlPbYtsLuaMRxxYbg==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEO+q7Z4mMsFO8Wr785d+L8X+3pbZ1tfg5TJOURTliAPeBgBYBDsQy0rmo93tWWma3Q==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "a09aacc7-95b5-400a-a8c1-5b35af5e1663",
+                            SecurityStamp = "23672a09-c780-49b0-9d9f-cc6ea639c973",
                             TwoFactorEnabled = false,
                             UserName = "moder@gmail.com"
                         },
                         new
                         {
-                            Id = "f7a93e68-d5a7-4171-976f-cc04b5904575",
+                            Id = "1da01d9b-f53e-4278-83ee-c0b1c74bf0c0",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "9a306a55-8a75-4074-a7be-63fcceaef601",
+                            ConcurrencyStamp = "1dd4e691-73bd-494b-991e-f36e6fbc6391",
                             Email = "user@gmail.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "USER@GMAIL.COM",
                             NormalizedUserName = "USER@GMAIL.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAED8sSq/15/Qb9usA9h2COfD7a0ZUMlphhkCwZUVK+k3qXtRvfESaMLeFyJbC8IwXTw==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEGAVttJxXpXzvmjNjFBnhtKpcSNFnUhpRHYdpyuei0QiS6aDeWLUmCST243p/zXRcQ==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "80c0ad9c-57ec-458d-9fe6-f975e018ee9c",
+                            SecurityStamp = "bf74640e-fab5-43f3-93ae-150af899a57d",
                             TwoFactorEnabled = false,
                             UserName = "user@gmail.com"
                         });
@@ -613,9 +613,15 @@ namespace IT_Community.Server.Core.Migrations
                     b.Property<int>("Salary")
                         .HasColumnType("int");
 
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
                     b.HasKey("Id");
 
                     b.HasIndex("CompanyId");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("Vacancies");
                 });
@@ -649,22 +655,22 @@ namespace IT_Community.Server.Core.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "93cadaa4-c3ba-4a8d-84a1-6df03861c634",
-                            ConcurrencyStamp = "57ae85d9-b031-47a5-a7e2-28d8fef2ae76",
+                            Id = "71fdaa22-8962-455a-9934-b85b36dd9aa9",
+                            ConcurrencyStamp = "33ea8843-39de-4573-8f67-80b25dbad68b",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = "ab553633-b66b-4e8f-9b45-e11ba6d1b7bc",
-                            ConcurrencyStamp = "887569ba-e728-42a0-8f12-6869f4d4e319",
+                            Id = "eeb98160-e2ec-4dae-bee1-76a84828f72d",
+                            ConcurrencyStamp = "e273124f-a500-41ef-83a8-7c38663002d5",
                             Name = "Moderator",
                             NormalizedName = "MODERATOR"
                         },
                         new
                         {
-                            Id = "80b9e36d-8945-45bc-8103-6ae378082f1e",
-                            ConcurrencyStamp = "0e6eb2cb-ccf1-4bbd-9d4e-17f2f2183a69",
+                            Id = "83c8cac0-2cd4-47ed-a5ee-461aa76da9e6",
+                            ConcurrencyStamp = "98930d8f-27f9-40f7-9e8c-0cadaf3a2ecc",
                             Name = "User",
                             NormalizedName = "USER"
                         });
@@ -759,18 +765,18 @@ namespace IT_Community.Server.Core.Migrations
                     b.HasData(
                         new
                         {
-                            UserId = "51743e7a-4a83-4fea-8030-759ad8a6da9d",
-                            RoleId = "93cadaa4-c3ba-4a8d-84a1-6df03861c634"
+                            UserId = "eec75f95-6b3f-4cab-9c3d-38b40ef8830b",
+                            RoleId = "71fdaa22-8962-455a-9934-b85b36dd9aa9"
                         },
                         new
                         {
-                            UserId = "4d1f7aea-7d1f-44d0-a1d8-f174968a0847",
-                            RoleId = "ab553633-b66b-4e8f-9b45-e11ba6d1b7bc"
+                            UserId = "336c5c59-c28e-4fc5-8b8a-95c8e83c7035",
+                            RoleId = "eeb98160-e2ec-4dae-bee1-76a84828f72d"
                         },
                         new
                         {
-                            UserId = "f7a93e68-d5a7-4171-976f-cc04b5904575",
-                            RoleId = "80b9e36d-8945-45bc-8103-6ae378082f1e"
+                            UserId = "1da01d9b-f53e-4278-83ee-c0b1c74bf0c0",
+                            RoleId = "83c8cac0-2cd4-47ed-a5ee-461aa76da9e6"
                         });
                 });
 
@@ -941,7 +947,15 @@ namespace IT_Community.Server.Core.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("IT_Community.Server.Core.Entities.User", "User")
+                        .WithMany("Vacancies")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.Navigation("Company");
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -1040,6 +1054,8 @@ namespace IT_Community.Server.Core.Migrations
                     b.Navigation("Likes");
 
                     b.Navigation("Posts");
+
+                    b.Navigation("Vacancies");
                 });
 
             modelBuilder.Entity("IT_Community.Server.Core.Entities.Vacancies.Company", b =>

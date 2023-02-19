@@ -19,6 +19,8 @@ namespace IT_Community.Server.Core.Entities.Vacancies
         public string Description { get; set; }
         public string Email { get; set; }
         public DateTime Date { get; set; }
+        public string UserId { get; set; }
+        public User? User { get; set; }
         public int CompanyId { get; set; }
         public Company? Company { get; set; }
         public virtual ICollection<Category> Categories { get; set; }

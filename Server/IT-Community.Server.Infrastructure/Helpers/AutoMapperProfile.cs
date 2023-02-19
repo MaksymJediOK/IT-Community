@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using IT_Community.Server.Core.Entities;
 using IT_Community.Server.Core.Entities.Vacancies;
+using IT_Community.Server.Infrastructure.Dtos.CategoryDTOs;
 using IT_Community.Server.Infrastructure.Dtos.CommentDTOs;
 using IT_Community.Server.Infrastructure.Dtos.CompanyDTOs;
 using IT_Community.Server.Infrastructure.Dtos.PostDtos;
@@ -55,6 +56,8 @@ namespace IT_Community.Server.Infrastructure.Helpers
 
             CreateMap<Tag, TagDto>();
             CreateMap<TagDto, Tag>();
+
+            CreateMap<Category, CategoryDto>().ReverseMap();
 
             CreateMap<CompanyCreateDto, Company>();
             CreateMap<CompanyEditDto, Company>();
