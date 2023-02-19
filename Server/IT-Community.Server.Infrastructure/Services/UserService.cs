@@ -45,6 +45,24 @@ namespace IT_Community.Server.Infrastructure.Services
             return userId;
         }
 
+        public async Task ChangeUserName(ClaimsPrincipal claimsPrincipal, string name)
+        {
+            var user = await _userManager.FindByIdAsync(await GetUserId(claimsPrincipal));
+
+            if (user == null)
+            {
+                throw new HttpException(ErrorMessages.InvalidUserId, HttpStatusCode.BadRequest);
+            }
+
+            var result = await _userManager.SetUserNameAsync(user, name);
+
+            if (!result.Succeeded)
+            {
+                string errors = string.Join(", ", result.Errors.Select(e => e.Description));
+                throw new HttpException(errors, HttpStatusCode.BadRequest);
+            }
+        }
+
         public async Task ChangePassword(ClaimsPrincipal claimsPrincipal, string currentPassword, string newPassword)
         {
             var user = await _userManager.FindByIdAsync(await GetUserId(claimsPrincipal));

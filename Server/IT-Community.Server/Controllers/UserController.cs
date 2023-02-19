@@ -16,6 +16,17 @@ namespace IT_Community.Server.Controllers
         }
 
         /// <summary>
+        /// Changes the user's name
+        /// </summary>
+        [HttpPost("name")]
+        [Authorize]
+        public async Task<IActionResult> ChangeUserName(string name)
+        {
+            await _userService.ChangeUserName(User, name);
+            return Ok("User name changed successfully");
+        }
+
+        /// <summary>
         /// Changes the user's password
         /// </summary>
         [HttpPost("password")]
