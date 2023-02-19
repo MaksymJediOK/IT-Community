@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using IT_Community.Server.Infrastructure.Services;
 using Microsoft.AspNetCore.Authorization;
+using IT_Community.Server.Infrastructure.Dtos.UserDTOs;
 
 namespace IT_Community.Server.Controllers
 {
@@ -16,14 +17,34 @@ namespace IT_Community.Server.Controllers
         }
 
         /// <summary>
-        /// Changes the user's name
+        /// Gets information about the user
         /// </summary>
-        [HttpPost("name")]
+        [HttpGet("username")]
+        public async Task<UserFullDto>? GetUser(string username)
+        {
+            return await _userService.GetUserInfo(username);
+        }
+
+        /// <summary>
+        /// Changes the user's username
+        /// </summary>
+        [HttpPost("username")]
         [Authorize]
         public async Task<IActionResult> ChangeUserName(string name)
         {
             await _userService.ChangeUserName(User, name);
-            return Ok("User name changed successfully");
+            return Ok("Username changed successfully");
+        }
+
+        /// <summary>
+        /// Changes the user's full name
+        /// </summary>
+        [HttpPost("name")]
+        [Authorize]
+        public async Task<IActionResult> ChangeName(string name)
+        {
+            await _userService.ChangeName(User, name);
+            return Ok("Name changed successfully");
         }
 
         /// <summary>

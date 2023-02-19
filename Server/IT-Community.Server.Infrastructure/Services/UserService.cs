@@ -7,6 +7,8 @@ using System.Security.Claims;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Hosting;
 using IT_Community.Server.Infrastructure.Utilities;
+using IT_Community.Server.Infrastructure.Dtos.UserDTOs;
+using AutoMapper;
 
 namespace IT_Community.Server.Infrastructure.Services
 {
@@ -14,17 +16,45 @@ namespace IT_Community.Server.Infrastructure.Services
     {
         private readonly UserManager<User> _userManager;
         private readonly IWebHostEnvironment _webHostEnvironment;
+        private readonly IMapper _mapper;
 
-        public UserService(UserManager<User> userManager, IWebHostEnvironment webHostEnvironment)
+        public UserService(UserManager<User> userManager, IWebHostEnvironment webHostEnvironment, IMapper mapper)
         {
             _userManager = userManager;
             _webHostEnvironment = webHostEnvironment;
+            _mapper = mapper;
+        }
+
+        public async Task<UserFullDto> GetUserInfo(string username)
+        {
+            var user = _userManager.FindByNameAsync(username).Result;
+
+            if (user == null)
+            {
+                throw new HttpException("Invalid username", HttpStatusCode.BadRequest);
+            }
+
+            var userToSend = _mapper.Map<UserFullDto>(user);
+            return userToSend;
         }
 
         public async Task ChangeUserName(ClaimsPrincipal claimsPrincipal, string name)
         {
             var user = await GetUser(claimsPrincipal);
             var result = await _userManager.SetUserNameAsync(user, name);
+            HandleResult(result);
+        }
+
+        public async Task ChangeName(ClaimsPrincipal claimsPrincipal, string name)
+        {
+            if (string.IsNullOrEmpty(name))
+            {
+                throw new HttpException("The name field is required.", HttpStatusCode.BadRequest);
+            }
+
+            var user = await GetUser(claimsPrincipal);
+            user.Name = name;
+            var result = await _userManager.UpdateAsync(user);
             HandleResult(result);
         }
 
@@ -62,13 +92,12 @@ namespace IT_Community.Server.Infrastructure.Services
 
         public async Task ChangeBio(ClaimsPrincipal claimsPrincipal, string bio)
         {
-            var user = await GetUser(claimsPrincipal);
-
             if (string.IsNullOrEmpty(bio))
             {
                 throw new HttpException("The bio field is required.", HttpStatusCode.BadRequest);
             }
 
+            var user = await GetUser(claimsPrincipal);
             user.Bio = bio;
             var result = await _userManager.UpdateAsync(user);
             HandleResult(result);
