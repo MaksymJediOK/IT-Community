@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 import styles from './ArticleCreate.module.scss'
 import { Container, Grid, Box, TextField, Button, TextareaAutosize, Stack } from '@mui/material'
-import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline'
 import Select from 'react-select'
 import { useForm, Controller } from 'react-hook-form'
 import { useGetAllTagsQuery } from '../../../services/tagsApi'
@@ -9,11 +8,13 @@ import { useCreateArticleMutation } from '../../../services/articleApi'
 import { selectMap } from '../../../utils/SelectMap'
 import { useNavigate } from 'react-router-dom'
 import { setErrors } from '../../../store/reducers/articleActionSlice'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
+import { ArticleErrorMsg } from '../../UI/ErrorMsg/ArticleErrorMsg'
 
 export const ArticleCreate = () => {
 	const navigate = useNavigate()
 	const dispatch = useDispatch()
+	const createErrors = useSelector((state) => state.articleErrors)
 	const { data } = useGetAllTagsQuery()
 	const [createArticle] = useCreateArticleMutation()
 	const [file, setFile] = useState(null)
@@ -40,7 +41,6 @@ export const ArticleCreate = () => {
 			.unwrap()
 			.then(() => navigate('/articles'))
 			.catch((error) => {
-				// not finished check if error exist
 				dispatch(setErrors(error.data?.errors))
 			})
 	}
@@ -70,6 +70,12 @@ export const ArticleCreate = () => {
 										/>
 									)}
 								/>
+
+								{createErrors.title.length ? (
+									<ArticleErrorMsg>{createErrors.title[0]}</ArticleErrorMsg>
+								) : (
+									''
+								)}
 								<Controller
 									control={control}
 									name='desc'
@@ -80,7 +86,7 @@ export const ArticleCreate = () => {
 											label='About'
 											variant='standard'
 											helperText='What your story is about in a short sentence'
-											sx={{ width: '400px', margin: '12px 0 32px 0' }}
+											sx={{ width: '400px', margin: '12px 0 10px 0' }}
 											inputProps={{ style: { fontSize: '20px' } }}
 											InputLabelProps={{
 												style: {
@@ -94,12 +100,22 @@ export const ArticleCreate = () => {
 										/>
 									)}
 								/>
-								<Stack sx={{ m: '10px 0 30px' }}>
+								{createErrors.desc.length ? (
+									<ArticleErrorMsg>{createErrors.desc[0]}</ArticleErrorMsg>
+								) : (
+									''
+								)}
+								<Stack sx={{ m: '10px 0 15px' }}>
 									<div className={styles.upload_text}>
 										Upload thumbnail for your article
 									</div>
 									<input type='file' onChange={selectFile} />
 								</Stack>
+								{createErrors.imageFile.length ? (
+									<ArticleErrorMsg>{createErrors.imageFile[0]}</ArticleErrorMsg>
+								) : (
+									''
+								)}
 								<Controller
 									control={control}
 									name='body'
@@ -120,13 +136,11 @@ export const ArticleCreate = () => {
 										/>
 									)}
 								/>
-
-								<Box
-									sx={{ display: 'flex', alignItems: 'center', paddingBottom: '44px' }}
-								>
-									<AddCircleOutlineIcon />
-									<div className={styles.add_block_text}>Add another block</div>
-								</Box>
+								{createErrors.body.length ? (
+									<ArticleErrorMsg>{createErrors.body[0]}</ArticleErrorMsg>
+								) : (
+									''
+								)}
 							</Box>
 						</div>
 					</Grid>

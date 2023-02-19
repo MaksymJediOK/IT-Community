@@ -13,6 +13,7 @@ import { RequireAuth } from '../components/Layout/RequireAuth'
 import { Vacancies } from '../components/Vacancy/Vacancies/Vacancies'
 import { VacancyDetails } from '../components/Vacancy/VacancyDetails/VacancyDetails'
 import { VacanciesApproval } from '../components/Vacancy/VacanciesApproval/VacanciesApproval'
+import { ArticleEdit } from '../components/ArticleActions/Edit/ArticleEdit';
 
 export const Index = () => {
 	return (
@@ -23,6 +24,7 @@ export const Index = () => {
 					<Route index element={<Articles />} />
 					<Route path=':id' element={<Article />} />
 					<Route path='new' element={<ArticleNew />} />
+					<Route path='edit/:id' element={<ArticleEdit />} />
 				</Route>
 				<Route path='/vacancies' element={<Layout />}>
 					<Route index element={<Vacancies />} />
