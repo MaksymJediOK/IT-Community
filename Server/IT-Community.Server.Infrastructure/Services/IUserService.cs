@@ -10,5 +10,6 @@ namespace IT_Community.Server.Infrastructure.Services
         Task ChangeEmail(ClaimsPrincipal claimsPrincipal, string currentPassword, string newEmail);
         Task ChangeProfilePhoto(ClaimsPrincipal claimsPrincipal, IFormFile photo);
         Task ChangeUserName(ClaimsPrincipal claimsPrincipal, string name);
+        Task ChangeBio(ClaimsPrincipal claimsPrincipal, string bio);
     }
 }

@@ -115,6 +115,30 @@ namespace IT_Community.Server.Infrastructure.Services
             }
         }
 
+        public async Task ChangeBio(ClaimsPrincipal claimsPrincipal, string bio)
+        {
+            var user = await _userManager.FindByIdAsync(await GetUserId(claimsPrincipal));
+
+            if (user == null)
+            {
+                throw new HttpException(ErrorMessages.InvalidUserId, HttpStatusCode.BadRequest);
+            }
+
+            if (bio == null)
+            {
+                throw new HttpException("The bio field is required.", HttpStatusCode.BadRequest);
+            }
+
+            user.Bio = bio;
+            var result = await _userManager.UpdateAsync(user);
+
+            if (!result.Succeeded)
+            {
+                string errors = string.Join(", ", result.Errors.Select(e => e.Description));
+                throw new HttpException(errors, HttpStatusCode.BadRequest);
+            }
+        }
+
         public async Task ChangeProfilePhoto(ClaimsPrincipal claimsPrincipal, IFormFile photo)
         {
             var user = await _userManager.FindByIdAsync(await GetUserId(claimsPrincipal));

@@ -58,5 +58,16 @@ namespace IT_Community.Server.Controllers
             await _userService.ChangeProfilePhoto(User, photo);
             return Ok("Profile photo changed successfully");
         }
+
+        /// <summary>
+        /// Changes the user's bio
+        /// </summary>
+        [HttpPost("bio")]
+        [Authorize]
+        public async Task<IActionResult> ChangeBio([FromBody] string bio)
+        {
+            await _userService.ChangeBio(User, bio);
+            return Ok("Bio changed successfully");
+        }
     }
 }
