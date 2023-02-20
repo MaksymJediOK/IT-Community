@@ -24,7 +24,6 @@ namespace IT_Community.Server.Core.Configurations
     {
         public void Configure(EntityTypeBuilder<Vacancy> builder)
         {
-            builder.HasMany(x => x.Categories).WithMany(x => x.Vacancies);
             builder.HasMany(x => x.Answers).WithOne(x => x.Vacancy).HasForeignKey(x => x.VacancyId).OnDelete(DeleteBehavior.Restrict);
         }
     }

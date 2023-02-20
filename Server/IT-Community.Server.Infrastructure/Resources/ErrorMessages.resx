@@ -120,11 +120,17 @@
   <data name="ArcticleDoesNotExist" xml:space="preserve">
     <value>Article you`re trying to reach doesn`t exist</value>
   </data>
+  <data name="CategoryDoesNotExist" xml:space="preserve">
+    <value>Category you`re trying to reach doesn`t exist</value>
+  </data>
   <data name="CommentDoesNotExist" xml:space="preserve">
     <value>Comment you`re trying to reach doesn`t exist</value>
   </data>
   <data name="CompanyDoesNotExist" xml:space="preserve">
     <value>Company you`re trying to reach doesn`t exist</value>
+  </data>
+  <data name="CompanyNotRegistered" xml:space="preserve">
+    <value>You haven't registered your company yet.</value>
   </data>
   <data name="InvalidCredentials" xml:space="preserve">
     <value>Invalid email or password.</value>
@@ -134,5 +140,8 @@
   </data>
   <data name="InvalidUserId" xml:space="preserve">
     <value>Invalid user id.</value>
+  </data>
+  <data name="VacancyDoesNotExist" xml:space="preserve">
+    <value>Vacancy you`re trying to reach doesn`t exist</value>
   </data>
 </root>

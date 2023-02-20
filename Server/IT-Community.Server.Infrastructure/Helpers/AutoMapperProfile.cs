@@ -1,11 +1,13 @@
 ﻿using AutoMapper;
 using IT_Community.Server.Core.Entities;
 using IT_Community.Server.Core.Entities.Vacancies;
+using IT_Community.Server.Infrastructure.Dtos.CategoryDTOs;
 using IT_Community.Server.Infrastructure.Dtos.CommentDTOs;
 using IT_Community.Server.Infrastructure.Dtos.CompanyDTOs;
 using IT_Community.Server.Infrastructure.Dtos.PostDtos;
 using IT_Community.Server.Infrastructure.Dtos.TagsDTOs;
 using IT_Community.Server.Infrastructure.Dtos.UserDTOs;
+using IT_Community.Server.Infrastructure.Dtos.VacancyDTOs;
 using IT_Community.Server.Infrastructure.Utilities;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -56,6 +58,8 @@ namespace IT_Community.Server.Infrastructure.Helpers
             CreateMap<Tag, TagDto>();
             CreateMap<TagDto, Tag>();
 
+            CreateMap<Category, CategoryDto>().ReverseMap();
+
             CreateMap<CompanyCreateDto, Company>();
             CreateMap<CompanyEditDto, Company>();
 
@@ -63,7 +67,21 @@ namespace IT_Community.Server.Infrastructure.Helpers
                 .ForMember(dest => dest.ImageSrc, opt => opt.MapFrom(x => Path.Combine(_webHostEnvironment.WebRootPath, WebConstants.companiesImagesPath, x.Thumbnail)));
 
             CreateMap<Company, CompanyPreviewDto>()
-                    .ForMember(dest => dest.ImageSrc, opt => opt.MapFrom(x => Path.Combine(_webHostEnvironment.WebRootPath, WebConstants.companiesImagesPath, x.Thumbnail)));
+                .ForMember(dest => dest.ImageSrc, opt => opt.MapFrom(x => Path.Combine(_webHostEnvironment.WebRootPath, WebConstants.companiesImagesPath, x.Thumbnail)));
+
+            CreateMap<VacancyCreateDto, Vacancy>();
+            CreateMap<VacancyEditDto, Vacancy>();
+            CreateMap<Vacancy, VacancyPreviewDto>()
+                .ForMember(dest => dest.CompanyName, opt => opt.MapFrom(c => c.Company.Name))
+                .ForMember(dest => dest.ImageSrc, opt => opt.MapFrom(x => Path.Combine(_webHostEnvironment.WebRootPath, WebConstants.companiesImagesPath, x.Company.Thumbnail)));
+            CreateMap<Vacancy, VacancyFullDto>()
+                .ForMember(dest => dest.UserName, opt => opt.MapFrom(c => c.User.UserName))
+                .ForMember(dest => dest.CompanyName, opt => opt.MapFrom(c => c.Company.Name))
+                .ForMember(dest => dest.Description, opt => opt.MapFrom(c => c.Company.Description))
+                .ForMember(dest => dest.CompanyEmployeesAmount, opt => opt.MapFrom(c => c.Company.EmployeesAmount))
+                .ForMember(dest => dest.CategoryName, opt => opt.MapFrom(c => c.Category.Name))
+                .ForMember(dest => dest.CompanyImageSrc, opt => opt.MapFrom(x => Path.Combine(_webHostEnvironment.WebRootPath, WebConstants.companiesImagesPath, x.Company.Thumbnail)))
+                .ForMember(dest => dest.UserImageSrc, opt => opt.MapFrom(x => Path.Combine(_webHostEnvironment.WebRootPath, WebConstants.usersImagesPath, x.User.ProfilePhoto)));
         }
     }
 }
