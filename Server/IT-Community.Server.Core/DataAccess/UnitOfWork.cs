@@ -146,6 +146,20 @@ namespace IT_Community.Server.Core.DataAccess
             }
         }
 
+        public IGenericRepository<Vacancy> vacancyRepository;
+
+        public IGenericRepository<Vacancy> VacancyRepository
+        {
+            get
+            {
+                if(this.vacancyRepository == null)
+                {
+                    this.vacancyRepository = new GenericRepository<Vacancy>(_ctx);
+                }
+                return vacancyRepository;
+            }
+        }
+
         private bool disposed = false;
 
         protected virtual void Dispose(bool disposing)

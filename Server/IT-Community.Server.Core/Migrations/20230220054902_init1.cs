@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace IT_Community.Server.Core.Migrations
 {
-    public partial class init : Migration
+    public partial class init1 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -256,13 +256,15 @@ namespace IT_Community.Server.Core.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
+                    Title = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Salary = table.Column<int>(type: "int", nullable: false),
                     Experience = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Date = table.Column<DateTime>(type: "datetime2", nullable: false),
                     UserId = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    CompanyId = table.Column<int>(type: "int", nullable: false)
+                    CompanyId = table.Column<int>(type: "int", nullable: false),
+                    CategoryId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -273,6 +275,11 @@ namespace IT_Community.Server.Core.Migrations
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Vacancies_Categories_CategoryId",
+                        column: x => x.CategoryId,
+                        principalTable: "Categories",
+                        principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_Vacancies_Companies_CompanyId",
                         column: x => x.CompanyId,
@@ -419,38 +426,14 @@ namespace IT_Community.Server.Core.Migrations
                         onDelete: ReferentialAction.Restrict);
                 });
 
-            migrationBuilder.CreateTable(
-                name: "CategoryVacancy",
-                columns: table => new
-                {
-                    CategoriesId = table.Column<int>(type: "int", nullable: false),
-                    VacanciesId = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_CategoryVacancy", x => new { x.CategoriesId, x.VacanciesId });
-                    table.ForeignKey(
-                        name: "FK_CategoryVacancy_Categories_CategoriesId",
-                        column: x => x.CategoriesId,
-                        principalTable: "Categories",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_CategoryVacancy_Vacancies_VacanciesId",
-                        column: x => x.VacanciesId,
-                        principalTable: "Vacancies",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
             migrationBuilder.InsertData(
                 table: "AspNetRoles",
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
                 values: new object[,]
                 {
-                    { "71fdaa22-8962-455a-9934-b85b36dd9aa9", "33ea8843-39de-4573-8f67-80b25dbad68b", "Admin", "ADMIN" },
-                    { "83c8cac0-2cd4-47ed-a5ee-461aa76da9e6", "98930d8f-27f9-40f7-9e8c-0cadaf3a2ecc", "User", "USER" },
-                    { "eeb98160-e2ec-4dae-bee1-76a84828f72d", "e273124f-a500-41ef-83a8-7c38663002d5", "Moderator", "MODERATOR" }
+                    { "8419f976-06c0-4824-91eb-740bbda84673", "0b77f5ff-f27d-47a3-94e1-05292d5f40a8", "Moderator", "MODERATOR" },
+                    { "89cee62a-26ec-482e-a980-78c1224b0f03", "810aaf9b-a0d9-4347-88c0-bb3032a01969", "Admin", "ADMIN" },
+                    { "ea1a83f2-780e-4b6a-a4ad-94822600af36", "3d284baa-e4e3-48f2-a198-434ca3ccf5fd", "User", "USER" }
                 });
 
             migrationBuilder.InsertData(
@@ -458,9 +441,9 @@ namespace IT_Community.Server.Core.Migrations
                 columns: new[] { "Id", "AccessFailedCount", "CompanyId", "ConcurrencyStamp", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "ProfilePhoto", "SecurityStamp", "TwoFactorEnabled", "UserName" },
                 values: new object[,]
                 {
-                    { "1da01d9b-f53e-4278-83ee-c0b1c74bf0c0", 0, null, "1dd4e691-73bd-494b-991e-f36e6fbc6391", "user@gmail.com", true, false, null, "USER@GMAIL.COM", "USER@GMAIL.COM", "AQAAAAEAACcQAAAAEGAVttJxXpXzvmjNjFBnhtKpcSNFnUhpRHYdpyuei0QiS6aDeWLUmCST243p/zXRcQ==", null, false, null, "bf74640e-fab5-43f3-93ae-150af899a57d", false, "user@gmail.com" },
-                    { "336c5c59-c28e-4fc5-8b8a-95c8e83c7035", 0, null, "24253d0f-7e6e-4762-9c09-3ee394094319", "moder@gmail.com", true, false, null, "MODER@GMAIL.COM", "MODER@GMAIL.COM", "AQAAAAEAACcQAAAAEO+q7Z4mMsFO8Wr785d+L8X+3pbZ1tfg5TJOURTliAPeBgBYBDsQy0rmo93tWWma3Q==", null, false, null, "23672a09-c780-49b0-9d9f-cc6ea639c973", false, "moder@gmail.com" },
-                    { "eec75f95-6b3f-4cab-9c3d-38b40ef8830b", 0, null, "a6bb5560-f967-4b0b-bf91-7615f9f944fd", "admin@gmail.com", true, false, null, "ADMIN@GMAIL.COM", "ADMIN@GMAIL.COM", "AQAAAAEAACcQAAAAEMOpb9sozSrlKYvYW8/iZCkgJPi6eKhEhrjANa9A4++oe8bBevIKda4oo5OqEF7EIg==", null, false, null, "f716e5cc-8e62-42c5-b0a4-4ec3afb46853", false, "admin@gmail.com" }
+                    { "7c6c0b54-2646-4760-98de-05a8a921fbb3", 0, null, "552e493e-d0c9-4141-b08d-55b1666be443", "admin@gmail.com", true, false, null, "ADMIN@GMAIL.COM", "ADMIN@GMAIL.COM", "AQAAAAEAACcQAAAAEJzgG7JdBmuiy38JlonWQTPMxAuVITk+jc225qu/iFbSm3CEBxGDz7WqfZC5cOOtDA==", null, false, null, "f8b601f3-daae-407e-b5c9-a8cb4291cc9e", false, "admin@gmail.com" },
+                    { "dbeae7a8-098d-45a0-af7a-fb4dc8405292", 0, null, "74b53e77-50cf-41d9-886e-d6077ec8ad8c", "moder@gmail.com", true, false, null, "MODER@GMAIL.COM", "MODER@GMAIL.COM", "AQAAAAEAACcQAAAAEFQPvaICfX51aFR0q6FxFQnYlxmmoZ5nvVxkm5pBpithqDI+1vH3XQ1gj15XvPV6Aw==", null, false, null, "105ed212-9e1c-40b3-9227-62821c8d1a6a", false, "moder@gmail.com" },
+                    { "edfc5c76-a943-4068-bf39-dc5c2aa5b7c0", 0, null, "98bddf2e-0341-42bd-89e4-ec88b94c55e1", "user@gmail.com", true, false, null, "USER@GMAIL.COM", "USER@GMAIL.COM", "AQAAAAEAACcQAAAAELRRpncORHa1MDry20n/pFedbSlXuGdE2XEhUzvxAU/+BqhrFQ0vIBsuDdWud/K2GA==", null, false, null, "8a024caa-7496-4029-a96f-e09b71963e0e", false, "user@gmail.com" }
                 });
 
             migrationBuilder.InsertData(
@@ -502,9 +485,9 @@ namespace IT_Community.Server.Core.Migrations
                 columns: new[] { "RoleId", "UserId" },
                 values: new object[,]
                 {
-                    { "83c8cac0-2cd4-47ed-a5ee-461aa76da9e6", "1da01d9b-f53e-4278-83ee-c0b1c74bf0c0" },
-                    { "eeb98160-e2ec-4dae-bee1-76a84828f72d", "336c5c59-c28e-4fc5-8b8a-95c8e83c7035" },
-                    { "71fdaa22-8962-455a-9934-b85b36dd9aa9", "eec75f95-6b3f-4cab-9c3d-38b40ef8830b" }
+                    { "89cee62a-26ec-482e-a980-78c1224b0f03", "7c6c0b54-2646-4760-98de-05a8a921fbb3" },
+                    { "8419f976-06c0-4824-91eb-740bbda84673", "dbeae7a8-098d-45a0-af7a-fb4dc8405292" },
+                    { "ea1a83f2-780e-4b6a-a4ad-94822600af36", "edfc5c76-a943-4068-bf39-dc5c2aa5b7c0" }
                 });
 
             migrationBuilder.InsertData(
@@ -512,10 +495,10 @@ namespace IT_Community.Server.Core.Migrations
                 columns: new[] { "Id", "Body", "Date", "Description", "ForumId", "Thumbnail", "Title", "UserId", "Views" },
                 values: new object[,]
                 {
-                    { 1, "2022 рік став складним для держави, всіх українців і зокрема для ІТ-індустрії. Ми вирішили розібратися, чого галузі чекати від наступного 2023 року.\nМи поспілкувалися з представниками державних установ, кластерами, компаніями та айтівцями про те, які виклики чекають на ІТ у майбутньому, чи зможе галузь відновити зростання, утримувати та залучати нових клієнтів та ключових розробників.\n\n## Плани Мінцифри: military-tech, Дія City, стартапи\n\nУ Міністерстві цифрової трансформації 2023 року сфокусуються на підтриманні та розвитку таких великих проєктів, як Дія City (нині там уже 413 резидентів), military-tech, технологічних стартапів на основі систем штучного інтелекту й робототехніки.\n«Наша країна має всі шанси стати світовим лідером з розвитку military-tech. У нас для цього є високопрофесійні розробники, сильна ІТ-індустрія, яка демонструє зростання навіть під час війни, та можливість оперативного випробування технологій на полі бою», — коментують у Мінцифри.\nВідомство також має план розвитку ІТ, розроблений спільно з представниками галузі, що передбачає підтримку чотирьох напрямів: венчурної та стартап-екосистеми, ІТ-освіти, digital resistance, просування бренду України як IT-держави.\nКрім того, у своїй діяльності міністерство робитиме акцент на підтриманні продуктового напряму.", new DateTime(2023, 2, 19, 23, 57, 41, 225, DateTimeKind.Local).AddTicks(3377), "Ми вирішили розібратися, чого галузі чекати від наступного 2023 року. Поспілкувалися з представниками державних установ, кластерами, компаніями та айтівцями про те, які виклики чекають на ІТ у майбутньому, чи зможе галузь відновити зростання, утримувати та залучати нових клієнтів та ключових розробників.", 10, "https://s.dou.ua/img/announces/forecasts_cover-840.jpg", "«Українці — пункт № 1 в будь-якому Risk Assessment Report». До чого готуватись українському IT у 2023 році", "1da01d9b-f53e-4278-83ee-c0b1c74bf0c0", 10 },
-                    { 2, "Всім привіт! Мене звати Богдан Чупіка, я працюю в Edtech-стартапі Mate academy на позиції Team Lead/ Java Coach. Серед моїх обовʼязків є рев’ю коду нашої команди девелоперів, перевірка коду студентів і проведення співбесід в команду.\n\nПід час лайв кодингу на співбесідах (один з обовʼязкових етапів) я зустрічав дуже багато випадків, коли кандидати пишуть не ок код. Навіть після прохання привести їх до вигляду, який буде запушений в мастер. При чому помилки бувають як в джунів, так і в сеньйорів (у меншій кількості, але все ж).\n\nУ цій статті я зберу не тільки власний весь досвід, а і досвід команди з понад 70 девелоперів і менторів у нашій компанії. І, головне — відповім на питання: Як потрібно якісно писати код? Звичайно ж, з прикладами і порадами. Текст буде корисний і тим, хто пише код, і тим, хто його читає.\n\nПогодьтеся, що набагато приємніше і швидше читати код, який за своїм стилем схожий на той, що ви пишете в рамках поточного проєкту. Якби щодо код стайлу панувала анархія, скоро цей код було б дуже важко і читати, і підтримувати.\n\nНЕ якісний код НЕ повинен потрапити в мастер (мейн) гілку. Для цього існує процес code review. ", new DateTime(2023, 2, 19, 23, 57, 41, 225, DateTimeKind.Local).AddTicks(3414), "Team Lead і Java Coach Богдан Чупіка зібрав у цьому матеріалі досвід колег щодо проведення code review і розбирає на конкретному прикладі, як організувати цей процес якісно та корисно для проєкту.", 4, "https://s.dou.ua/img/announces/23tech_review_2.jpg", "Хороший, поганий код: як code review рятує проєкт", "1da01d9b-f53e-4278-83ee-c0b1c74bf0c0", 10 },
-                    { 3, "Усім привіт, на зв’язку Богдан Свердлюк, я люблю розбиратись у налаштуваннях «розумного» будинку та IoT, і ділитись своїм досвідом з українською ІТ-спільнотою. Сьогодні поговоримо про те, як встановити Node-Red в Home Assistant. російський військовий корабель, іди нах***!\n\nNode-RED — це інструмент блокового програмування потоків даних пристроїв, API та онлайн-сервісів. Часто використовується для створення автоматизацій. Це браузерний редактор, який спрощує об’єднання потоків, використовуючи широкий діапазон вузлів (нодів) у палітрі, виконання яких можна запустити в один клік.\n\nЩоб встановити додаток в інтерфейсі Home Assistant перейдіть у бічне меню >> Конфігурація >> Додатки >> Магазин доповнень >> у розділі Community Add-ons натисніть та встановіть додаток Node-RED.", new DateTime(2023, 2, 19, 23, 57, 41, 225, DateTimeKind.Local).AddTicks(3417), "Node-RED — це інструмент блокового програмування потоків даних пристроїв, API та онлайн-сервісів. Як налаштувати цей додаток в інтерфейсі Home Assistant — розповідає Богдан Свердлюк.", 10, "https://s.dou.ua/img/announces/tech_nr_image.jpg", "Встановлюємо Node-Red в Home Assistant. Інструкція", "1da01d9b-f53e-4278-83ee-c0b1c74bf0c0", 10 },
-                    { 4, "Всім привіт! Мене звати Олександр, час від часу я ділюся своїм досвідом роботи з Java з технічною спільнотою. В попередній раз я писав про фреймворк для тестування API сервісів на Java і в мене виникла ідея написати про загальніший фреймворк, який буде додатково містити частини для тестування UI, можливість взаємодіяти з базою даних та логування з репортом.\nДо об’єкта тестування я висував наступні вимоги:\n\nсистема має мати UI та API інтерфейси;\nсистема має мати взаємодією з базою даних;\nсистема має бути опенсорс та безкоштовною;\nрозгортання системи локально має бути максимально простим.\n\nЯк об’єкт тестування я вибрав KanBoard, оскільки це програмне забезпечення задовольняє всім моїм вимогам. Kanboard — це опенсорс програмне забезпечення, яке дозволяє створювати проєктні дашборди із завданнями.\n\nРозгортається система локально однією командою docker compose up з папки, де знаходиться docker-compose.yml. У випадку фреймворку цей файл знаходиться у root папці. Я не буду описувати, як встановити docker, цю інформацію можна отримати за посиланням. Якщо не змінювати налаштування у docker-compose.yml файлі, то інтерфейс буде доступний за лінкою http://127.0.0.1/login, юзер має креди admin/admin.", new DateTime(2023, 2, 19, 23, 57, 41, 225, DateTimeKind.Local).AddTicks(3419), "Олександр Подоляко розбирає приклад використання фреймворку для автоматичного тестування UI, зокрема і розповідає, як налаштувати можливість взаємодіяти з базою даних та логування з репортом.", 4, "https://s.dou.ua/img/announces/tech_frontend_j_2.png", "Фреймворк для тестування UI. Як його налаштувати на Java", "1da01d9b-f53e-4278-83ee-c0b1c74bf0c0", 5 }
+                    { 1, "2022 рік став складним для держави, всіх українців і зокрема для ІТ-індустрії. Ми вирішили розібратися, чого галузі чекати від наступного 2023 року.\nМи поспілкувалися з представниками державних установ, кластерами, компаніями та айтівцями про те, які виклики чекають на ІТ у майбутньому, чи зможе галузь відновити зростання, утримувати та залучати нових клієнтів та ключових розробників.\n\n## Плани Мінцифри: military-tech, Дія City, стартапи\n\nУ Міністерстві цифрової трансформації 2023 року сфокусуються на підтриманні та розвитку таких великих проєктів, як Дія City (нині там уже 413 резидентів), military-tech, технологічних стартапів на основі систем штучного інтелекту й робототехніки.\n«Наша країна має всі шанси стати світовим лідером з розвитку military-tech. У нас для цього є високопрофесійні розробники, сильна ІТ-індустрія, яка демонструє зростання навіть під час війни, та можливість оперативного випробування технологій на полі бою», — коментують у Мінцифри.\nВідомство також має план розвитку ІТ, розроблений спільно з представниками галузі, що передбачає підтримку чотирьох напрямів: венчурної та стартап-екосистеми, ІТ-освіти, digital resistance, просування бренду України як IT-держави.\nКрім того, у своїй діяльності міністерство робитиме акцент на підтриманні продуктового напряму.", new DateTime(2023, 2, 20, 7, 49, 1, 762, DateTimeKind.Local).AddTicks(7755), "Ми вирішили розібратися, чого галузі чекати від наступного 2023 року. Поспілкувалися з представниками державних установ, кластерами, компаніями та айтівцями про те, які виклики чекають на ІТ у майбутньому, чи зможе галузь відновити зростання, утримувати та залучати нових клієнтів та ключових розробників.", 10, "https://s.dou.ua/img/announces/forecasts_cover-840.jpg", "«Українці — пункт № 1 в будь-якому Risk Assessment Report». До чого готуватись українському IT у 2023 році", "edfc5c76-a943-4068-bf39-dc5c2aa5b7c0", 10 },
+                    { 2, "Всім привіт! Мене звати Богдан Чупіка, я працюю в Edtech-стартапі Mate academy на позиції Team Lead/ Java Coach. Серед моїх обовʼязків є рев’ю коду нашої команди девелоперів, перевірка коду студентів і проведення співбесід в команду.\n\nПід час лайв кодингу на співбесідах (один з обовʼязкових етапів) я зустрічав дуже багато випадків, коли кандидати пишуть не ок код. Навіть після прохання привести їх до вигляду, який буде запушений в мастер. При чому помилки бувають як в джунів, так і в сеньйорів (у меншій кількості, але все ж).\n\nУ цій статті я зберу не тільки власний весь досвід, а і досвід команди з понад 70 девелоперів і менторів у нашій компанії. І, головне — відповім на питання: Як потрібно якісно писати код? Звичайно ж, з прикладами і порадами. Текст буде корисний і тим, хто пише код, і тим, хто його читає.\n\nПогодьтеся, що набагато приємніше і швидше читати код, який за своїм стилем схожий на той, що ви пишете в рамках поточного проєкту. Якби щодо код стайлу панувала анархія, скоро цей код було б дуже важко і читати, і підтримувати.\n\nНЕ якісний код НЕ повинен потрапити в мастер (мейн) гілку. Для цього існує процес code review. ", new DateTime(2023, 2, 20, 7, 49, 1, 762, DateTimeKind.Local).AddTicks(7795), "Team Lead і Java Coach Богдан Чупіка зібрав у цьому матеріалі досвід колег щодо проведення code review і розбирає на конкретному прикладі, як організувати цей процес якісно та корисно для проєкту.", 4, "https://s.dou.ua/img/announces/23tech_review_2.jpg", "Хороший, поганий код: як code review рятує проєкт", "edfc5c76-a943-4068-bf39-dc5c2aa5b7c0", 10 },
+                    { 3, "Усім привіт, на зв’язку Богдан Свердлюк, я люблю розбиратись у налаштуваннях «розумного» будинку та IoT, і ділитись своїм досвідом з українською ІТ-спільнотою. Сьогодні поговоримо про те, як встановити Node-Red в Home Assistant. російський військовий корабель, іди нах***!\n\nNode-RED — це інструмент блокового програмування потоків даних пристроїв, API та онлайн-сервісів. Часто використовується для створення автоматизацій. Це браузерний редактор, який спрощує об’єднання потоків, використовуючи широкий діапазон вузлів (нодів) у палітрі, виконання яких можна запустити в один клік.\n\nЩоб встановити додаток в інтерфейсі Home Assistant перейдіть у бічне меню >> Конфігурація >> Додатки >> Магазин доповнень >> у розділі Community Add-ons натисніть та встановіть додаток Node-RED.", new DateTime(2023, 2, 20, 7, 49, 1, 762, DateTimeKind.Local).AddTicks(7798), "Node-RED — це інструмент блокового програмування потоків даних пристроїв, API та онлайн-сервісів. Як налаштувати цей додаток в інтерфейсі Home Assistant — розповідає Богдан Свердлюк.", 10, "https://s.dou.ua/img/announces/tech_nr_image.jpg", "Встановлюємо Node-Red в Home Assistant. Інструкція", "edfc5c76-a943-4068-bf39-dc5c2aa5b7c0", 10 },
+                    { 4, "Всім привіт! Мене звати Олександр, час від часу я ділюся своїм досвідом роботи з Java з технічною спільнотою. В попередній раз я писав про фреймворк для тестування API сервісів на Java і в мене виникла ідея написати про загальніший фреймворк, який буде додатково містити частини для тестування UI, можливість взаємодіяти з базою даних та логування з репортом.\nДо об’єкта тестування я висував наступні вимоги:\n\nсистема має мати UI та API інтерфейси;\nсистема має мати взаємодією з базою даних;\nсистема має бути опенсорс та безкоштовною;\nрозгортання системи локально має бути максимально простим.\n\nЯк об’єкт тестування я вибрав KanBoard, оскільки це програмне забезпечення задовольняє всім моїм вимогам. Kanboard — це опенсорс програмне забезпечення, яке дозволяє створювати проєктні дашборди із завданнями.\n\nРозгортається система локально однією командою docker compose up з папки, де знаходиться docker-compose.yml. У випадку фреймворку цей файл знаходиться у root папці. Я не буду описувати, як встановити docker, цю інформацію можна отримати за посиланням. Якщо не змінювати налаштування у docker-compose.yml файлі, то інтерфейс буде доступний за лінкою http://127.0.0.1/login, юзер має креди admin/admin.", new DateTime(2023, 2, 20, 7, 49, 1, 762, DateTimeKind.Local).AddTicks(7800), "Олександр Подоляко розбирає приклад використання фреймворку для автоматичного тестування UI, зокрема і розповідає, як налаштувати можливість взаємодіяти з базою даних та логування з репортом.", 4, "https://s.dou.ua/img/announces/tech_frontend_j_2.png", "Фреймворк для тестування UI. Як його налаштувати на Java", "edfc5c76-a943-4068-bf39-dc5c2aa5b7c0", 5 }
                 });
 
             migrationBuilder.InsertData(
@@ -523,8 +506,8 @@ namespace IT_Community.Server.Core.Migrations
                 columns: new[] { "Id", "Body", "Date", "ParentId", "PostId", "UserId" },
                 values: new object[,]
                 {
-                    { 1, "Дуже якісна та інформативна статистика!\nРаджу почитати оригінальне дослідження щоб зрозуміти масштаби\nitukraine.org.ua/...​2/DoITLikeUkraine2022.pdf", new DateTime(2023, 2, 19, 23, 57, 41, 225, DateTimeKind.Local).AddTicks(3434), null, 1, "1da01d9b-f53e-4278-83ee-c0b1c74bf0c0" },
-                    { 2, "Як створювали саму структуру проекту? Через можливості IDE або maven generate?", new DateTime(2023, 2, 19, 23, 57, 41, 225, DateTimeKind.Local).AddTicks(3437), null, 4, "1da01d9b-f53e-4278-83ee-c0b1c74bf0c0" }
+                    { 1, "Дуже якісна та інформативна статистика!\nРаджу почитати оригінальне дослідження щоб зрозуміти масштаби\nitukraine.org.ua/...​2/DoITLikeUkraine2022.pdf", new DateTime(2023, 2, 20, 7, 49, 1, 762, DateTimeKind.Local).AddTicks(7820), null, 1, "edfc5c76-a943-4068-bf39-dc5c2aa5b7c0" },
+                    { 2, "Як створювали саму структуру проекту? Через можливості IDE або maven generate?", new DateTime(2023, 2, 20, 7, 49, 1, 762, DateTimeKind.Local).AddTicks(7823), null, 4, "edfc5c76-a943-4068-bf39-dc5c2aa5b7c0" }
                 });
 
             migrationBuilder.InsertData(
@@ -532,8 +515,8 @@ namespace IT_Community.Server.Core.Migrations
                 columns: new[] { "Id", "PostId", "UserId" },
                 values: new object[,]
                 {
-                    { 1, 1, "1da01d9b-f53e-4278-83ee-c0b1c74bf0c0" },
-                    { 2, 3, "1da01d9b-f53e-4278-83ee-c0b1c74bf0c0" }
+                    { 1, 1, "edfc5c76-a943-4068-bf39-dc5c2aa5b7c0" },
+                    { 2, 3, "edfc5c76-a943-4068-bf39-dc5c2aa5b7c0" }
                 });
 
             migrationBuilder.CreateIndex(
@@ -601,11 +584,6 @@ namespace IT_Community.Server.Core.Migrations
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_CategoryVacancy_VacanciesId",
-                table: "CategoryVacancy",
-                column: "VacanciesId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Comments_ParentId",
                 table: "Comments",
                 column: "ParentId");
@@ -646,6 +624,11 @@ namespace IT_Community.Server.Core.Migrations
                 column: "TagsId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Vacancies_CategoryId",
+                table: "Vacancies",
+                column: "CategoryId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Vacancies_CompanyId",
                 table: "Vacancies",
                 column: "CompanyId");
@@ -680,9 +663,6 @@ namespace IT_Community.Server.Core.Migrations
                 name: "Bookmarks");
 
             migrationBuilder.DropTable(
-                name: "CategoryVacancy");
-
-            migrationBuilder.DropTable(
                 name: "Comments");
 
             migrationBuilder.DropTable(
@@ -692,19 +672,19 @@ namespace IT_Community.Server.Core.Migrations
                 name: "PostTag");
 
             migrationBuilder.DropTable(
-                name: "AspNetRoles");
-
-            migrationBuilder.DropTable(
-                name: "Categories");
-
-            migrationBuilder.DropTable(
                 name: "Vacancies");
+
+            migrationBuilder.DropTable(
+                name: "AspNetRoles");
 
             migrationBuilder.DropTable(
                 name: "Posts");
 
             migrationBuilder.DropTable(
                 name: "Tags");
+
+            migrationBuilder.DropTable(
+                name: "Categories");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");

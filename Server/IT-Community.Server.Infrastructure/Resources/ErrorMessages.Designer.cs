@@ -70,6 +70,15 @@ namespace IT_Community.Server.Infrastructure.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Category you`re trying to reach doesn`t exist.
+        /// </summary>
+        internal static string CategoryDoesNotExist {
+            get {
+                return ResourceManager.GetString("CategoryDoesNotExist", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Comment you`re trying to reach doesn`t exist.
         /// </summary>
         internal static string CommentDoesNotExist {
@@ -84,6 +93,15 @@ namespace IT_Community.Server.Infrastructure.Resources {
         internal static string CompanyDoesNotExist {
             get {
                 return ResourceManager.GetString("CompanyDoesNotExist", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You haven&apos;t registered your company yet..
+        /// </summary>
+        internal static string CompanyNotRegistered {
+            get {
+                return ResourceManager.GetString("CompanyNotRegistered", resourceCulture);
             }
         }
         
@@ -111,6 +129,15 @@ namespace IT_Community.Server.Infrastructure.Resources {
         internal static string InvalidUserId {
             get {
                 return ResourceManager.GetString("InvalidUserId", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Vacancy you`re trying to reach doesn`t exist.
+        /// </summary>
+        internal static string VacancyDoesNotExist {
+            get {
+                return ResourceManager.GetString("VacancyDoesNotExist", resourceCulture);
             }
         }
     }

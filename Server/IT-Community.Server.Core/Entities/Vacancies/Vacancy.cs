@@ -14,6 +14,7 @@ namespace IT_Community.Server.Core.Entities.Vacancies
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
+        public string Title { get; set; }
         public int Salary { get; set; }
         public string Experience { get; set; }
         public string Description { get; set; }
@@ -23,7 +24,8 @@ namespace IT_Community.Server.Core.Entities.Vacancies
         public User? User { get; set; }
         public int CompanyId { get; set; }
         public Company? Company { get; set; }
-        public virtual ICollection<Category> Categories { get; set; }
+        public int CategoryId { get; set; }
+        public Category? Category { get; set; }
         public virtual ICollection<Answer> Answers { get; set; }
     }
 }

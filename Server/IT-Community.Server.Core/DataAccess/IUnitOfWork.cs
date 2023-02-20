@@ -20,6 +20,7 @@ namespace IT_Community.Server.Core.DataAccess
         IGenericRepository<Comment> CommentRepository { get; }
         IGenericRepository<Company> CompanyRepository { get; }
         IGenericRepository<Category> CategoryRepository { get; }
+        IGenericRepository<Vacancy> VacancyRepository { get; }
         Task SaveAsync();
     }
 }
