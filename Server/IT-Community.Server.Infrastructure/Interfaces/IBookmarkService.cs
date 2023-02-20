@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using IT_Community.Server.Infrastructure.Dtos.PostDtos;
 using Microsoft.AspNetCore.Mvc;
 
-namespace IT_Community.Server.Infrastructure.Services
+namespace IT_Community.Server.Infrastructure.Interfaces
 {
     public interface IBookmarkService
     {

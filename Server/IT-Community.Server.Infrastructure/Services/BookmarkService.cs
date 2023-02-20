@@ -9,6 +9,7 @@ using IT_Community.Server.Core.Entities;
 using IT_Community.Server.Infrastructure.Dtos;
 using IT_Community.Server.Infrastructure.Dtos.PostDtos;
 using IT_Community.Server.Infrastructure.Exceptions;
+using IT_Community.Server.Infrastructure.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace IT_Community.Server.Infrastructure.Services

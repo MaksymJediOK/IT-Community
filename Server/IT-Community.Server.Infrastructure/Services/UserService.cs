@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Hosting;
 using IT_Community.Server.Infrastructure.Utilities;
 using IT_Community.Server.Infrastructure.Dtos.UserDTOs;
 using AutoMapper;
+using IT_Community.Server.Infrastructure.Interfaces;
 
 namespace IT_Community.Server.Infrastructure.Services
 {

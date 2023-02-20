@@ -16,6 +16,7 @@ using Microsoft.Extensions.Configuration;
 using System.Security.Claims;
 using System.IdentityModel.Tokens.Jwt;
 using IT_Community.Server.Infrastructure.Dtos.AuthDTOs;
+using IT_Community.Server.Infrastructure.Interfaces;
 
 namespace IT_Community.Server.Infrastructure.Services
 {

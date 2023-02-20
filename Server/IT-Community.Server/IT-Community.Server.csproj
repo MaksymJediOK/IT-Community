@@ -33,8 +33,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\IT-Community.Server.Core\IT-Community.Server.Infrastructure.csproj" />
-    <ProjectReference Include="..\IT-Community.Server.Infrastructure\IT-Community.Server.Core.csproj" />
+    <ProjectReference Include="..\IT-Community.Server.Core\IT-Community.Server.Core.csproj" />
+    <ProjectReference Include="..\IT-Community.Server.Infrastructure\IT-Community.Server.Infrustructure.csproj" />
   </ItemGroup>
 
   <ItemGroup>

@@ -7,7 +7,7 @@ using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace IT_Community.Server.Infrastructure.Services
+namespace IT_Community.Server.Infrastructure.Interfaces
 {
     public interface IPostsService
     {

@@ -1,6 +1,5 @@
 ﻿using IT_Community.Server.Infrastructure.Dtos.CompanyDTOs;
 using IT_Community.Server.Infrastructure.Interfaces;
-using IT_Community.Server.Infrastructure.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;

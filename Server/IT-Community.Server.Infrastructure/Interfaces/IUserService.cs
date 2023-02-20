@@ -2,7 +2,7 @@ using IT_Community.Server.Infrastructure.Dtos.UserDTOs;
 using Microsoft.AspNetCore.Http;
 using System.Security.Claims;
 
-namespace IT_Community.Server.Infrastructure.Services
+namespace IT_Community.Server.Infrastructure.Interfaces
 {
     public interface IUserService
     {
