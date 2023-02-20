@@ -126,11 +126,15 @@ namespace IT_Community.Server.Infrastructure.Services
                 }
                 postToCreate.Tags = list;
             }
-            postToCreate.Thumbnail = await SaveImage(postCreateDto.ImageFile);
+
+            if (postCreateDto.ImageFile != null)
+            {
+                postToCreate.Thumbnail = await SaveImage(postCreateDto.ImageFile);
+            }
+
             await _unitOfWork.PostRepository.Insert(postToCreate);
             await _unitOfWork.SaveAsync();
         }
-
         public async Task EditPost(PostCreateDto postEditDto, string userId, int postId)
         {
             if (!IsExist(postId))

@@ -132,6 +132,34 @@ namespace IT_Community.Server.Core.DataAccess
             }
         }
 
+        public IGenericRepository<Category> categoryRepository;
+
+        public IGenericRepository<Category> CategoryRepository
+        {
+            get
+            {
+                if(this.categoryRepository == null)
+                {
+                    this.categoryRepository = new GenericRepository<Category>(_ctx);
+                }
+                return categoryRepository;
+            }
+        }
+
+        public IGenericRepository<Vacancy> vacancyRepository;
+
+        public IGenericRepository<Vacancy> VacancyRepository
+        {
+            get
+            {
+                if(this.vacancyRepository == null)
+                {
+                    this.vacancyRepository = new GenericRepository<Vacancy>(_ctx);
+                }
+                return vacancyRepository;
+            }
+        }
+
         private bool disposed = false;
 
         protected virtual void Dispose(bool disposing)

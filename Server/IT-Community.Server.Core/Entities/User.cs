@@ -20,5 +20,6 @@ namespace IT_Community.Server.Core.Entities
         public virtual ICollection<Like> Likes { get; set; }
         public virtual ICollection<Bookmark> Bookmarks { get; set; }
         public virtual ICollection<Answer> Answers { get; set; }
+        public virtual ICollection<Vacancy> Vacancies { get; set; }
     }
 }

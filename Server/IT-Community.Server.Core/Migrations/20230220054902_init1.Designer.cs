@@ -4,6 +4,7 @@ using IT_Community.Server.Core;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace IT_Community.Server.Core.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20230220054902_init1")]
+    partial class init1
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -292,7 +294,7 @@ namespace IT_Community.Server.Core.Migrations
                             ForumId = 4,
                             Thumbnail = "https://s.dou.ua/img/announces/tech_frontend_j_2.png",
                             Title = "Фреймворк для тестування UI. Як його налаштувати на Java",
-                            UserId = "efa3837d-f282-4cbb-9df8-af0170794568",
+                            UserId = "edfc5c76-a943-4068-bf39-dc5c2aa5b7c0",
                             Views = 5
                         });
                 });
@@ -373,9 +375,6 @@ namespace IT_Community.Server.Core.Migrations
                     b.Property<int>("AccessFailedCount")
                         .HasColumnType("int");
 
-                    b.Property<string>("Bio")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<int?>("CompanyId")
                         .HasColumnType("int");
 
@@ -395,9 +394,6 @@ namespace IT_Community.Server.Core.Migrations
 
                     b.Property<DateTimeOffset?>("LockoutEnd")
                         .HasColumnType("datetimeoffset");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("NormalizedEmail")
                         .HasMaxLength(256)
