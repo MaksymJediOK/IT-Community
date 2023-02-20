@@ -10,6 +10,8 @@ namespace IT_Community.Server.Core.Entities
 {
     public class User : IdentityUser
     {
+        public string? Name { get; set; }
+        public string? Bio { get; set; }
         public string? ProfilePhoto { get; set; }
         public Company? Company { get; set; }
         public int? CompanyId { get; set; }

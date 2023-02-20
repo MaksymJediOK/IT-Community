@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using IT_Community.Server.Infrastructure.Services;
 using Microsoft.AspNetCore.Authorization;
+using IT_Community.Server.Infrastructure.Dtos.UserDTOs;
 
 namespace IT_Community.Server.Controllers
 {
@@ -13,6 +14,37 @@ namespace IT_Community.Server.Controllers
         public UserController(IUserService userService)
         {
             _userService = userService;
+        }
+
+        /// <summary>
+        /// Gets information about the user
+        /// </summary>
+        [HttpGet("username")]
+        public async Task<UserFullDto>? GetUser(string username)
+        {
+            return await _userService.GetUserInfo(username);
+        }
+
+        /// <summary>
+        /// Changes the user's username
+        /// </summary>
+        [HttpPost("username")]
+        [Authorize]
+        public async Task<IActionResult> ChangeUserName(string name)
+        {
+            await _userService.ChangeUserName(User, name);
+            return Ok("Username changed successfully");
+        }
+
+        /// <summary>
+        /// Changes the user's full name
+        /// </summary>
+        [HttpPost("name")]
+        [Authorize]
+        public async Task<IActionResult> ChangeName(string name)
+        {
+            await _userService.ChangeName(User, name);
+            return Ok("Name changed successfully");
         }
 
         /// <summary>
@@ -46,6 +78,17 @@ namespace IT_Community.Server.Controllers
         {
             await _userService.ChangeProfilePhoto(User, photo);
             return Ok("Profile photo changed successfully");
+        }
+
+        /// <summary>
+        /// Changes the user's bio
+        /// </summary>
+        [HttpPost("bio")]
+        [Authorize]
+        public async Task<IActionResult> ChangeBio([FromBody] string bio)
+        {
+            await _userService.ChangeBio(User, bio);
+            return Ok("Bio changed successfully");
         }
     }
 }
