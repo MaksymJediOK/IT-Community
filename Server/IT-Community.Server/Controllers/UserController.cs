@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
-using IT_Community.Server.Infrastructure.Services;
 using Microsoft.AspNetCore.Authorization;
 using IT_Community.Server.Infrastructure.Dtos.UserDTOs;
+using IT_Community.Server.Infrastructure.Interfaces;
 
 namespace IT_Community.Server.Controllers
 {

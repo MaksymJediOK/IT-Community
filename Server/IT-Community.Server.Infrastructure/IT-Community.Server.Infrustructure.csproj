@@ -15,7 +15,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\IT-Community.Server.Core\IT-Community.Server.Infrastructure.csproj" />
+    <ProjectReference Include="..\IT-Community.Server.Core\IT-Community.Server.Core.csproj" />
   </ItemGroup>
 
   <ItemGroup>

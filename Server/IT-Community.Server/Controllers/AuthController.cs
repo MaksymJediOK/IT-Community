@@ -9,7 +9,7 @@ using System.Text.Encodings.Web;
 using System.Text;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-using IT_Community.Server.Infrastructure.Services;
+using IT_Community.Server.Infrastructure.Interfaces;
 
 namespace IT_Community.Server.Controllers
 {

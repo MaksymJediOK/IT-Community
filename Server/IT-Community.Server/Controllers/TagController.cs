@@ -1,5 +1,5 @@
 ﻿using IT_Community.Server.Infrastructure.Dtos.TagsDTOs;
-using IT_Community.Server.Infrastructure.Services;
+using IT_Community.Server.Infrastructure.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace IT_Community.Server.Controllers

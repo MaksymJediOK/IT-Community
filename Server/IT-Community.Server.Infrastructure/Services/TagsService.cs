@@ -3,6 +3,7 @@ using IT_Community.Server.Core.DataAccess;
 using IT_Community.Server.Core.Entities;
 using IT_Community.Server.Infrastructure.Dtos.TagsDTOs;
 using IT_Community.Server.Infrastructure.Exceptions;
+using IT_Community.Server.Infrastructure.Interfaces;
 using IT_Community.Server.Infrastructure.Resources;
 using System;
 using System.Collections.Generic;
