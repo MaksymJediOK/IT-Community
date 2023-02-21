@@ -1,3 +1,4 @@
+using IT_Community.Server.Infrastructure.Dtos.PostDtos;
 using IT_Community.Server.Infrastructure.Dtos.UserDTOs;
 using Microsoft.AspNetCore.Http;
 using System.Security.Claims;
@@ -7,6 +8,7 @@ namespace IT_Community.Server.Infrastructure.Interfaces
     public interface IUserService
     {
         Task<UserFullDto> GetUserInfo(string username);
+        Task<List<PostPreviewDto>> GetUserArticles(string username);
         Task<string> GetUserId(ClaimsPrincipal user);
         Task ChangePassword(ClaimsPrincipal claimsPrincipal, string currentPassword, string newPassword);
         Task ChangeEmail(ClaimsPrincipal claimsPrincipal, string currentPassword, string newEmail);

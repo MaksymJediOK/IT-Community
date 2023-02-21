@@ -10,6 +10,7 @@ using IT_Community.Server.Infrastructure.Utilities;
 using IT_Community.Server.Infrastructure.Dtos.UserDTOs;
 using AutoMapper;
 using IT_Community.Server.Infrastructure.Interfaces;
+using IT_Community.Server.Infrastructure.Dtos.PostDtos;
 
 namespace IT_Community.Server.Infrastructure.Services
 {
@@ -28,15 +29,15 @@ namespace IT_Community.Server.Infrastructure.Services
 
         public async Task<UserFullDto> GetUserInfo(string username)
         {
-            var user = _userManager.FindByNameAsync(username).Result;
+            var user = await GetUserByUserName(username);
+            return _mapper.Map<UserFullDto>(user);
+        }
 
-            if (user == null)
-            {
-                throw new HttpException("Invalid username", HttpStatusCode.BadRequest);
-            }
-
-            var userToSend = _mapper.Map<UserFullDto>(user);
-            return userToSend;
+        public async Task<List<PostPreviewDto>> GetUserArticles(string username)
+        {
+            var user = await GetUserByUserName(username);
+            var posts = _userManager.Users.Where(u => u.Id == user.Id).SelectMany(u => u.Posts).ToList();
+            return _mapper.Map<List<PostPreviewDto>>(posts);
         }
 
         public async Task ChangeUserName(ClaimsPrincipal claimsPrincipal, string name)
@@ -140,6 +141,18 @@ namespace IT_Community.Server.Infrastructure.Services
             if (user == null)
             {
                 throw new HttpException(ErrorMessages.InvalidUserId, HttpStatusCode.BadRequest);
+            }
+
+            return user;
+        }
+
+        private async Task<User> GetUserByUserName(string username)
+        {
+            var user = _userManager.FindByNameAsync(username).Result;
+
+            if (user == null)
+            {
+                throw new HttpException("Invalid username", HttpStatusCode.BadRequest);
             }
 
             return user;
