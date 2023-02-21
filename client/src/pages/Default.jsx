@@ -23,6 +23,8 @@ export const Default = () => {
 			<Link to='vacancies/approval'>Approval page</Link>
 			<br />
 			<Link to='articles/edit/5'>Edit page</Link>
+			<br />
+			<Link to='profile'>Profile</Link>
 		</div>
 	)
 }
