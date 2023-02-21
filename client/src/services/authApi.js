@@ -48,13 +48,10 @@ export const authApi = createApi({
 				body: { ...credentials },
 			}),
 		}),
-		testAuth: builder.query({
+		isAuth: builder.query({
 			query: () => '/auth',
-			transformResponse: (baseQueryReturnValue, meta, arg) => ({
-				baseQueryReturnValue,
-			}),
 		}),
 	}),
 })
 
-export const { useLoginMutation, useRegisterMutation, useTestAuthQuery } = authApi
+export const { useLoginMutation, useRegisterMutation, useIsAuthQuery } = authApi

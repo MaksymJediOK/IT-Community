@@ -13,7 +13,9 @@ import { RequireAuth } from '../components/Layout/RequireAuth'
 import { Vacancies } from '../components/Vacancy/Vacancies/Vacancies'
 import { VacancyDetails } from '../components/Vacancy/VacancyDetails/VacancyDetails'
 import { VacanciesApproval } from '../components/Vacancy/VacanciesApproval/VacanciesApproval'
-import { ArticleEdit } from '../components/ArticleActions/Edit/ArticleEdit';
+import { ArticleEdit } from '../components/ArticleActions/Edit/ArticleEdit'
+import { Account, GeneralProfile } from '../features/Profile'
+import { ProfileLayout } from '../components/Layout/ProfileLayout/ProfileLayout'
 
 export const Index = () => {
 	return (
@@ -35,6 +37,10 @@ export const Index = () => {
 					<Route index element={<RequireAuth />} />
 					<Route path='login' element={<Login />} />
 					<Route path='register' element={<Register />} />
+				</Route>
+				<Route path='/profile' element={<ProfileLayout />}>
+					<Route index element={<GeneralProfile />} />
+					<Route path='account' element={<Account />} />
 				</Route>
 			</Routes>
 		</>
