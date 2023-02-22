@@ -160,6 +160,20 @@ namespace IT_Community.Server.Core.DataAccess
             }
         }
 
+        public IGenericRepository<Answer> answerRepository;
+
+        public IGenericRepository<Answer> AnswerRepository
+        {
+            get
+            {
+                if(this.answerRepository == null)
+                {
+                    this.answerRepository = new GenericRepository<Answer>(_ctx);
+                }
+                return answerRepository;
+            }
+        }
+
         private bool disposed = false;
 
         protected virtual void Dispose(bool disposing)

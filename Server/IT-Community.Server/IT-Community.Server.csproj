@@ -38,6 +38,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="wwwroot\Files\CVs\" />
     <Folder Include="wwwroot\Images\" />
   </ItemGroup>
 
