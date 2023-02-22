@@ -33,13 +33,6 @@ namespace IT_Community.Server.Infrastructure.Services
             return _mapper.Map<UserFullDto>(user);
         }
 
-        public async Task<List<PostPreviewDto>> GetUserArticles(string username)
-        {
-            var user = await GetUserByUserName(username);
-            var posts = _userManager.Users.Where(u => u.Id == user.Id).SelectMany(u => u.Posts).ToList();
-            return _mapper.Map<List<PostPreviewDto>>(posts);
-        }
-
         public async Task ChangeUserName(ClaimsPrincipal claimsPrincipal, string name)
         {
             var user = await GetUser(claimsPrincipal);
@@ -134,7 +127,7 @@ namespace IT_Community.Server.Infrastructure.Services
             HandleResult(result);
         }
 
-        private async Task<User> GetUser(ClaimsPrincipal claimsPrincipal)
+        public async Task<User> GetUser(ClaimsPrincipal claimsPrincipal)
         {
             var user = await _userManager.GetUserAsync(claimsPrincipal);
 
@@ -146,7 +139,7 @@ namespace IT_Community.Server.Infrastructure.Services
             return user;
         }
 
-        private async Task<User> GetUserByUserName(string username)
+        public async Task<User> GetUserByUserName(string username)
         {
             var user = _userManager.FindByNameAsync(username).Result;
 

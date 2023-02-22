@@ -28,15 +28,6 @@ namespace IT_Community.Server.Controllers
         }
 
         /// <summary>
-        /// Gets created articles by a specific user
-        /// </summary>
-        [HttpGet("{username}/articles")]
-        public async Task<List<PostPreviewDto>> GetUserArticles(string username)
-        {
-            return await _userService.GetUserArticles(username);
-        }
-
-        /// <summary>
         /// Changes the user's username
         /// </summary>
         [HttpPost("username")]

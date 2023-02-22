@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using System.Net;
+using System.Security.Claims;
 
 namespace IT_Community.Server.Infrastructure.Services
 {
@@ -32,6 +33,12 @@ namespace IT_Community.Server.Infrastructure.Services
             var posts1 = _mapper.Map<List<PostPreviewDto>>(posts);
 
             return posts1;
+        }
+
+        public async Task<List<PostPreviewDto>> GetUserPosts(User user)
+        {
+            var posts = _userManager.Users.Where(u => u.Id == user.Id).SelectMany(u => u.Posts).ToList();
+            return _mapper.Map<List<PostPreviewDto>>(posts);
         }
 
         public List<PostPreviewDto> GetSortedFilteredPostPreview(string? searchString, string? orderBy, string? dateFilter, List<int>? tagIds = null)
