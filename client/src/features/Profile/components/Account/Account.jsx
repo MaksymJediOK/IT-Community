@@ -71,7 +71,7 @@ export const Account = () => {
 				</Stack>
 			</Stack>
 			<Stack direction='row' sx={{ mt: '64px' }}>
-				<Button variant='contained' sx={{ width: '148px' }}>
+				<Button variant='contained' sx={{ width: '148px' }} disabled={true}>
 					SAVE CHANGES
 				</Button>
 				<Button variant='outlined' sx={{ width: '102px', ml: '94px' }}>

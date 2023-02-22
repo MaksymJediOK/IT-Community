@@ -8,6 +8,7 @@ import { Button, Container, Stack } from '@mui/material'
 import { UserBar } from '../UserBar/UserBar'
 import { useIsAuthorized } from '../../hooks/useIsAuthorized'
 import { Link } from 'react-router-dom'
+import { UserPopover } from '../../features/Popover'
 
 export const Header = () => {
 	const answer = useIsAuthorized()
@@ -49,7 +50,10 @@ export const Header = () => {
 							</Stack>
 							<Box sx={{ textTransform: 'UpperCase' }}>
 								{answer ? (
-									<UserBar />
+									<>
+										<UserBar />
+										<UserPopover />
+									</>
 								) : (
 									<>
 										<Button variant='outlined' size='small' sx={{ mr: '30px' }}>
@@ -58,7 +62,7 @@ export const Header = () => {
 											</Link>
 										</Button>
 										<Button variant='outlined' size='small'>
-											<Link to='/auth/login' style={{ all: 'unset' }}>
+											<Link to='/auth/register' style={{ all: 'unset' }}>
 												Register
 											</Link>
 										</Button>

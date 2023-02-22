@@ -43,7 +43,7 @@ export const Login = () => {
 			const { key } = await login(data).unwrap()
 			dispatch(setCredentials({ accessToken: key, user: { ...data } }))
 			reset()
-			navigate('/auth')
+			navigate('/articles')
 		} catch (err) {
 			const {
 				data: { ErrorMessage },

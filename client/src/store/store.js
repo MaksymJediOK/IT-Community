@@ -6,6 +6,7 @@ import { authReducer } from './reducers/authSlice'
 import { tagsApi } from '../services/tagsApi'
 import { filterReducer } from './reducers/filterSlice'
 import { articleActionReducer } from './reducers/articleActionSlice'
+import { popoverReducer } from '../features/Popover'
 
 export const store = configureStore({
 	reducer: {
@@ -16,7 +17,10 @@ export const store = configureStore({
 		[tagsApi.reducerPath]: tagsApi.reducer,
 		filter: filterReducer,
 		articleErrors: articleActionReducer,
+		userPopover: popoverReducer,
 	},
 	middleware: (getDefaultMiddleware) =>
-		getDefaultMiddleware().concat(articleApi.middleware, authApi.middleware, tagsApi.middleware),
+		getDefaultMiddleware({
+			serializableCheck: false,
+		}).concat(articleApi.middleware, authApi.middleware, tagsApi.middleware),
 })

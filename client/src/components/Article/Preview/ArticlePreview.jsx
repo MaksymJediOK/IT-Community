@@ -5,9 +5,10 @@ import FavoriteIcon from '@mui/icons-material/Favorite'
 import VisibilityIcon from '@mui/icons-material/Visibility'
 import ChatBubbleIcon from '@mui/icons-material/ChatBubble'
 import { CorrectDate } from 'utils/CorrectDate'
+import { Link } from 'react-router-dom'
 
 export const ArticlePreview = (props) => {
-	const { title, views, date, thumbnail, userName, likes, comments } = props
+	const { id, title, views, date, thumbnail, userName, likes, comments } = props
 	const validDate = CorrectDate(date)
 
 	return (
@@ -19,7 +20,9 @@ export const ArticlePreview = (props) => {
 						<div className={styles.author_section_text}>{userName}</div>
 						<div className={styles.author_section_text}>{validDate}</div>
 					</div>
-					<div className={styles.title}>{title}</div>
+					<Link to={`/articles/${id}`} className={styles.title}>
+						{title}
+					</Link>
 					<div className={styles.tags_container}>
 						<div className={styles.tag}>
 							<div className={styles.tag_text}>Design</div>

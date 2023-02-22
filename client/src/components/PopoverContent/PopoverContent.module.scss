@@ -1,0 +1,16 @@
+.text {
+  font-size: 14px;
+  font-weight: 500;
+  color: #000000;
+  text-decoration: none;
+
+  opacity: 0.7;
+  transition: ease-in-out 0.3s;
+     &:hover {
+       opacity: 1;
+     }
+}
+.line {
+  height: 1px;
+  background: #afafaf;
+}
