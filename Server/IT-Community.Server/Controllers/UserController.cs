@@ -1,7 +1,9 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
 using IT_Community.Server.Infrastructure.Dtos.UserDTOs;
+using IT_Community.Server.Infrastructure.Dtos.PostDtos;
 using IT_Community.Server.Infrastructure.Interfaces;
+using System.Collections.Generic;
 
 namespace IT_Community.Server.Controllers
 {
@@ -19,7 +21,7 @@ namespace IT_Community.Server.Controllers
         /// <summary>
         /// Gets information about the user
         /// </summary>
-        [HttpGet("username")]
+        [HttpGet("{username}")]
         public async Task<UserFullDto>? GetUser(string username)
         {
             return await _userService.GetUserInfo(username);

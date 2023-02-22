@@ -29,6 +29,16 @@ namespace IT_Community.Server.Controllers
         }
 
         /// <summary>
+        /// Gets created posts by a specific user
+        /// </summary>
+        [HttpGet("users/{username}")]
+        public async Task<List<PostPreviewDto>> GetUserPosts(string username)
+        {
+            var user = await _userService.GetUserByUserName(username);
+            return await _postService.GetUserPosts(user);
+        }
+
+        /// <summary>
         /// Returns a list of posts filtered based on the provided parameters
         /// </summary>
         /// <param name="tagIds">The list of tag IDs to filter the posts by</param>
