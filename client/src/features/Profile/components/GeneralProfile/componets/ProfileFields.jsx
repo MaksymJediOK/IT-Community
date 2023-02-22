@@ -35,7 +35,7 @@ export const ProfileFields = () => {
 				<TextField variant='outlined' size='small' label='Link here' fullWidth />
 			</Box>
 			<Stack direction='row' justifyContent='space-between' sx={{ mt: '64px' }}>
-				<Button variant='contained' sx={{ width: '148px' }}>
+				<Button variant='contained' sx={{ width: '148px' }} >
 					SAVE CHANGES
 				</Button>
 				<Button variant='outlined' sx={{ width: '102px' }}>
