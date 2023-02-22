@@ -19,6 +19,16 @@ namespace IT_Community.Server.Controllers
             _answerService = answerService;
         }
 
+        [HttpGet("{vacancyId}")]
+        [Authorize]
+        public async Task<List<AnswerPreviewDto>> GetAnswerPreview(int vacancyId)
+        {
+            var userId = await _userService.GetUserId(User);
+            var answers = _answerService.GetAnswerPreviews(vacancyId, userId);
+
+            return answers;
+        }
+
         [HttpPost]
         [Authorize]
         public async Task<IActionResult> CreateAnswer([FromForm]AnswerCreateDto answerCreateDto)
@@ -26,6 +36,15 @@ namespace IT_Community.Server.Controllers
             var userId = await _userService.GetUserId(User);
             await _answerService.CreateAnswer(answerCreateDto, userId);
 
+            return Ok();
+        }
+
+        [HttpDelete("{id}")]
+        [Authorize]
+        public async Task<IActionResult> DeleteAnswer(int id)
+        {
+            var userId = await _userService.GetUserId(User);
+            await _answerService.DeleteAnswer(id, userId);
             return Ok();
         }
     }

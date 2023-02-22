@@ -18,5 +18,14 @@ namespace IT_Community.Server.Infrastructure.Specifications
                     .Where(x => x.VacancyId == vacancyId && x.UserId == userId);
             }
         }
+
+        public class WithUser : Specification<Answer>
+        {
+            public WithUser()
+            {
+                Query
+                    .Include(x => x.User);
+            }
+        }
     }
 }

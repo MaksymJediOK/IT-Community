@@ -9,9 +9,9 @@ using System.Threading.Tasks;
 
 namespace IT_Community.Server.Infrastructure.Validators.Answer
 {
-    public class ANswerCreateValidator : AbstractValidator<AnswerCreateDto>
+    public class AnswerCreateValidator : AbstractValidator<AnswerCreateDto>
     {
-        public ANswerCreateValidator()
+        public AnswerCreateValidator()
         {
             RuleFor(p => p.VacancyId)
                 .NotNull()

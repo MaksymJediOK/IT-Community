@@ -87,6 +87,9 @@ namespace IT_Community.Server.Infrastructure.Helpers
                 .ForMember(dest => dest.UserImageSrc, opt => opt.MapFrom(x => Path.Combine(_webHostEnvironment.WebRootPath, WebConstants.usersImagesPath, x.User.ProfilePhoto)));
 
             CreateMap<AnswerCreateDto, Answer>();
+            CreateMap<Answer, AnswerPreviewDto>()
+               .ForMember(dest => dest.UserName, opt => opt.MapFrom(c => c.User.UserName))
+               .ForMember(dest => dest.ResumePath, opt => opt.MapFrom(x => Path.Combine(_webHostEnvironment.WebRootPath, WebConstants.usersCVsPath, x.ResumePath)));
         }
     }
 }

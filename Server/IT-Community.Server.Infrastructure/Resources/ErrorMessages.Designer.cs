@@ -133,6 +133,15 @@ namespace IT_Community.Server.Infrastructure.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Not found.
+        /// </summary>
+        internal static string NotFound {
+            get {
+                return ResourceManager.GetString("NotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Vacancy you`re trying to reach doesn`t exist.
         /// </summary>
         internal static string VacancyDoesNotExist {

@@ -11,11 +11,6 @@ using IT_Community.Server.Infrastructure.Utilities;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace IT_Community.Server.Infrastructure.Services
 {
@@ -90,6 +85,55 @@ namespace IT_Community.Server.Infrastructure.Services
             var imagePath = Path.Combine(_webHostEnvironment.WebRootPath, WebConstants.usersCVsPath, fileName);
             if (System.IO.File.Exists(imagePath))
                 System.IO.File.Delete(imagePath);
+        }
+
+        public List<AnswerPreviewDto> GetAnswerPreviews(int vacancyId, string userId)
+        {
+            var user = _userManager.FindByIdAsync(userId);
+
+            if (user == null)
+            {
+                throw new HttpException(ErrorMessages.InvalidUserId, System.Net.HttpStatusCode.BadRequest);
+            }
+
+            var vacancy = _unitOfWork.VacancyRepository.GetFirstBySpec(new Vacancies.ByIdWithCompaniesAndAdmins(vacancyId));
+
+            if(!vacancy.Company.Users.Any(x => x.Id.Contains(userId)))
+            {
+                throw new HttpException(ErrorMessages.InvalidPermission, System.Net.HttpStatusCode.Forbidden);
+            }
+
+            var answers = _unitOfWork.AnswerRepository.GetListBySpec(new Answers.WithUser());
+            var answersDto = _mapper.Map<List<AnswerPreviewDto>>(answers);
+
+            return answersDto;
+        }
+
+        public async Task DeleteAnswer(int answerId, string userId)
+        {
+            var user = await _userManager.FindByIdAsync(userId);
+
+            if (user == null)
+            {
+                throw new HttpException(ErrorMessages.InvalidUserId, System.Net.HttpStatusCode.BadRequest);
+            }
+
+            var answer = _unitOfWork.AnswerRepository.GetById(answerId);
+            
+            if(answer == null)
+            {
+                throw new HttpException(ErrorMessages.NotFound, System.Net.HttpStatusCode.NotFound);
+            }
+
+            var vacancy = _unitOfWork.VacancyRepository.GetFirstBySpec(new Vacancies.ByIdWithCompaniesAndAdmins(answer.VacancyId));
+
+            if (!vacancy.Company.Users.Any(x => x.Id.Contains(userId)) && !await _userManager.IsInRoleAsync(user, "Admin"))
+            {
+                throw new HttpException(ErrorMessages.InvalidPermission, System.Net.HttpStatusCode.Forbidden);
+            }
+
+            _unitOfWork.AnswerRepository.Delete(answerId);
+            await _unitOfWork.SaveAsync();
         }
     }
 }
