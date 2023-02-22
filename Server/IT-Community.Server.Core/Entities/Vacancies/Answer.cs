@@ -17,7 +17,7 @@ namespace IT_Community.Server.Core.Entities.Vacancies
         public User? User { get; set; }
         public int VacancyId { get; set; }
         public Vacancy? Vacancy { get; set; }
-        public string Description { get; set; }
+        public string? Description { get; set; }
         public string ResumePath { get; set; }
     }
 }

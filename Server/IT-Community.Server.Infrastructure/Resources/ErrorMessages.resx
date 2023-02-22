@@ -141,6 +141,9 @@
   <data name="InvalidUserId" xml:space="preserve">
     <value>Invalid user id.</value>
   </data>
+  <data name="NotFound" xml:space="preserve">
+    <value>Not found</value>
+  </data>
   <data name="VacancyDoesNotExist" xml:space="preserve">
     <value>Vacancy you`re trying to reach doesn`t exist</value>
   </data>

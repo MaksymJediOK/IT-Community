@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using IT_Community.Server.Core.Entities;
 using IT_Community.Server.Core.Entities.Vacancies;
+using IT_Community.Server.Infrastructure.Dtos.AnswerDTOs;
 using IT_Community.Server.Infrastructure.Dtos.CategoryDTOs;
 using IT_Community.Server.Infrastructure.Dtos.CommentDTOs;
 using IT_Community.Server.Infrastructure.Dtos.CompanyDTOs;
@@ -84,6 +85,11 @@ namespace IT_Community.Server.Infrastructure.Helpers
                 .ForMember(dest => dest.CategoryName, opt => opt.MapFrom(c => c.Category.Name))
                 .ForMember(dest => dest.CompanyImageSrc, opt => opt.MapFrom(x => Path.Combine(_webHostEnvironment.WebRootPath, WebConstants.companiesImagesPath, x.Company.Thumbnail)))
                 .ForMember(dest => dest.UserImageSrc, opt => opt.MapFrom(x => Path.Combine(_webHostEnvironment.WebRootPath, WebConstants.usersImagesPath, x.User.ProfilePhoto)));
+
+            CreateMap<AnswerCreateDto, Answer>();
+            CreateMap<Answer, AnswerPreviewDto>()
+               .ForMember(dest => dest.UserName, opt => opt.MapFrom(c => c.User.UserName))
+               .ForMember(dest => dest.ResumePath, opt => opt.MapFrom(x => Path.Combine(_webHostEnvironment.WebRootPath, WebConstants.usersCVsPath, x.ResumePath)));
         }
     }
 }
