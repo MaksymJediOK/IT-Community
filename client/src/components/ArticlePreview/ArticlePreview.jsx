@@ -6,14 +6,26 @@ import VisibilityIcon from '@mui/icons-material/Visibility'
 import ChatBubbleIcon from '@mui/icons-material/ChatBubble'
 import { CorrectDate } from 'utils/CorrectDate'
 import { Link } from 'react-router-dom'
+import { IconLabel } from '../UI/IconsActions/IconLabel'
 
 export const ArticlePreview = (props) => {
-	const { id, title, views, date, thumbnail, userName, likes, comments } = props
+	const {
+		isLabel = false,
+		Icon = null,
+		id,
+		title,
+		views,
+		date,
+		thumbnail,
+		userName,
+		likes,
+		comments,
+	} = props
 	const validDate = CorrectDate(date)
-
 	return (
 		<Grid item xs={6}>
 			<div className={styles.container}>
+				{isLabel ? <IconLabel>{Icon}</IconLabel> : ''}
 				<img className={styles.img_container} src={thumbnail} alt='Thumbnail' />
 				<div className={styles.inner_container}>
 					<div className={styles.author_section}>

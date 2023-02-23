@@ -34,7 +34,7 @@ export const PopoverContent = () => {
 						<BookmarkBorderIcon sx={{ mr: '20px', opacity: 0.7 }} />
 						<Link
 							className={styles.text}
-							to='/profile'
+							to='/profile/favorites'
 							onClick={() => dispatch(closePopover())}
 						>
 							Favorites
