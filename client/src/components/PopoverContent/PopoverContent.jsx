@@ -45,7 +45,6 @@ export const PopoverContent = () => {
 						<Link
 							className={styles.text}
 							to='/profile'
-							onClick={() => dispatch(closePopover())}
 						>
 							Stats
 						</Link>

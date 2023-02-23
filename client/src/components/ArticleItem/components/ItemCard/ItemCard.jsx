@@ -20,6 +20,7 @@ export const ItemCard = (props) => {
 	const handleBookmark = () => {
 		addToBookmarks(id)
 			.unwrap()
+			.then(() => {})
 			.catch((error) => console.error('rejected', error))
 	}
 	return (
@@ -87,3 +88,4 @@ export const ItemCard = (props) => {
 		</>
 	)
 }
+// Todo auto reload after icon state

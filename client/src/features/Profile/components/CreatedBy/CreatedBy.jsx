@@ -21,6 +21,7 @@ export const CreatedBy = () => {
 										key={item.id}
 										isLabel={true}
 										Icon={<MoreHorizIcon />}
+										IconUrl={`/articles/edit/${item.id}`}
 										{...item}
 									/>
 								)

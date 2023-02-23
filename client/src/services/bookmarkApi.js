@@ -11,9 +11,9 @@ const baseQuery = fetchBaseQuery({
 		return headers
 	},
 })
-// Todo invalidate tags
 export const bookmarkApi = createApi({
 	reducerPath: 'Bookmarks',
+	tagTypes: ['bookmarks'],
 	baseQuery,
 	endpoints: (builder) => ({
 		addToBookmarks: builder.mutation({

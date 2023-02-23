@@ -12,6 +12,7 @@ export const ArticlePreview = (props) => {
 	const {
 		isLabel = false,
 		Icon = null,
+		IconUrl = '/',
 		id,
 		title,
 		views,
@@ -27,7 +28,13 @@ export const ArticlePreview = (props) => {
 			<div className={styles.container}>
 				<div className={styles.position_container}>
 					<img className={styles.img_container} src={thumbnail} alt='Thumbnail' />
-					{isLabel ? <IconLabel>{Icon}</IconLabel> : ''}
+					{isLabel ? (
+						<Link to={IconUrl} style={{ all: 'unset' }}>
+							<IconLabel>{Icon}</IconLabel>
+						</Link>
+					) : (
+						''
+					)}
 				</div>
 				<div className={styles.inner_container}>
 					<div className={styles.author_section}>
