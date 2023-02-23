@@ -18,7 +18,9 @@ namespace IT_Community.Server.Controllers
             _userService = userService;
             _answerService = answerService;
         }
-
+        /// <summary>
+        /// Returns all answers for specific vacancy
+        /// </summary>
         [HttpGet("{vacancyId}")]
         [Authorize]
         public async Task<List<AnswerPreviewDto>> GetAnswerPreview(int vacancyId)
