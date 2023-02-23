@@ -1,11 +1,12 @@
 import React from 'react'
 import { Container, Grid } from '@mui/material'
-import { useGetBookmarkedArticlesQuery } from '../../../../services/bookmarkApi'
 import { ArticlePreview } from '../../../../components/ArticlePreview/ArticlePreview'
-import BookmarkIcon from '@mui/icons-material/Bookmark'
+import { useGetArticlesCreatedByQuery } from '../../../../services/articleApi'
+import MoreHorizIcon from '@mui/icons-material/MoreHoriz'
+import { getDecodedName } from '../../helpers/getDecodedName'
 
-export const Favorites = () => {
-	const { data, isLoading } = useGetBookmarkedArticlesQuery()
+export const CreatedBy = () => {
+	const { data, isLoading } = useGetArticlesCreatedByQuery(getDecodedName())
 	return (
 		<Container>
 			<Grid container spacing={2} sx={{ mt: '25px', ml: '-10px' }}>
@@ -19,7 +20,7 @@ export const Favorites = () => {
 									<ArticlePreview
 										key={item.id}
 										isLabel={true}
-										Icon={<BookmarkIcon />}
+										Icon={<MoreHorizIcon />}
 										{...item}
 									/>
 								)

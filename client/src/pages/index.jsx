@@ -17,6 +17,7 @@ import { ArticleEdit } from '../components/ArticleActions/Edit/ArticleEdit'
 import { Account, GeneralProfile } from '../features/Profile'
 import { ProfileLayout } from '../components/Layout/ProfileLayout/ProfileLayout'
 import { Favorites } from '../features/Profile/components/Favorites/Favorites'
+import { CreatedBy } from '../features/Profile/components/CreatedBy/CreatedBy'
 
 export const Index = () => {
 	return (
@@ -45,6 +46,7 @@ export const Index = () => {
 				</Route>
 				<Route path='/profile' element={<Layout />}>
 					<Route path='favorites' element={<Favorites />} />
+					<Route path='publications' element={<CreatedBy />} />
 				</Route>
 			</Routes>
 		</>

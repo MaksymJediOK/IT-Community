@@ -61,7 +61,11 @@ export const PopoverContent = () => {
 					<Link className={styles.text} to='/profile'>
 						Refine recommendations
 					</Link>
-					<Link className={styles.text} to='/profile'>
+					<Link
+						className={styles.text}
+						to='/profile/publications'
+						onClick={() => dispatch(closePopover())}
+					>
 						Manage publications
 					</Link>
 				</Stack>

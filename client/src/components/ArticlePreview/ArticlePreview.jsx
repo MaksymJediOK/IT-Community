@@ -25,8 +25,10 @@ export const ArticlePreview = (props) => {
 	return (
 		<Grid item xs={6}>
 			<div className={styles.container}>
-				{isLabel ? <IconLabel>{Icon}</IconLabel> : ''}
-				<img className={styles.img_container} src={thumbnail} alt='Thumbnail' />
+				<div className={styles.position_container}>
+					<img className={styles.img_container} src={thumbnail} alt='Thumbnail' />
+					{isLabel ? <IconLabel>{Icon}</IconLabel> : ''}
+				</div>
 				<div className={styles.inner_container}>
 					<div className={styles.author_section}>
 						<div className={styles.author_section_text}>{userName}</div>
