@@ -173,7 +173,7 @@ namespace IT_Community.Server.Infrastructure.Services
 
         public void DeleteImage(string imageName)
         {
-            var imagePath = Path.Combine(_webHostEnvironment.WebRootPath, WebConstants.imagesPath, "Profile", imageName);
+            var imagePath = Path.Combine(_webHostEnvironment.WebRootPath, WebConstants.usersImagesPath, imageName);
             if (File.Exists(imagePath))
             {
                 File.Delete(imagePath);
@@ -184,7 +184,7 @@ namespace IT_Community.Server.Infrastructure.Services
         {
             string imageName = new string(Path.GetFileNameWithoutExtension(imageFile.FileName).Take(10).ToArray()).Replace(' ', '-');
             imageName = imageName + DateTime.Now.ToString("yymmssfff") + Path.GetExtension(imageFile.FileName);
-            var profileFolder = Path.Combine(_webHostEnvironment.WebRootPath, WebConstants.imagesPath, "Profile");
+            var profileFolder = Path.Combine(_webHostEnvironment.WebRootPath, WebConstants.usersImagesPath);
             var imagePath = Path.Combine(profileFolder, imageName);
             bool isExists = Directory.Exists(profileFolder);
 
