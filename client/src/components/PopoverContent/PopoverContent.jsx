@@ -34,7 +34,7 @@ export const PopoverContent = () => {
 						<BookmarkBorderIcon sx={{ mr: '20px', opacity: 0.7 }} />
 						<Link
 							className={styles.text}
-							to='/profile'
+							to='/profile/favorites'
 							onClick={() => dispatch(closePopover())}
 						>
 							Favorites
@@ -45,7 +45,6 @@ export const PopoverContent = () => {
 						<Link
 							className={styles.text}
 							to='/profile'
-							onClick={() => dispatch(closePopover())}
 						>
 							Stats
 						</Link>
@@ -61,7 +60,11 @@ export const PopoverContent = () => {
 					<Link className={styles.text} to='/profile'>
 						Refine recommendations
 					</Link>
-					<Link className={styles.text} to='/profile'>
+					<Link
+						className={styles.text}
+						to='/profile/publications'
+						onClick={() => dispatch(closePopover())}
+					>
 						Manage publications
 					</Link>
 				</Stack>
