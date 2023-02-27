@@ -1,10 +1,4 @@
-﻿using IT_Community.Server.Infrastructure.Dtos.PostDtos;
-using IT_Community.Server.Infrastructure.Dtos.VacancyDTOs;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using IT_Community.Server.Infrastructure.Dtos.VacancyDTOs;
 
 namespace IT_Community.Server.Infrastructure.Interfaces
 {

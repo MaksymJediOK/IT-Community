@@ -2,17 +2,12 @@
 using IT_Community.Server.Core.DataAccess;
 using IT_Community.Server.Core.Entities;
 using IT_Community.Server.Infrastructure.Dtos.CommentDTOs;
-using IT_Community.Server.Infrastructure.Dtos.PostDtos;
 using IT_Community.Server.Infrastructure.Exceptions;
 using IT_Community.Server.Infrastructure.Interfaces;
 using IT_Community.Server.Infrastructure.Resources;
+using IT_Community.Server.Infrastructure.Specifications;
 using Microsoft.AspNetCore.Identity;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace IT_Community.Server.Infrastructure.Services
 {
@@ -32,8 +27,8 @@ namespace IT_Community.Server.Infrastructure.Services
         public List<CommentPostDto> GetCommentsWithReplies(int postId)
         {
             var commentList = _mapper.Map<List<CommentPostDto>>
-                (_unitOfWork.CommentRepository.GetAll(x => x.PostId == postId && x.ParentId == null, includeProperties: new[] {"Comments"}));
-            foreach(var comment in commentList)
+                (_unitOfWork.CommentRepository.GetListBySpec(new Comments.ByPostIdAndParentIdWithUserAndComments(postId, null)));
+            foreach (var comment in commentList)
             {
                 LoadComments(comment, postId);
             }
@@ -43,10 +38,11 @@ namespace IT_Community.Server.Infrastructure.Services
 
         private void LoadComments(CommentPostDto comment, int postId)
         {
-            foreach(var c in comment.ReplyList)
+            foreach (var c in comment.ReplyList)
             {
-                c.ReplyList = _mapper.Map<List<CommentPostDto>>(_unitOfWork.CommentRepository.GetAll(x => x.PostId == postId && x.ParentId == c.Id, includeProperties: new[] { "Comments" }));
-                foreach(var c2 in c.ReplyList)
+                c.ReplyList = _mapper.Map<List<CommentPostDto>>
+                    (_unitOfWork.CommentRepository.GetListBySpec(new Comments.ByPostIdAndParentIdWithUserAndComments(postId, c.Id)));
+                foreach (var c2 in c.ReplyList)
                 {
                     LoadComments(c2, postId);
                 }

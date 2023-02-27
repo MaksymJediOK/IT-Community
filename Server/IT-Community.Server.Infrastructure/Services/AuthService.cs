@@ -1,22 +1,16 @@
 ﻿using IT_Community.Server.Core.Entities;
-using IT_Community.Server.Infrastructure.Dtos.UserDTOs;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Mail;
-using System.Net;
-using System.Text;
-using System.Threading.Tasks;
-using IT_Community.Server.Infrastructure.Exceptions;
-using IT_Community.Server.Infrastructure.Resources;
-using Microsoft.IdentityModel.Tokens;
-using Microsoft.Extensions.Configuration;
-using System.Security.Claims;
-using System.IdentityModel.Tokens.Jwt;
 using IT_Community.Server.Infrastructure.Dtos.AuthDTOs;
+using IT_Community.Server.Infrastructure.Dtos.UserDTOs;
+using IT_Community.Server.Infrastructure.Exceptions;
 using IT_Community.Server.Infrastructure.Interfaces;
+using IT_Community.Server.Infrastructure.Resources;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.Configuration;
+using Microsoft.IdentityModel.Tokens;
+using System.IdentityModel.Tokens.Jwt;
+using System.Net;
+using System.Security.Claims;
+using System.Text;
 
 namespace IT_Community.Server.Infrastructure.Services
 {
@@ -26,7 +20,7 @@ namespace IT_Community.Server.Infrastructure.Services
         private readonly SignInManager<User> _signInManager;
         private readonly RoleManager<IdentityRole> _roleManager;
         private readonly IConfiguration _configuration;
-        public AuthService(UserManager<User> userManager, SignInManager<User> signInManager, RoleManager<IdentityRole> roleManager, IConfiguration configuration) 
+        public AuthService(UserManager<User> userManager, SignInManager<User> signInManager, RoleManager<IdentityRole> roleManager, IConfiguration configuration)
         {
             _userManager = userManager;
             _signInManager = signInManager;
@@ -80,14 +74,14 @@ namespace IT_Community.Server.Infrastructure.Services
             var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
             var roles = await _userManager.GetRolesAsync(user);
             string role;
-            if(roles.Count > 0)
+            if (roles.Count > 0)
             {
                 role = roles[0];
             }
             else
             {
                 role = "null";
-            }    
+            }
             var claims = new[]
             {
                 new Claim(ClaimTypes.NameIdentifier, user.Id),

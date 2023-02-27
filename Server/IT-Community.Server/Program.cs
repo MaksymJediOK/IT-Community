@@ -1,22 +1,15 @@
-using IT_Community.Server.Core;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.AspNetCore.Identity;
-using IT_Community.Server.Infrastructure.Services;
-using IT_Community.Server.Core.GenericRepository;
-using IT_Community.Server.Core.Entities;
-using IT_Community.Server.Core.DataAccess;
-using IT_Community.Server.Infrastructure.Helpers;
-using Swashbuckle.AspNetCore.Filters;
-using System.Reflection;
-using IT_Community.Server;
-using FluentValidation.AspNetCore;
-using FluentValidation;
-using Microsoft.Extensions.FileProviders;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.IdentityModel.Tokens;
-using System.Text;
-using IT_Community.Server.Infrastructure.Interfaces;
 using AutoMapper;
+using FluentValidation;
+using FluentValidation.AspNetCore;
+using IT_Community.Server;
+using IT_Community.Server.Core;
+using IT_Community.Server.Core.DataAccess;
+using IT_Community.Server.Core.Entities;
+using IT_Community.Server.Infrastructure.Helpers;
+using IT_Community.Server.Infrastructure.Interfaces;
+using IT_Community.Server.Infrastructure.Services;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 

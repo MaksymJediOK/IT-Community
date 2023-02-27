@@ -8,12 +8,7 @@ using IT_Community.Server.Infrastructure.Interfaces;
 using IT_Community.Server.Infrastructure.Resources;
 using IT_Community.Server.Infrastructure.Specifications;
 using Microsoft.AspNetCore.Identity;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace IT_Community.Server.Infrastructure.Services
 {

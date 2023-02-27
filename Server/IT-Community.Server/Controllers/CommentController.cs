@@ -1,13 +1,7 @@
-﻿using IT_Community.Server.Core.Entities;
-using IT_Community.Server.Infrastructure.Dtos.CommentDTOs;
-using IT_Community.Server.Infrastructure.Exceptions;
+﻿using IT_Community.Server.Infrastructure.Dtos.CommentDTOs;
 using IT_Community.Server.Infrastructure.Interfaces;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.IdentityModel.Tokens;
-using System.Net;
-using System.Security.Claims;
 
 namespace IT_Community.Server.Controllers
 {

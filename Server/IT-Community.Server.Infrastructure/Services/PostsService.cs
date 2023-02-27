@@ -5,12 +5,12 @@ using IT_Community.Server.Infrastructure.Dtos.PostDtos;
 using IT_Community.Server.Infrastructure.Exceptions;
 using IT_Community.Server.Infrastructure.Interfaces;
 using IT_Community.Server.Infrastructure.Resources;
+using IT_Community.Server.Infrastructure.Specifications;
 using IT_Community.Server.Infrastructure.Utilities;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using System.Net;
-using System.Security.Claims;
 
 namespace IT_Community.Server.Infrastructure.Services
 {
@@ -29,21 +29,21 @@ namespace IT_Community.Server.Infrastructure.Services
         }
         public List<PostPreviewDto> GetPostPreview()
         {
-            var posts = _unitOfWork.PostRepository.GetAll();
-            var posts1 = _mapper.Map<List<PostPreviewDto>>(posts);
+            var posts = _unitOfWork.PostRepository.GetListBySpec(new Posts.WithUserAndTagsCommentsLikes());
+            var postsToSend = _mapper.Map<List<PostPreviewDto>>(posts);
 
-            return posts1;
+            return postsToSend;
         }
 
         public async Task<List<PostPreviewDto>> GetUserPosts(User user)
         {
-            var posts = _userManager.Users.Where(u => u.Id == user.Id).SelectMany(u => u.Posts).ToList();
+            var posts = _unitOfWork.PostRepository.GetListBySpec(new Posts.ByUserIdWithUserAndTagsCommentsLikes(user.Id));
             return _mapper.Map<List<PostPreviewDto>>(posts);
         }
 
         public List<PostPreviewDto> GetSortedFilteredPostPreview(string? searchString, string? orderBy, string? dateFilter, List<int>? tagIds = null)
         {
-            var posts = _unitOfWork.PostRepository.GetAll();
+            var posts = _unitOfWork.PostRepository.GetListBySpec(new Posts.WithUserAndTagsCommentsLikes());
 
             if (searchString != null)
             {
@@ -256,7 +256,7 @@ namespace IT_Community.Server.Infrastructure.Services
         {
             if (IsExist(id))
             {
-                var post = _unitOfWork.PostRepository.GetById(id);
+                var post = _unitOfWork.PostRepository.GetFirstBySpec(new Posts.ByIdWithAllFields(id));
                 post.Views++;
                 _unitOfWork.PostRepository.Update(post);
                 await _unitOfWork.SaveAsync();

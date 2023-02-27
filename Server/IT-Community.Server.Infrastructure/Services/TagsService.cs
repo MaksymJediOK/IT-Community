@@ -4,13 +4,7 @@ using IT_Community.Server.Core.Entities;
 using IT_Community.Server.Infrastructure.Dtos.TagsDTOs;
 using IT_Community.Server.Infrastructure.Exceptions;
 using IT_Community.Server.Infrastructure.Interfaces;
-using IT_Community.Server.Infrastructure.Resources;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace IT_Community.Server.Infrastructure.Services
 {
@@ -71,7 +65,7 @@ namespace IT_Community.Server.Infrastructure.Services
 
             var tag = _unitOfWork.TagRepository.GetById(id);
 
-            if(tag==null) return false;
+            if (tag == null) return false;
             return true;
         }
     }

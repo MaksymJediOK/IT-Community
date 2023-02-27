@@ -1,13 +1,8 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using IT_Community.Server.Core.Configurations;
 using IT_Community.Server.Core.Entities;
-using IT_Community.Server.Core.Configurations;
 using IT_Community.Server.Core.Entities.Vacancies;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 
 namespace IT_Community.Server.Core
 {
@@ -20,13 +15,7 @@ namespace IT_Community.Server.Core
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
-            builder.Entity<Post>().Navigation(e => e.Tags).AutoInclude();
-            builder.Entity<Post>().Navigation(e => e.Comments).AutoInclude();
-            builder.Entity<Post>().Navigation(e => e.User).AutoInclude();
-            builder.Entity<Post>().Navigation(e => e.Likes).AutoInclude();
-            builder.Entity<Post>().Navigation(e => e.Bookmarks).AutoInclude();
-            builder.Entity<Post>().Navigation(e => e.Forum).AutoInclude();
-            builder.Entity<Comment>().Navigation(e => e.User).AutoInclude();
+
 
             new PostEntityTypeConfiguration().Configure(builder.Entity<Post>());
 

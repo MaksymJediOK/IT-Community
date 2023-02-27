@@ -1,16 +1,15 @@
-using Microsoft.AspNetCore.Identity;
-using IT_Community.Server.Infrastructure.Exceptions;
-using IT_Community.Server.Infrastructure.Resources;
-using System.Net;
-using IT_Community.Server.Core.Entities;
-using System.Security.Claims;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Hosting;
-using IT_Community.Server.Infrastructure.Utilities;
-using IT_Community.Server.Infrastructure.Dtos.UserDTOs;
 using AutoMapper;
+using IT_Community.Server.Core.Entities;
+using IT_Community.Server.Infrastructure.Dtos.UserDTOs;
+using IT_Community.Server.Infrastructure.Exceptions;
 using IT_Community.Server.Infrastructure.Interfaces;
-using IT_Community.Server.Infrastructure.Dtos.PostDtos;
+using IT_Community.Server.Infrastructure.Resources;
+using IT_Community.Server.Infrastructure.Utilities;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
+using System.Net;
+using System.Security.Claims;
 
 namespace IT_Community.Server.Infrastructure.Services
 {

@@ -1,9 +1,7 @@
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Authorization;
 using IT_Community.Server.Infrastructure.Dtos.UserDTOs;
-using IT_Community.Server.Infrastructure.Dtos.PostDtos;
 using IT_Community.Server.Infrastructure.Interfaces;
-using System.Collections.Generic;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 
 namespace IT_Community.Server.Controllers
 {
