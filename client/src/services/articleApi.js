@@ -40,11 +40,14 @@ export const articleApi = createApi({
 			}),
 		}),
 		EditArticle: build.mutation({
-			query: ({id, editBody}) => ({
+			query: ({ id, editBody }) => ({
 				url: `/post/${id}`,
 				method: 'PUT',
 				body: editBody,
 			}),
+		}),
+		getArticlesCreatedBy: build.query({
+			query: (name) => `/post/users/${name}`,
 		}),
 	}),
 })
@@ -54,4 +57,5 @@ export const {
 	useGetSingleArticleQuery,
 	useCreateArticleMutation,
 	useEditArticleMutation,
+	useGetArticlesCreatedByQuery,
 } = articleApi

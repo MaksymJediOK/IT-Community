@@ -7,6 +7,7 @@ import { tagsApi } from '../services/tagsApi'
 import { filterReducer } from './reducers/filterSlice'
 import { articleActionReducer } from './reducers/articleActionSlice'
 import { popoverReducer } from '../features/Popover'
+import { bookmarkApi } from '../services/bookmarkApi'
 
 export const store = configureStore({
 	reducer: {
@@ -18,9 +19,10 @@ export const store = configureStore({
 		filter: filterReducer,
 		articleErrors: articleActionReducer,
 		userPopover: popoverReducer,
+		[bookmarkApi.reducerPath]: bookmarkApi.reducer,
 	},
 	middleware: (getDefaultMiddleware) =>
 		getDefaultMiddleware({
 			serializableCheck: false,
-		}).concat(articleApi.middleware, authApi.middleware, tagsApi.middleware),
+		}).concat(articleApi.middleware, authApi.middleware, tagsApi.middleware, bookmarkApi.middleware),
 })

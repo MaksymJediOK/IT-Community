@@ -1,16 +1,28 @@
-import React from 'react'
+import React, { useState } from 'react'
 import styles from './ItemCard.module.scss'
 import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlined'
 import ChatBubbleOutlineOutlinedIcon from '@mui/icons-material/ChatBubbleOutlineOutlined'
 import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined'
 import BookmarkAddOutlinedIcon from '@mui/icons-material/BookmarkAddOutlined'
+import BookmarkAddedIcon from '@mui/icons-material/BookmarkAdded'
 import InsertLinkOutlinedIcon from '@mui/icons-material/InsertLinkOutlined'
 import MoreHorizOutlinedIcon from '@mui/icons-material/MoreHorizOutlined'
-import { CorrectDate } from 'utils/CorrectDate';
+import { CorrectDate } from 'utils/CorrectDate'
+import { useAddToBookmarksMutation, useIsBookmarkedQuery } from '../../../../services/bookmarkApi'
+import { IconButton } from '@mui/material'
 
 export const ItemCard = (props) => {
-	const { title, description, body, views, date, thumbnail, likes } = props
+	const [currentError, setCurrentError] = useState('')
+	const { data, isLoading } = useIsBookmarkedQuery()
+	const [addToBookmarks] = useAddToBookmarksMutation()
+	const { id, title, description, body, views, date, thumbnail, likes } = props
 	const validDate = CorrectDate(date)
+	const handleBookmark = () => {
+		addToBookmarks(id)
+			.unwrap()
+			.then(() => {})
+			.catch((error) => console.error('rejected', error))
+	}
 	return (
 		<>
 			<h5 className={styles.date}>{validDate}</h5>
@@ -54,11 +66,26 @@ export const ItemCard = (props) => {
 					</div>
 				</div>
 				<div className={styles.share_container}>
-					<BookmarkAddOutlinedIcon />
-					<InsertLinkOutlinedIcon />
-					<MoreHorizOutlinedIcon />
+					{isLoading ? (
+						''
+					) : data.isBookmarked ? (
+						<IconButton onClick={handleBookmark}>
+							<BookmarkAddedIcon />
+						</IconButton>
+					) : (
+						<IconButton onClick={handleBookmark}>
+							<BookmarkAddOutlinedIcon />
+						</IconButton>
+					)}
+					<IconButton>
+						<InsertLinkOutlinedIcon />
+					</IconButton>
+					<IconButton>
+						<MoreHorizOutlinedIcon />
+					</IconButton>
 				</div>
 			</div>
 		</>
 	)
 }
+// Todo auto reload after icon state
