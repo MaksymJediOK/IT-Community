@@ -1,12 +1,5 @@
 ﻿using IT_Community.Server.Core.Entities;
 using IT_Community.Server.Infrastructure.Dtos.PostDtos;
-using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.Linq;
-using System.Security.Claims;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace IT_Community.Server.Infrastructure.Interfaces
 {

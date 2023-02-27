@@ -11,15 +11,6 @@ using IT_Community.Server.Infrastructure.Dtos.UserDTOs;
 using IT_Community.Server.Infrastructure.Dtos.VacancyDTOs;
 using IT_Community.Server.Infrastructure.Utilities;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
-using Microsoft.Extensions.Hosting;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Security.Cryptography.X509Certificates;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace IT_Community.Server.Infrastructure.Helpers
 {

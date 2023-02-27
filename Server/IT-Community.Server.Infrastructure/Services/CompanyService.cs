@@ -11,13 +11,7 @@ using IT_Community.Server.Infrastructure.Utilities;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net;
-using System.Text;
-using System.Threading.Tasks;
-using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 
 namespace IT_Community.Server.Infrastructure.Services
 {
@@ -145,7 +139,7 @@ namespace IT_Community.Server.Infrastructure.Services
 
         public async Task<CompanyFullDto> GetCompany(int id)
         {
-            if(!IsExist(id))
+            if (!IsExist(id))
             {
                 throw new HttpException(ErrorMessages.CompanyDoesNotExist, HttpStatusCode.BadRequest);
             }

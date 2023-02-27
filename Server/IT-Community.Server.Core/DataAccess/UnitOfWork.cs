@@ -1,12 +1,6 @@
 ﻿using IT_Community.Server.Core.Entities;
 using IT_Community.Server.Core.Entities.Vacancies;
 using IT_Community.Server.Core.GenericRepository;
-using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace IT_Community.Server.Core.DataAccess
 {
@@ -26,7 +20,7 @@ namespace IT_Community.Server.Core.DataAccess
         {
             get
             {
-                if(this.postRepository == null)
+                if (this.postRepository == null)
                 {
                     this.postRepository = new GenericRepository<Post>(_ctx);
                 }
@@ -40,7 +34,7 @@ namespace IT_Community.Server.Core.DataAccess
         {
             get
             {
-                if(this.userRepository == null)
+                if (this.userRepository == null)
                 {
                     this.userRepository = new GenericRepository<User>(_ctx);
                 }
@@ -54,7 +48,7 @@ namespace IT_Community.Server.Core.DataAccess
         {
             get
             {
-                if(this.forumRepository == null)
+                if (this.forumRepository == null)
                 {
                     this.forumRepository = new GenericRepository<Forum>(_ctx);
                 }
@@ -68,7 +62,7 @@ namespace IT_Community.Server.Core.DataAccess
         {
             get
             {
-                if(this.tagRepository == null)
+                if (this.tagRepository == null)
                 {
                     this.tagRepository = new GenericRepository<Tag>(_ctx);
                 }
@@ -82,7 +76,7 @@ namespace IT_Community.Server.Core.DataAccess
         {
             get
             {
-                if(this.likeRepository == null)
+                if (this.likeRepository == null)
                 {
                     this.likeRepository = new GenericRepository<Like>(_ctx);
                 }
@@ -96,7 +90,7 @@ namespace IT_Community.Server.Core.DataAccess
         {
             get
             {
-                if(this.bookmarkRepository == null)
+                if (this.bookmarkRepository == null)
                 {
                     this.bookmarkRepository = new GenericRepository<Bookmark>(_ctx);
                 }
@@ -110,7 +104,7 @@ namespace IT_Community.Server.Core.DataAccess
         {
             get
             {
-                if(this.commentRepository == null)
+                if (this.commentRepository == null)
                 {
                     this.commentRepository = new GenericRepository<Comment>(_ctx);
                 }
@@ -124,7 +118,7 @@ namespace IT_Community.Server.Core.DataAccess
         {
             get
             {
-                if(this.companyRepository == null)
+                if (this.companyRepository == null)
                 {
                     this.companyRepository = new GenericRepository<Company>(_ctx);
                 }
@@ -138,7 +132,7 @@ namespace IT_Community.Server.Core.DataAccess
         {
             get
             {
-                if(this.categoryRepository == null)
+                if (this.categoryRepository == null)
                 {
                     this.categoryRepository = new GenericRepository<Category>(_ctx);
                 }
@@ -152,7 +146,7 @@ namespace IT_Community.Server.Core.DataAccess
         {
             get
             {
-                if(this.vacancyRepository == null)
+                if (this.vacancyRepository == null)
                 {
                     this.vacancyRepository = new GenericRepository<Vacancy>(_ctx);
                 }
@@ -166,7 +160,7 @@ namespace IT_Community.Server.Core.DataAccess
         {
             get
             {
-                if(this.answerRepository == null)
+                if (this.answerRepository == null)
                 {
                     this.answerRepository = new GenericRepository<Answer>(_ctx);
                 }

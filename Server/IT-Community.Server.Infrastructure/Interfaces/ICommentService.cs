@@ -1,10 +1,4 @@
-﻿using IT_Community.Server.Core.Entities;
-using IT_Community.Server.Infrastructure.Dtos.CommentDTOs;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using IT_Community.Server.Infrastructure.Dtos.CommentDTOs;
 
 namespace IT_Community.Server.Infrastructure.Interfaces
 {

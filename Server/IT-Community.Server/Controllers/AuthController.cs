@@ -1,15 +1,7 @@
-﻿using IT_Community.Server.Core.Entities;
-using IT_Community.Server.Infrastructure.Dtos.UserDTOs;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.UI.Services;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.WebUtilities;
-using System.Text.Encodings.Web;
-using System.Text;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
+﻿using IT_Community.Server.Infrastructure.Dtos.UserDTOs;
 using IT_Community.Server.Infrastructure.Interfaces;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 
 namespace IT_Community.Server.Controllers
 {

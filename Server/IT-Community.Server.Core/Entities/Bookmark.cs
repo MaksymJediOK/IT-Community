@@ -1,8 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
 namespace IT_Community.Server.Core.Entities
 {
     public class Bookmark

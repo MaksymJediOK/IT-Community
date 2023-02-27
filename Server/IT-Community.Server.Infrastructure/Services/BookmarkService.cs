@@ -1,16 +1,11 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Threading.Tasks;
 using AutoMapper;
 using IT_Community.Server.Core.DataAccess;
 using IT_Community.Server.Core.Entities;
-using IT_Community.Server.Infrastructure.Dtos;
 using IT_Community.Server.Infrastructure.Dtos.PostDtos;
 using IT_Community.Server.Infrastructure.Exceptions;
 using IT_Community.Server.Infrastructure.Interfaces;
 using Microsoft.AspNetCore.Mvc;
+using System.Net;
 
 namespace IT_Community.Server.Infrastructure.Services
 {

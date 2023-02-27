@@ -1,7 +1,6 @@
 ﻿using IT_Community.Server.Infrastructure.Dtos.CompanyDTOs;
 using IT_Community.Server.Infrastructure.Interfaces;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace IT_Community.Server.Controllers
@@ -43,7 +42,7 @@ namespace IT_Community.Server.Controllers
         /// </summary>
         [HttpPost]
         [Authorize]
-        public async Task<IActionResult> CreateCompany([FromForm]CompanyCreateDto company)
+        public async Task<IActionResult> CreateCompany([FromForm] CompanyCreateDto company)
         {
             var userId = await _userService.GetUserId(User);
             await _companyService.CreateCompany(company, userId);
@@ -56,7 +55,7 @@ namespace IT_Community.Server.Controllers
         /// </summary>
         [HttpPut]
         [Authorize]
-        public async Task<IActionResult> UpdateCompany([FromForm]CompanyEditDto company)
+        public async Task<IActionResult> UpdateCompany([FromForm] CompanyEditDto company)
         {
             var userId = await _userService.GetUserId(User);
             await _companyService.UpdateCompany(company, userId);

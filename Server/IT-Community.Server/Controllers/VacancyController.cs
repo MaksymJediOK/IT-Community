@@ -1,9 +1,7 @@
 ﻿using IT_Community.Server.Infrastructure.Dtos.VacancyDTOs;
 using IT_Community.Server.Infrastructure.Interfaces;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Configuration.UserSecrets;
 
 namespace IT_Community.Server.Controllers
 {

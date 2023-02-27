@@ -33,14 +33,14 @@ namespace IT_Community.Server.Infrastructure.Services
         {
             var user = await _userManager.FindByIdAsync(userId);
 
-            if(user == null)
+            if (user == null)
             {
-                throw new HttpException(ErrorMessages.InvalidUserId, System.Net.HttpStatusCode.BadRequest); 
+                throw new HttpException(ErrorMessages.InvalidUserId, System.Net.HttpStatusCode.BadRequest);
             }
 
             var answer = _unitOfWork.AnswerRepository.GetFirstBySpec(new Answers.ByVacancyAndUserId(createAnswerDto.VacancyId, userId));
 
-            if(answer != null)
+            if (answer != null)
             {
                 DeleteFile(answer.ResumePath);
                 answer.ResumePath = await SaveFile(createAnswerDto.CVFile);
@@ -98,7 +98,7 @@ namespace IT_Community.Server.Infrastructure.Services
 
             var vacancy = _unitOfWork.VacancyRepository.GetFirstBySpec(new Vacancies.ByIdWithCompaniesAndAdmins(vacancyId));
 
-            if(!vacancy.Company.Users.Any(x => x.Id.Contains(userId)))
+            if (!vacancy.Company.Users.Any(x => x.Id.Contains(userId)))
             {
                 throw new HttpException(ErrorMessages.InvalidPermission, System.Net.HttpStatusCode.Forbidden);
             }
@@ -119,8 +119,8 @@ namespace IT_Community.Server.Infrastructure.Services
             }
 
             var answer = _unitOfWork.AnswerRepository.GetById(answerId);
-            
-            if(answer == null)
+
+            if (answer == null)
             {
                 throw new HttpException(ErrorMessages.NotFound, System.Net.HttpStatusCode.NotFound);
             }

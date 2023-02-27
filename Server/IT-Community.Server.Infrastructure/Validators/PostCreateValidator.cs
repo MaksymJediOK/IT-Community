@@ -1,11 +1,5 @@
 ﻿using FluentValidation;
-using IT_Community.Server.Core.Entities;
 using IT_Community.Server.Infrastructure.Dtos.PostDtos;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace IT_Community.Server.Infrastructure.Validators
 {
@@ -16,7 +10,7 @@ namespace IT_Community.Server.Infrastructure.Validators
             RuleFor(p => p.Title)
                 .NotNull()
                 .NotEmpty()
-                .Length(5,60)
+                .Length(5, 60)
                 .WithMessage("Title must be between 5 and 60 symbols");
 
             //RuleFor(p => p.ImageFile)
@@ -26,12 +20,12 @@ namespace IT_Community.Server.Infrastructure.Validators
             RuleFor(p => p.Description)
                 .NotNull()
                 .NotEmpty()
-                .Length(10,250);
+                .Length(10, 250);
 
             RuleFor(p => p.Body)
                 .NotNull()
                 .NotEmpty()
-                .Length(1,100000);
+                .Length(1, 100000);
 
             RuleFor(p => p.ForumId)
                 .NotNull()

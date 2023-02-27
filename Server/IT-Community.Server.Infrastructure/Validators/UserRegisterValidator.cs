@@ -1,11 +1,5 @@
 ﻿using FluentValidation;
-using IT_Community.Server.Infrastructure.Dtos.PostDtos;
 using IT_Community.Server.Infrastructure.Dtos.UserDTOs;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace IT_Community.Server.Infrastructure.Validators
 {
@@ -19,7 +13,7 @@ namespace IT_Community.Server.Infrastructure.Validators
                     .Matches(@"[a-z]+").WithMessage("Your password must contain at least one lowercase letter.")
                     .Matches(@"[0-9]+").WithMessage("Your password must contain at least one number.");
             RuleFor(p => p.ConfirmPassword)
-                .Equal(x=>x.Password)
+                .Equal(x => x.Password)
                 .WithMessage("Passwords do not match");
         }
     }

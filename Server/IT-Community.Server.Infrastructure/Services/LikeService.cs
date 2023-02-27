@@ -3,14 +3,9 @@ using IT_Community.Server.Core.DataAccess;
 using IT_Community.Server.Core.Entities;
 using IT_Community.Server.Infrastructure.Dtos.PostDtos;
 using IT_Community.Server.Infrastructure.Exceptions;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
 using IT_Community.Server.Infrastructure.Interfaces;
+using Microsoft.AspNetCore.Mvc;
+using System.Net;
 
 namespace IT_Community.Server.Infrastructure.Services
 {

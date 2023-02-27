@@ -1,17 +1,10 @@
 ﻿using AutoMapper;
 using IT_Community.Server.Core.DataAccess;
-using IT_Community.Server.Core.Entities;
 using IT_Community.Server.Core.Entities.Vacancies;
 using IT_Community.Server.Infrastructure.Dtos.CategoryDTOs;
-using IT_Community.Server.Infrastructure.Dtos.TagsDTOs;
 using IT_Community.Server.Infrastructure.Exceptions;
 using IT_Community.Server.Infrastructure.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace IT_Community.Server.Infrastructure.Services
 {

@@ -1,11 +1,5 @@
 ﻿using FluentValidation;
 using IT_Community.Server.Infrastructure.Dtos.AnswerDTOs;
-using IT_Community.Server.Infrastructure.Dtos.CompanyDTOs;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace IT_Community.Server.Infrastructure.Validators.Answer
 {
