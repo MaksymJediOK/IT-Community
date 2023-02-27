@@ -25,7 +25,7 @@ namespace IT_Community.Server.Infrastructure.Helpers
                             .ForMember(dest => dest.Comments, opt => opt.MapFrom(c => c.Comments.Count));*/
             CreateMap<User, UserPostDto>();
             CreateMap<User, UserFullDto>()
-                .ForMember(dest => dest.ImageSrc, opt => opt.MapFrom(x => Path.Combine(_webHostEnvironment.WebRootPath, WebConstants.companiesImagesPath, x.ProfilePhoto)));
+                .ForMember(dest => dest.ImageSrc, opt => opt.MapFrom(x => Path.Combine(_webHostEnvironment.WebRootPath, WebConstants.usersImagesPath, x.ProfilePhoto)));
 
             CreateMap<Comment, CommentPostDto>()
                 .ForMember(dest => dest.UserName, opt => opt.MapFrom(c => c.User.UserName))
@@ -33,14 +33,14 @@ namespace IT_Community.Server.Infrastructure.Helpers
             CreateMap<CommentCreateDto, Comment>();
 
             CreateMap<Post, PostPreviewDto>()
-                .ForMember(dest => dest.ImageSrc, opt => opt.MapFrom(x => Path.Combine(_webHostEnvironment.WebRootPath, WebConstants.imagesPath, x.Thumbnail)))
+                .ForMember(dest => dest.ImageSrc, opt => opt.MapFrom(x => Path.Combine(_webHostEnvironment.WebRootPath, WebConstants.postsImagesPath, x.Thumbnail)))
                 .ForMember(dest => dest.Tags, opt => opt.MapFrom(x => x.Tags.ToList()))
                 .ForMember(dest => dest.Comments, opt => opt.MapFrom(x => x.Comments.Count))
                 .ForMember(dest => dest.UserName, opt => opt.MapFrom(x => x.User.UserName))
                 .ForMember(dest => dest.Likes, opt => opt.MapFrom(x => x.Likes.Count));
 
             CreateMap<Post, PostFullDto>()
-                .ForMember(dest => dest.ImageSrc, opt => opt.MapFrom(x => Path.Combine(_webHostEnvironment.WebRootPath, WebConstants.imagesPath, x.Thumbnail)))
+                .ForMember(dest => dest.ImageSrc, opt => opt.MapFrom(x => Path.Combine(_webHostEnvironment.WebRootPath, WebConstants.postsImagesPath, x.Thumbnail)))
                 .ForMember(dest => dest.Tags, opt => opt.MapFrom(x => x.Tags.ToList()))
                 .ForMember(dest => dest.Comments, opt => opt.MapFrom(x => x.Comments.ToList()))
                 .ForMember(dest => dest.UserName, opt => opt.MapFrom(x => x.User.UserName))

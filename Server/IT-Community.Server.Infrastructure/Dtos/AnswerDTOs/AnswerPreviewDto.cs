@@ -1,4 +1,4 @@
-﻿namespace IT_Community.Server.Infrastructure.Dtos.AnswerDTOs
+namespace IT_Community.Server.Infrastructure.Dtos.AnswerDTOs
 {
     public class AnswerPreviewDto
     {

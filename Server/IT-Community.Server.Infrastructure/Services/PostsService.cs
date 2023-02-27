@@ -237,19 +237,28 @@ namespace IT_Community.Server.Infrastructure.Services
         {
             string imageName = new string(Path.GetFileNameWithoutExtension(imageFile.FileName).Take(10).ToArray()).Replace(' ', '-');
             imageName = imageName + DateTime.Now.ToString("yymmssfff") + Path.GetExtension(imageFile.FileName);
-            var imagePath = Path.Combine(_webHostEnvironment.WebRootPath, WebConstants.imagesPath, imageName);
+            var postFolder = Path.Combine(_webHostEnvironment.WebRootPath, WebConstants.postsImagesPath);
+            var imagePath = Path.Combine(postFolder, imageName);
+            bool isExists = Directory.Exists(postFolder);
+
+            if (!isExists)
+            {
+                Directory.CreateDirectory(postFolder);
+            }
+
             using (var fileStream = new FileStream(imagePath, FileMode.Create))
             {
                 await imageFile.CopyToAsync(fileStream);
             }
+
             return imageName;
         }
 
         public void DeleteImage(string imageName)
         {
-            var imagePath = Path.Combine(_webHostEnvironment.WebRootPath, WebConstants.imagesPath, imageName);
-            if (System.IO.File.Exists(imagePath))
-                System.IO.File.Delete(imagePath);
+            var imagePath = Path.Combine(_webHostEnvironment.WebRootPath, WebConstants.postsImagesPath, imageName);
+            if (File.Exists(imagePath))
+                File.Delete(imagePath);
         }
 
         public async Task<PostFullDto> GetPost(int id)
