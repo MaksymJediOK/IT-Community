@@ -10,7 +10,6 @@ namespace IT_Community.Server
         {
             IConfigurationRoot configuration = new ConfigurationBuilder()
                 .AddJsonFile("appsettings.json")
-                .AddUserSecrets<Program>()
                 .AddEnvironmentVariables()
                 .Build();
 
