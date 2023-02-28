@@ -2,7 +2,7 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 import { ParametersQueryBuilder } from '../utils/ParametersQueryBuilder'
 
 const baseQuery = fetchBaseQuery({
-	baseUrl: 'https://localhost:7230/api',
+	baseUrl: 'http://itcommunity.somee.com/api',
 	prepareHeaders: (headers) => {
 		const token = localStorage.getItem('token')
 		if (token) {
@@ -38,6 +38,7 @@ export const articleApi = createApi({
 				method: 'POST',
 				body: article,
 			}),
+			invalidatesTags: [{ type: 'Articles', id: 'LIST' }],
 		}),
 		EditArticle: build.mutation({
 			query: ({ id, editBody }) => ({
@@ -45,6 +46,7 @@ export const articleApi = createApi({
 				method: 'PUT',
 				body: editBody,
 			}),
+			invalidatesTags: [{ type: 'Articles', id: 'LIST' }],
 		}),
 		getArticlesCreatedBy: build.query({
 			query: (name) => `/post/users/${name}`,

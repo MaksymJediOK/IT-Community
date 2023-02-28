@@ -2,7 +2,7 @@ import { fetchBaseQuery, createApi } from '@reduxjs/toolkit/query/react'
 
 //ToDo move baseQuery to lower level
 const baseQuery = fetchBaseQuery({
-	baseUrl: 'https://localhost:7230/api',
+	baseUrl: 'http://itcommunity.somee.com/api',
 	prepareHeaders: (headers) => {
 		const token = localStorage.getItem('token')
 		if (token) {

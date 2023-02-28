@@ -15,7 +15,7 @@ export const ItemCard = (props) => {
 	const [currentError, setCurrentError] = useState('')
 	const { data, isLoading } = useIsBookmarkedQuery()
 	const [addToBookmarks] = useAddToBookmarksMutation()
-	const { id, title, description, body, views, date, thumbnail, likes } = props
+	const { id, title, description, body, views, date, thumbnail,imageSrc, likes } = props
 	const validDate = CorrectDate(date)
 	const handleBookmark = () => {
 		addToBookmarks(id)
@@ -29,7 +29,7 @@ export const ItemCard = (props) => {
 			<h2 className={styles.title}>{title}</h2>
 			<div className={styles.subtitle}>{description}</div>
 			<div className={styles.content_box}>
-				<img className={styles.picture} src={thumbnail} alt={title} />
+				<img className={styles.picture} src={imageSrc} alt={title} />
 			</div>
 			<div className={styles.content_box}>{body}</div>
 			<div className={styles.tag_container}>

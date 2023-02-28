@@ -18,16 +18,18 @@ export const ArticlePreview = (props) => {
 		views,
 		date,
 		thumbnail,
+		imageSrc,
 		userName,
 		likes,
 		comments,
 	} = props
 	const validDate = CorrectDate(date)
+
 	return (
 		<Grid item xs={6}>
 			<div className={styles.container}>
 				<div className={styles.position_container}>
-					<img className={styles.img_container} src={thumbnail} alt='Thumbnail' />
+					<img className={styles.img_container} src={imageSrc} alt='Thumbnail' />
 					{isLabel ? (
 						<Link to={IconUrl} style={{ all: 'unset' }}>
 							<IconLabel>{Icon}</IconLabel>
