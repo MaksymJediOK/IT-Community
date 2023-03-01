@@ -36,6 +36,9 @@ namespace IT_Community.Server.Infrastructure.Helpers
             CreateMap<User, UserFullDto>()
                 .ForMember(dest => dest.ImageSrc, opt => opt.MapFrom(x => Path.Combine(_webHostEnvironment.WebRootPath, WebConstants.companiesImagesPath, x.ProfilePhoto)));
 
+            CreateMap<User, UserPreviewDto>()
+                .ForMember(dest => dest.ImageSrc, opt => opt.MapFrom(x => Path.Combine(_webHostEnvironment.WebRootPath, WebConstants.companiesImagesPath, x.ProfilePhoto)));
+
             CreateMap<Comment, CommentPostDto>()
                 .ForMember(dest => dest.UserName, opt => opt.MapFrom(c => c.User.UserName))
                 .ForMember(dest => dest.ReplyList, opt => opt.MapFrom(c => c.Comments));

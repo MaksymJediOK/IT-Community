@@ -33,6 +33,12 @@ namespace IT_Community.Server.Infrastructure.Services
             return _mapper.Map<UserFullDto>(user);
         }
 
+        public List<UserPreviewDto> GetPopularAuthors(int count)
+        {
+            var authors = _userManager.Users.OrderByDescending(u => u.Posts.Count).Take(count);
+            return _mapper.Map<List<UserPreviewDto>>(authors);
+        }
+
         public async Task ChangeUserName(ClaimsPrincipal claimsPrincipal, string name)
         {
             var user = await GetUser(claimsPrincipal);

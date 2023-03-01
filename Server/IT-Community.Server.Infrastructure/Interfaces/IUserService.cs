@@ -10,6 +10,7 @@ namespace IT_Community.Server.Infrastructure.Interfaces
     {
         Task<UserFullDto> GetUserInfo(string username);
         Task<User> GetUser(ClaimsPrincipal claimsPrincipal);
+        List<UserPreviewDto> GetPopularAuthors(int count);
         Task<User> GetUserByUserName(string username);
         Task<string> GetUserId(ClaimsPrincipal user);
         Task ChangePassword(ClaimsPrincipal claimsPrincipal, string currentPassword, string newPassword);

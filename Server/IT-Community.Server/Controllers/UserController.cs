@@ -27,6 +27,12 @@ namespace IT_Community.Server.Controllers
             return await _userService.GetUserInfo(username);
         }
 
+        [HttpGet("popular/{count}")]
+        public List<UserPreviewDto> GetPopularAuthors(int count)
+        {
+            return _userService.GetPopularAuthors(count);
+        }
+
         /// <summary>
         /// Changes the user's username
         /// </summary>
