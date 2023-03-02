@@ -1,16 +1,7 @@
-import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
+import { createApi } from '@reduxjs/toolkit/query/react'
 import { ParametersQueryBuilder } from '../utils/ParametersQueryBuilder'
+import { baseQuery } from './baseQuery';
 
-const baseQuery = fetchBaseQuery({
-	baseUrl: 'http://itcommunity.somee.com/api',
-	prepareHeaders: (headers) => {
-		const token = localStorage.getItem('token')
-		if (token) {
-			headers.set('Authorization', `Bearer ${token}`)
-		}
-		return headers
-	},
-})
 
 export const articleApi = createApi({
 	reducerPath: '@article',

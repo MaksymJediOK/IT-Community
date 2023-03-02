@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import styles from './ItemCard.module.scss'
 import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlined'
 import ChatBubbleOutlineOutlinedIcon from '@mui/icons-material/ChatBubbleOutlineOutlined'
@@ -13,16 +13,24 @@ import { IconButton } from '@mui/material'
 
 export const ItemCard = (props) => {
 	const [currentError, setCurrentError] = useState('')
+	const [isBookmarked, setBookmarked] = useState(false)
 	const { data, isLoading } = useIsBookmarkedQuery()
 	const [addToBookmarks] = useAddToBookmarksMutation()
-	const { id, title, description, body, views, date, thumbnail,imageSrc, likes } = props
+	const { id, title, description, body, views, date, thumbnail, imageSrc, likes } = props
 	const validDate = CorrectDate(date)
 	const handleBookmark = () => {
 		addToBookmarks(id)
 			.unwrap()
-			.then(() => {})
+			.then(() => {
+				setBookmarked((prevState) => !prevState)
+			})
 			.catch((error) => console.error('rejected', error))
 	}
+	useEffect(() => {
+		if (!isLoading) {
+			setBookmarked(data?.isBookmarked)
+		}
+	}, [data?.isBookmarked, isLoading])
 	return (
 		<>
 			<h5 className={styles.date}>{validDate}</h5>
@@ -68,7 +76,7 @@ export const ItemCard = (props) => {
 				<div className={styles.share_container}>
 					{isLoading ? (
 						''
-					) : data.isBookmarked ? (
+					) : isBookmarked ? (
 						<IconButton onClick={handleBookmark}>
 							<BookmarkAddedIcon />
 						</IconButton>
