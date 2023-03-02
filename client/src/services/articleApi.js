@@ -1,16 +1,7 @@
-import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
+import { createApi } from '@reduxjs/toolkit/query/react'
 import { ParametersQueryBuilder } from '../utils/ParametersQueryBuilder'
+import { baseQuery } from './baseQuery';
 
-const baseQuery = fetchBaseQuery({
-	baseUrl: 'https://localhost:7230/api',
-	prepareHeaders: (headers) => {
-		const token = localStorage.getItem('token')
-		if (token) {
-			headers.set('Authorization', `Bearer ${token}`)
-		}
-		return headers
-	},
-})
 
 export const articleApi = createApi({
 	reducerPath: '@article',
@@ -38,6 +29,7 @@ export const articleApi = createApi({
 				method: 'POST',
 				body: article,
 			}),
+			invalidatesTags: [{ type: 'Articles', id: 'LIST' }],
 		}),
 		EditArticle: build.mutation({
 			query: ({ id, editBody }) => ({
@@ -45,6 +37,7 @@ export const articleApi = createApi({
 				method: 'PUT',
 				body: editBody,
 			}),
+			invalidatesTags: [{ type: 'Articles', id: 'LIST' }],
 		}),
 		getArticlesCreatedBy: build.query({
 			query: (name) => `/post/users/${name}`,

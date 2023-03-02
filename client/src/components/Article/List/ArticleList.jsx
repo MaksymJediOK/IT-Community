@@ -3,7 +3,7 @@ import styles from './ArticleList.module.scss'
 import { FormControl, Grid, IconButton, InputAdornment, OutlinedInput, Stack, Box } from '@mui/material'
 import SearchIcon from '@mui/icons-material/Search'
 import { useGetArticlesListQuery } from 'services/articleApi'
-import { ArticlePreview } from '../../ArticlePreview/ArticlePreview';
+import { ArticlePreview } from '../../ArticlePreview/ArticlePreview'
 import { ArticleListSkeleton } from './ArticleListSkeleton'
 import Select from 'react-select'
 import { sortOptions } from 'utils/options'
@@ -30,6 +30,7 @@ export const ArticleList = () => {
 						id='outlined-adornment'
 						type='text'
 						size='small'
+						placeholder='Search'
 						sx={{ width: '368px' }}
 						endAdornment={
 							<InputAdornment position='end'>

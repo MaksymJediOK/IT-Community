@@ -23,7 +23,7 @@ export const Index = () => {
 	return (
 		<>
 			<Routes>
-				<Route path='/' element={<Default />} />
+				<Route path='/' element={<Default />}  />
 				<Route path='/articles' element={<Layout />}>
 					<Route index element={<Articles />} />
 					<Route path=':id' element={<Article />} />

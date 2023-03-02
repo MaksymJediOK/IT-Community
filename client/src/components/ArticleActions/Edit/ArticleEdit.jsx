@@ -68,7 +68,7 @@ export const ArticleEdit = () => {
 			setValue('desc', data.description)
 			setValue('body', data.body)
 		}
-	}, [setValue, isLoading])
+	}, [setValue, isLoading, data.body, data.description, data.title])
 
 	return (
 		<Container sx={{ marginTop: '32px' }}>
