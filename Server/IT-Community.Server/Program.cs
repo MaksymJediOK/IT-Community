@@ -8,6 +8,7 @@ using IT_Community.Server.Core.Entities;
 using IT_Community.Server.Infrastructure.Helpers;
 using IT_Community.Server.Infrastructure.Interfaces;
 using IT_Community.Server.Infrastructure.Services;
+using Microsoft.AspNetCore.Hosting.Server;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
@@ -42,7 +43,7 @@ builder.Services.AddScoped<IAnswerService, AnswerService>();
 
 builder.Services.AddSingleton(provider => new MapperConfiguration(cfg =>
 {
-    cfg.AddProfile(new AutoMapperProfile(provider.CreateScope().ServiceProvider.GetService<IWebHostEnvironment>()));
+    cfg.AddProfile(new AutoMapperProfile(provider.CreateScope().ServiceProvider.GetService<IServer>()));
 }).CreateMapper());
 
 builder.Services.AddRouting(options => options.LowercaseUrls = true);
